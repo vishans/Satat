@@ -20,6 +20,18 @@ class Card {
             return 'A';
         }
 
+        if(this.value == 11){
+            return 'J';
+        }
+
+        if(this.value == 12){
+            return 'Q';
+        }
+
+        if(this.value == 13){
+            return 'K';
+        }
+
         return String(this.value);
 
     }
