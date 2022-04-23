@@ -11,96 +11,122 @@
     --valueSize:1rem;
 }
 
-body{
-    
-    .main{
-        box-sizing: border-box;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        width: 100vw;
-        height: 100vh;
-        padding-bottom: 10vh;
+ 
+.main{
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100vw;
+    height: 100vh;
+    padding-bottom: 10vh;
+}
 
 
         
     
 
-    .card-container {
-        width: 90vw;
-        height: 25vh;
-        background-color: green;
-        padding: 1rem 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: .5rem;
+.card-container {
+    width: 90vw;
+    height: 25vh;
+    background-color: green;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+
+    .CardTransition{
+        // transform: translateY(50%) ;
+        bottom: 0% ;
+        opacity: 1;
+    
+       
+    }
+
+}
+
+
+
+
+.card-hover{
+    &:hover{
+        transform: translateY(-30%) ;
+
+    }
+}
        
         
         
         
 
-        .play_card{
-            width: max(7.5vw,8rem);
-            height: 95%;
-            // aspect-ratio: 9/16;
-            background-color: #fefefe;
-            border-radius: 5px;
-            // color:white;
-            box-sizing: border-box;
-            padding: .5rem 1rem;
-            display: flex;
-            flex-direction: column;
-            font-size: var(--valueSize);
-            border: 1px solid black;
-            transition: transform .5s ease;
-            user-select: none;
-            
-            
+.play_card{
+    position: relative;
 
-            
+    bottom: 50%;
+    opacity: 0;
 
-            .lower{
-                
-                align-self: flex-end;
+    width: max(7.5vw,8rem);
+    height: 95%;
+    // aspect-ratio: 9/16;
+    background-color: #fefefe;
+    border-radius: 5px;
+    // color:white;
+    box-sizing: border-box;
+    padding: .5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    font-size: var(--valueSize);
+    border: 1px solid black;
+    transition: all .5s ease;
+    user-select: none;
 
-            }
+    
 
-            &:hover{
-                transform: translateY(-30%);
-            }
+    
 
-            .symbol{
-                flex-grow: 1;
-                // color: black;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: var(--symbolSize);
+    .lower{
+        
+        align-self: flex-end;
 
-                
-
-            }
-
-        &[suit="heart"]{
-            color: red;
-        }
-
-        &[suit="diam"]{
-            color: red;
-        }
-
-            
-
-            
-
-          
-            
-        }
     }
 
+   
+
+    .symbol{
+        flex-grow: 1;
+        // color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: var(--symbolSize);
+
+        
+
+    }
+
+    &[suit="heart"]{
+        color: red;
+    }
+
+    &[suit="diam"]{
+        color: red;
+    }
+
+    
+
+    
+
+    
+    
 }
-}
+
+
+        
+    
+
+
+
 
 #_2OfHeart{
     position: relative;
@@ -126,7 +152,7 @@ body{
         animation: heartbeat 2s infinite;
     }
 
-// color: #6D9BC3;
+
 
 @keyframes heartbeat {
     0%{

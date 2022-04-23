@@ -10,7 +10,7 @@
   --valueSize:1rem;
 }
 
-body .main {
+.main {
   box-sizing: border-box;
   display: flex;
   justify-content: center;
@@ -19,7 +19,8 @@ body .main {
   height: 100vh;
   padding-bottom: 10vh;
 }
-body .main .card-container {
+
+.card-container {
   width: 90vw;
   height: 25vh;
   background-color: green;
@@ -29,7 +30,19 @@ body .main .card-container {
   justify-content: center;
   gap: 0.5rem;
 }
-body .main .card-container .play_card {
+.card-container .CardTransition {
+  bottom: 0%;
+  opacity: 1;
+}
+
+.card-hover:hover {
+  transform: translateY(-30%);
+}
+
+.play_card {
+  position: relative;
+  bottom: 50%;
+  opacity: 0;
   width: max(7.5vw, 8rem);
   height: 95%;
   background-color: #fefefe;
@@ -40,26 +53,23 @@ body .main .card-container .play_card {
   flex-direction: column;
   font-size: var(--valueSize);
   border: 1px solid black;
-  transition: transform 0.5s ease;
+  transition: all 0.5s ease;
   user-select: none;
 }
-body .main .card-container .play_card .lower {
+.play_card .lower {
   align-self: flex-end;
 }
-body .main .card-container .play_card:hover {
-  transform: translateY(-30%);
-}
-body .main .card-container .play_card .symbol {
+.play_card .symbol {
   flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: var(--symbolSize);
 }
-body .main .card-container .play_card[suit=heart] {
+.play_card[suit=heart] {
   color: red;
 }
-body .main .card-container .play_card[suit=diam] {
+.play_card[suit=diam] {
   color: red;
 }
 

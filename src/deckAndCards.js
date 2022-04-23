@@ -74,6 +74,18 @@ class Card {
             `;
     }
 
+    getElement(){
+        let newElement = document.createElement('div');
+        newElement.classList.add(this.getHTMLClass());
+        newElement.setAttribute('id',`_${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}`);
+        newElement.setAttribute('suit',`${this.getSugarCoatedSuit().toLowerCase()}`);
+        newElement.innerHTML += `<div class="upper">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
+        <div class="symbol" >${this.getCardSymbol()}</div>
+        <div class="lower">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>`;
+
+        return newElement;
+    }
+
     
 
 };
