@@ -5,6 +5,11 @@ class Card {
     constructor(value, suit){
         this.value = value;
         this.suit = suit;
+        this.HTMLClass = "play_card";
+    }
+
+    getHTMLClass(){
+        return this.HTMLClass;
     }
 
     getSuit(){
@@ -13,6 +18,14 @@ class Card {
 
     getLiteralValue(){
         return this.value;
+    }
+
+    getSugarCoatedSuit(){
+         if (this.suit.suit == 'Diamond'){
+             return 'Diam';
+         }
+
+         return this.suit.suit;
     }
 
     getSugarCoatedValue(){
@@ -36,6 +49,10 @@ class Card {
 
     }
 
+    getCardSymbol(){
+        return '&'+this.getSugarCoatedSuit().toLowerCase() + 's;';
+    }
+
     static getHouse(suit, strongAce = true){
         let values;
         if (strongAce){
@@ -46,6 +63,15 @@ class Card {
         }
 
         return values.map( (val) =>  new Card(val,suit));
+    }
+
+    getHTML(){
+        return `<div class="${this.getHTMLClass()}" id="_${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}" suit="${this.getSugarCoatedSuit().toLowerCase()}">
+            <div class="upper">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
+            <div class="symbol" >${this.getCardSymbol()}</div>
+            <div class="lower">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
+        </div>
+            `;
     }
 
     
@@ -108,7 +134,40 @@ class Deck{
         this.deck = this.deck.concat(Card.getHouse(Suit.Club, strongAce));
 
     }
+
+    shuffle() {
+        let currentIndex = this.deck.length,  randomIndex;
+      
+        // While there remain elements to shuffle.
+        while (currentIndex != 0) {
+      
+          // Pick a remaining element.
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+      
+          // And swap it with the current element.
+          [this.deck[currentIndex], this.deck[randomIndex]] = [
+            this.deck[randomIndex], this.deck[currentIndex]];
+        }
+      
+        
+    }
+
+    getDeck(){
+        return this.deck;
+    }
+
+    getNCardsFromDeck(n){
+        n = Math.min(n,this.deck.length);
+        let nSubDeck = []
+
+        for(let i=0; i<n; i++){
+            nSubDeck.push(this.deck.shift());
+        }
+
+        return nSubDeck;
+    }
     
 };
 
-console.log(new Deck().deck);
+

@@ -1,0 +1,218 @@
+*{
+    box-sizing: content-box;
+    margin: 0;
+    padding: 0;
+    // background-color: red;
+}
+
+:root{
+    --spaceFactor: 13;
+    --symbolSize:2rem;
+    --valueSize:1rem;
+}
+
+body{
+    
+    .main{
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        width: 100vw;
+        height: 100vh;
+        padding-bottom: 10vh;
+
+
+        
+    
+
+    .card-container {
+        width: 90vw;
+        height: 25vh;
+        background-color: green;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+       
+        
+        
+        
+
+        .play_card{
+            width: max(7.5vw,8rem);
+            height: 95%;
+            // aspect-ratio: 9/16;
+            background-color: #fefefe;
+            border-radius: 5px;
+            // color:white;
+            box-sizing: border-box;
+            padding: .5rem 1rem;
+            display: flex;
+            flex-direction: column;
+            font-size: var(--valueSize);
+            border: 1px solid black;
+            transition: transform .5s ease;
+            user-select: none;
+            
+            
+
+            
+
+            .lower{
+                
+                align-self: flex-end;
+
+            }
+
+            &:hover{
+                transform: translateY(-30%);
+            }
+
+            .symbol{
+                flex-grow: 1;
+                // color: black;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: var(--symbolSize);
+
+                
+
+            }
+
+        &[suit="heart"]{
+            color: red;
+        }
+
+        &[suit="diam"]{
+            color: red;
+        }
+
+            
+
+            
+
+          
+            
+        }
+    }
+
+}
+}
+
+#_2OfHeart{
+    position: relative;
+    overflow: hidden;
+    &:before {
+        background: linear-gradient(transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+        // background-color: black;
+        content:'';
+        height: 25%;
+        position: absolute;
+        top: 100%;
+        left: -50%;
+        transform: rotate(0deg);
+        transition: .6s ease-in-out right;
+        width: 200%;
+        z-index: 3;
+        // animation: shine 2s infinite;
+        
+        
+    }
+
+    .symbol{
+        animation: heartbeat 2s infinite;
+    }
+
+// color: #6D9BC3;
+
+@keyframes heartbeat {
+    0%{
+        transform: scale(1);
+    }
+
+    50%{
+        transform: scale(1.3);
+    }
+
+    100%{
+        transform: scale(1);
+    }
+}
+
+@keyframes shine {
+    0%{
+        top: 0;
+    }
+
+    100%{
+        top: 100%;
+    }
+
+    // 100%{
+    //     top: 0;
+    // }
+    
+}
+
+    
+}
+
+// .play_card#_2OfHeart{
+//     position: relative;
+
+//     &::after{
+//         content: "hellooooo";
+//         border: 1px solid red;
+//         position: absolute;
+//         color: red;
+//     }
+// }
+  
+// @media only screen and (min-width: 500px) {
+//     :root{
+//         --spaceFactor:4.5;
+//     }
+// }
+
+// //Tablet
+// @media only screen and (min-width: 768px) {
+//     :root{
+//         --spaceFactor:6;
+//     }
+// }
+
+// //Desktop
+@media only screen and (min-height: 600px){
+    :root{
+        --symbolSize:3rem;
+        --valueSize:1.5rem;
+    }
+
+    // body .main .card-container .play_card{
+    //     background-color: coral;
+    // }
+}
+
+@media only screen and (min-height: 900px){
+    :root{
+        --symbolSize:7rem;
+        --valueSize:2rem;
+    }
+
+    // body .main .card-container .play_card{
+    //     background-color: coral;
+    // }
+}
+
+
+
+// //Huge
+// @media only screen and (min-width: 1280px){
+//     :root{
+//         --spaceFactor:12;
+//     }
+// }
+
