@@ -42,7 +42,7 @@ for(card of myHand){
     
 // },500);
 var i = 0;
-
+var zz = 100000;
 function trans(e){
     e.target.classList.add('card-hover');
 
@@ -54,6 +54,39 @@ function trans(e){
 
         if(i==12 && e.propertyName == 'opacity'){
             allowControls = true;
+            myHand.forEach(function(card){
+                
+                let element = card.getElement();
+                element.onclick = function(){
+                    //alert(69)
+                    element.classList.remove('card-hover');
+                    while(element.classList.contains('card-hover'));
+
+                    //get test card 
+                    let testCard = document.querySelector('#test-card');
+                    let testX = testCard.getBoundingClientRect().x;
+                    let testY = testCard.getBoundingClientRect().y;
+
+                    //actual card stats
+                    let actualX = element.getBoundingClientRect().x;
+                    let actualY = element.getBoundingClientRect().y;
+
+                    //distance to travel 
+                    let travelX = actualX - testX;
+                    let travelY = actualY - testY;
+
+
+                    element.style.transform = `translate(${-travelX}px, calc(${-travelY}px - 30%))`;
+                    element.style.zIndex = zz++;
+
+                    element.addEventListener('transitionend', function(e){
+                        if( e.propertyName == 'transform'){
+                            element.remove()
+                            testCard.innerHTML = card.getT()
+                        }
+                    })
+                }
+            })
         }
 }
 
@@ -83,3 +116,5 @@ sortButton.onclick = function(){
         cardContainer.appendChild(card.getElement());
     }
 }
+
+

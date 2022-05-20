@@ -30,7 +30,7 @@ body {
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-rows: 50vh 18vh 7vh 25vh;
+  grid-template-rows: 50vh 16vh 7vh 27vh;
   grid-template-columns: 100vw;
 }
 
@@ -39,6 +39,9 @@ body {
   grid-column-start: 1;
   grid-column-end: 2;
   background-color: transparent;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
 }
 
 #controls {
@@ -57,7 +60,7 @@ body {
 }
 
 #card-container {
-  grid-row-start: 2;
+  grid-row-start: 1;
   grid-row-end: 5;
   grid-column-start: 1;
   background-color: transparent;
@@ -77,6 +80,74 @@ body {
   transform: translateY(-30%);
 }
 
+#left-place-holder {
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  margin: 0;
+  bottom: 0;
+}
+
+#right-place-holder {
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  margin: 0;
+  bottom: 0;
+}
+
+#bottom-place-holder {
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 1;
+  margin: 0;
+  bottom: 0;
+}
+
+#top-place-holder {
+  justify-content: flex-start;
+  align-items: center;
+  opacity: 1;
+  margin: 0;
+  bottom: 0;
+}
+
+.space-block {
+  height: 18%;
+  width: 100%;
+  background-color: aqua;
+}
+
+.col1 {
+  background-color: red;
+  grid-column: 1/2;
+  grid-row: 1/2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.col2 {
+  background-color: blue;
+  grid-column: 2/3;
+  grid-row: 1/2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.col3 {
+  background-color: pink;
+  grid-column: 3/4;
+  grid-row: 1/2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 .play_card {
   margin: auto auto 0px auto;
   position: relative;
@@ -92,7 +163,7 @@ body {
   flex-direction: column;
   font-size: var(--valueSize);
   border: 1px solid black;
-  transition: all 0.5s ease;
+  transition: all 0.1s ease;
   user-select: none;
 }
 .play_card .lower {
@@ -112,22 +183,6 @@ body {
   color: red;
 }
 
-#_2OfHeart {
-  position: relative;
-  overflow: hidden;
-}
-#_2OfHeart:before {
-  background: linear-gradient(transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
-  content: "";
-  height: 25%;
-  position: absolute;
-  top: 100%;
-  left: -50%;
-  transform: rotate(0deg);
-  transition: 0.6s ease-in-out right;
-  width: 200%;
-  z-index: 3;
-}
 #_2OfHeart .symbol {
   animation: heartbeat 2s infinite;
 }

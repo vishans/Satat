@@ -37,7 +37,7 @@ body{
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-rows: 50vh 18vh 7vh 25vh;
+    grid-template-rows: 50vh 16vh 7vh 27vh;
     grid-template-columns:  100vw;
     
     
@@ -50,6 +50,11 @@ body{
     // height: 100vh;
     // width: 90vw;
     background-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    
+    
 }
 
 #controls{
@@ -73,7 +78,7 @@ body{
 
 
 #card-container {
-    grid-row-start: 2;
+    grid-row-start: 1;
     grid-row-end: 5;
     grid-column-start: 1;
     // width: 90vw;
@@ -87,6 +92,8 @@ body{
     
     z-index: 3;
     overflow: auto;
+    //margin: 0 auto ;
+    
     
 
     
@@ -114,9 +121,77 @@ body{
 
     }
 }
-       
+
+#left-place-holder{
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    margin: 0;
+    bottom: 0;
+}
+
+#right-place-holder{
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    margin: 0;
+    bottom: 0;
+}
+
+#bottom-place-holder{
+    justify-content: flex-end;
+    align-items: center;
+    opacity: 1;
+    margin: 0;
+    bottom: 0;
+}
+
+#top-place-holder{
+    justify-content: flex-start;
+    align-items: center;
+    opacity: 1;
+    margin: 0;
+    bottom: 0;
+}
+
+.space-block{
+    height: 18%;
+    width: 100%;
+    background-color: aqua;
+}
         
-        
+.col1{
+    background-color: red;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    
+    
+}
+
+.col2{
+    background-color: blue;
+    grid-column: 2/3;
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+}
+
+.col3{
+    background-color: pink;
+    grid-column: 3/4;
+    grid-row: 1/2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
         
 
 .play_card{
@@ -138,7 +213,7 @@ body{
     flex-direction: column;
     font-size: var(--valueSize);
     border: 1px solid black;
-    transition: all .5s ease;
+    transition: all .1s ease;
     user-select: none;
 
     
@@ -183,30 +258,17 @@ body{
 
 
         
-    
+#test-card{
+    //visibility: hidden;
+}   
 
 
 
 
 #_2OfHeart{
-    position: relative;
-    overflow: hidden;
-    &:before {
-        background: linear-gradient(transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
-        // background-color: black;
-        content:'';
-        height: 25%;
-        position: absolute;
-        top: 100%;
-        left: -50%;
-        transform: rotate(0deg);
-        transition: .6s ease-in-out right;
-        width: 200%;
-        z-index: 3;
-        // animation: shine 2s infinite;
-        
-        
-    }
+    //flex-shrink: 0;
+    //overflow: hidden;
+    
 
     .symbol{
         animation: heartbeat 2s infinite;

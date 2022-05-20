@@ -72,6 +72,15 @@ class Card {
             `;
     }
 
+    getT(){
+        return `
+            <div class="upper">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
+            <div class="symbol" >${this.getCardSymbol()}</div>
+            <div class="lower">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
+       
+            `;
+    }
+
     __getElement(){
         let newElement = document.createElement('div');
         newElement.classList.add(this.getHTMLClass());
