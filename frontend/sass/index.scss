@@ -27,6 +27,10 @@
 
 }
 
+body{
+    overflow: hidden;
+}
+
  
 .main{
     
@@ -35,6 +39,7 @@
     display: grid;
     grid-template-rows: 50vh 18vh 7vh 25vh;
     grid-template-columns:  100vw;
+    
     
 }
 
@@ -64,6 +69,9 @@
     z-index: 500 !important;
 }
 
+
+
+
 #card-container {
     grid-row-start: 2;
     grid-row-end: 5;
@@ -74,10 +82,12 @@
     padding: 1rem 2rem;
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+    //justify-content:  center;
     gap: .5rem;
-    overflow: auto;
+    
     z-index: 3;
+    overflow: auto;
+    
 
     
 
@@ -110,6 +120,7 @@
         
 
 .play_card{
+    margin: auto auto  0px auto ;
     position: relative;
 
     bottom: 50%;
