@@ -6,6 +6,7 @@ class Card {
         this.value = value;
         this.suit = suit;
         this.HTMLClass = "play_card";
+        this.Element = this.__getElement()
     }
 
     getHTMLClass(){
@@ -71,7 +72,7 @@ class Card {
             `;
     }
 
-    getElement(){
+    __getElement(){
         let newElement = document.createElement('div');
         newElement.classList.add(this.getHTMLClass());
         newElement.setAttribute('id',`_${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}`);
@@ -83,16 +84,20 @@ class Card {
         return newElement;
     }
 
+    getElement(){
+        return this.Element;
+    }
+
     getSortValue(){
         let suitWeight;
         switch(this.getSugarCoatedSuit()){
             case 'Spade': suitWeight = 1000; break;
 
-            case 'Heart': suitWeight = 500; break;
+            case 'Heart': suitWeight = 0; break;
 
-            case 'Diam' : suitWeight = 250; break;
+            case 'Diam' : suitWeight = 500; break;
 
-            case 'Club' : suitWeight = 0; break;
+            case 'Club' : suitWeight = 250; break;
         }
 
         return this.getLiteralValue() + suitWeight;

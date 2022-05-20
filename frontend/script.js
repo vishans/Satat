@@ -1,5 +1,6 @@
 let cardContainer = document.querySelector("#card-container");
-
+let sortButton = document.querySelector('#sort-button');
+var allowControls = false;
 d = new Deck();
 
 d.shuffle();
@@ -8,24 +9,24 @@ d.shuffle();
 
 myHand = d.getNCardsFromDeck(12);
 
+myHand.push(new Heart(2));
 
-
-for(i of myHand){
-    let card = i.getElement();
-    card.classList.add('beforeCardTransition');
-    card.onmouseover = function(){
+for(card of myHand){
+    
+    card.getElement().classList.add('beforeCardTransition');
+    card.getElement().onmouseover = function(){
         cardContainer.classList.add('high-z-index');
     }
-    card.onmouseout = function(){
+    card.getElement().onmouseout = function(){
         cardContainer.classList.remove('high-z-index');
     }
-    cardContainer.appendChild(card);
+    cardContainer.appendChild(card.getElement());
 }
 
-cardContainer.appendChild(new Heart(2).getElement());
+//cardContainer.appendChild(new Heart(2).getElement());
 
 // cardContainer.lastChild.classList.add('CardTransition');
-deckOfCards = cardContainer.children;
+//deckOfCards = cardContainer.children;
 
 // setTimeout(()=>{
 //     cardContainer.lastChild.classList.add('CardTransition');
@@ -47,16 +48,38 @@ function trans(e){
 
         if(i<12 && e.propertyName == 'opacity'){
             i++;
-            deckOfCards[i].classList.add('CardTransition');
-            deckOfCards[i].addEventListener('transitionend', trans)
+            myHand[i].getElement().classList.add('CardTransition');
+            myHand[i].getElement().addEventListener('transitionend', trans)
+        }
+
+        if(i==12 && e.propertyName == 'opacity'){
+            allowControls = true;
         }
 }
 
 
-setTimeout(() => 
-{
-    deckOfCards[i].classList.add('CardTransition');
+setTimeout(function(){
+    console.log(55)
+    myHand[i].getElement().classList.add('CardTransition');
     
-    deckOfCards[i].addEventListener('transitionend', trans)
-    
+    myHand[i].getElement().addEventListener('transitionend', trans)
+
 }, 500);
+    
+
+//sort button function
+
+sortButton.onclick = function(){
+    if(!allowControls) return;
+
+
+    myHand.sort((a,b)=>{
+        return a.getSortValue() - b.getSortValue()
+    })
+
+    cardContainer.innerHTML= '';
+
+    for (let card of myHand){
+        cardContainer.appendChild(card.getElement());
+    }
+}
