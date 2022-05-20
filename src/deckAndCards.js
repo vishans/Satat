@@ -21,10 +21,7 @@ class Card {
     }
 
     getSugarCoatedSuit(){
-         if (this.suit.suit == 'Diamond'){
-             return 'Diam';
-         }
-
+    
          return this.suit.suit;
     }
 
@@ -86,6 +83,21 @@ class Card {
         return newElement;
     }
 
+    getSortValue(){
+        let suitWeight;
+        switch(this.getSugarCoatedSuit()){
+            case 'Spade': suitWeight = 1000; break;
+
+            case 'Heart': suitWeight = 500; break;
+
+            case 'Diam' : suitWeight = 250; break;
+
+            case 'Club' : suitWeight = 0; break;
+        }
+
+        return this.getLiteralValue() + suitWeight;
+    }
+
     
 
 };
@@ -93,7 +105,7 @@ class Card {
 class Suit{
     static Spade = new Suit('Spade');
     static Heart = new Suit('Heart');
-    static Diamond = new Suit('Diamond');
+    static Diamond = new Suit('Diam');
     static Club = new Suit('Club');
 
 

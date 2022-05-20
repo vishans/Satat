@@ -1,4 +1,4 @@
-let cardContainer = document.querySelector(".card-container");
+let cardContainer = document.querySelector("#card-container");
 
 d = new Deck();
 
@@ -6,14 +6,19 @@ d.shuffle();
 d.shuffle();
 
 
-arr = d.getNCardsFromDeck(12);
+myHand = d.getNCardsFromDeck(12);
 
 
 
-for(i of arr){
+for(i of myHand){
     let card = i.getElement();
     card.classList.add('beforeCardTransition');
-    console.log(card)
+    card.onmouseover = function(){
+        cardContainer.classList.add('high-z-index');
+    }
+    card.onmouseout = function(){
+        cardContainer.classList.remove('high-z-index');
+    }
     cardContainer.appendChild(card);
 }
 

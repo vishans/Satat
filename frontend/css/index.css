@@ -10,27 +10,62 @@
   --valueSize:1rem;
 }
 
-.main {
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  width: 100vw;
-  height: 100vh;
-  padding-bottom: 10vh;
+.play-area-color-1 {
+  grid-row: 1/3;
+  grid-column: 1/2;
+  background-color: gray;
 }
 
-.card-container {
-  width: 90vw;
-  height: 25vh;
+.card-container-color {
+  grid-row: 4/5;
+  grid-column: 1/2;
   background-color: green;
+}
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 50vh 18vh 7vh 25vh;
+  grid-template-columns: 100vw;
+}
+
+#play-area {
+  grid-row: 1/3;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  background-color: transparent;
+}
+
+#controls {
+  grid-row: 3/4;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.high-z-index {
+  z-index: 500 !important;
+}
+
+#card-container {
+  grid-row-start: 2;
+  grid-row-end: 5;
+  grid-column-start: 1;
+  background-color: transparent;
   padding: 1rem 2rem;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   gap: 0.5rem;
+  overflow: auto;
+  z-index: 3;
 }
-.card-container .CardTransition {
+#card-container .CardTransition {
   bottom: 0%;
   opacity: 1;
 }
@@ -44,7 +79,7 @@
   bottom: 50%;
   opacity: 0;
   width: max(7.5vw, 8rem);
-  height: 95%;
+  height: fit-content;
   background-color: #fefefe;
   border-radius: 5px;
   box-sizing: border-box;
