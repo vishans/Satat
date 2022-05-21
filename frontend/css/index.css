@@ -42,6 +42,16 @@ body {
   position: relative;
 }
 
+#over-play-area {
+  grid-row: 1/3;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  background-color: transparent;
+  z-index: 10000000;
+  height: 60%;
+  align-self: center;
+}
+
 #controls {
   grid-row: 3/4;
   grid-column-start: 1;
@@ -164,7 +174,8 @@ body {
   transition: all 0.2s ease;
   user-select: none;
 }
-.play_card .lower {
+
+.lower {
   align-self: flex-end;
 }
 

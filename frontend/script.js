@@ -195,3 +195,52 @@ body.onresize = function(){
 
     })
 }
+
+
+let overPlayArea = document.querySelector('#over-play-area');
+
+overPlayArea.onmouseover = function(){
+    
+    if(cardsInArea.length == 1) return;
+
+    console.log(122)
+    let gap = 10; //px
+
+    let playAreaWidth = playArea.offsetWidth;
+    let playAreaHeight = playArea.clientHeight;
+
+    let totalCardWidth = 0;
+
+    for(let card of cardsInArea){
+        totalCardWidth += card.getElement().clientWidth;
+    }
+
+    let nextWidth = (playAreaWidth - totalCardWidth - (cardsInArea.length * gap))/2;
+
+    for(let i =0; i < cardsInArea.length ; i++){
+        console.log(nextWidth)
+        cardsInArea[i].getElement().style.left = nextWidth + 'px';
+        nextWidth += cardsInArea[i].getElement().clientWidth + gap;
+    }
+
+
+}
+
+
+overPlayArea.onmouseout = function(){
+    cardsInArea.forEach(function(obj){
+        let playAreaWidth = playAreaColor.clientWidth;
+        let playAreaHeight = playAreaColor.clientHeight;
+
+        let elementWidth = obj.getElement().offsetWidth;
+        let elementHeight = obj.getElement().offsetHeight;
+        let posX = (playAreaWidth - elementWidth) / 2;
+        let posY = (playAreaHeight - elementHeight) / 2;
+      
+        //console.log(posX)
+
+        obj.getElement().style.left = posX + 'px';
+        obj.getElement().style.top = posY + 'px';
+
+    })
+}

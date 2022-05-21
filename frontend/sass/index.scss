@@ -58,6 +58,17 @@ body{
     
 }
 
+#over-play-area{
+    grid-row: 1 / 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    background-color: transparent;
+    z-index: 10000000;
+    height: 60%;
+    align-self: center;
+    //justify-self: center;
+}
+
 #controls{
    grid-row: 3 / 4;
     grid-column-start: 1;
@@ -221,14 +232,16 @@ body{
 
     
 
-    .lower{
-        
-        align-self: flex-end;
-
-    }
+    
 
    
     
+}
+
+.lower{
+        
+    align-self: flex-end;
+
 }
 
 .symbol{
