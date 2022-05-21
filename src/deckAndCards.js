@@ -81,6 +81,18 @@ class Card {
             `;
     }
 
+    getPlayAreaElement(){
+        let newElement = document.createElement('div');
+        newElement.classList.add('area-play-card');
+        newElement.setAttribute('value',`${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}`);
+        newElement.setAttribute('suit',`${this.getSugarCoatedSuit().toLowerCase()}`);
+        newElement.innerHTML += `<div class="upper">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
+        <div class="symbol" >${this.getCardSymbol()}</div>
+        <div class="lower">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>`;
+        this.Element = newElement;
+        return newElement;
+    }
+
     __getElement(){
         let newElement = document.createElement('div');
         newElement.classList.add(this.getHTMLClass());

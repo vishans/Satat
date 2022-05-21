@@ -39,9 +39,7 @@ body {
   grid-column-start: 1;
   grid-column-end: 2;
   background-color: transparent;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr;
+  position: relative;
 }
 
 #controls {
@@ -67,6 +65,7 @@ body {
   padding: 1rem 2rem;
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 0.5rem;
   z-index: 3;
   overflow: auto;
@@ -149,7 +148,6 @@ body {
 }
 
 .play_card {
-  margin: auto auto 0px auto;
   position: relative;
   bottom: 50%;
   opacity: 0;
@@ -163,27 +161,46 @@ body {
   flex-direction: column;
   font-size: var(--valueSize);
   border: 1px solid black;
-  transition: all 0.1s ease;
+  transition: all 0.2s ease;
   user-select: none;
 }
 .play_card .lower {
   align-self: flex-end;
 }
-.play_card .symbol {
+
+.symbol {
   flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: var(--symbolSize);
 }
-.play_card[suit=heart] {
-  color: red;
-}
-.play_card[suit=diam] {
+
+[suit=heart] {
   color: red;
 }
 
-#_2OfHeart .symbol {
+[suit=diam] {
+  color: red;
+}
+
+.area-play-card {
+  position: absolute;
+  width: max(7.5vw, 8rem);
+  height: fit-content;
+  background-color: #fefefe;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  font-size: var(--valueSize);
+  border: 1px solid black;
+  transition: all 0.1s ease;
+  user-select: none;
+}
+
+#_2OfHeart .symbol, [value="2OfHeart"] .symbol {
   animation: heartbeat 2s infinite;
 }
 @keyframes heartbeat {

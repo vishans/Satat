@@ -1,5 +1,8 @@
 let cardContainer = document.querySelector("#card-container");
 let sortButton = document.querySelector('#sort-button');
+let playArea = document.querySelector('#play-area');
+let playAreaColor = document.querySelector('.play-area-color-1');
+
 var allowControls = false;
 d = new Deck();
 
@@ -43,6 +46,7 @@ for(card of myHand){
 // },500);
 var i = 0;
 var zz = 100000;
+var cardsInArea = [];
 function trans(e){
     e.target.classList.add('card-hover');
 
@@ -63,9 +67,9 @@ function trans(e){
                     while(element.classList.contains('card-hover'));
 
                     //get test card 
-                    let testCard = document.querySelector('#test-card');
-                    let testX = testCard.getBoundingClientRect().x;
-                    let testY = testCard.getBoundingClientRect().y;
+                    
+                    let testX = (playArea.clientWidth-element.clientWidth) /2;
+                    let testY = (playArea.clientHeight-element.clientHeight) / 2;
 
                     //actual card stats
                     let actualX = element.getBoundingClientRect().x;
@@ -77,12 +81,46 @@ function trans(e){
 
 
                     element.style.transform = `translate(${-travelX}px, calc(${-travelY}px - 30%))`;
-                    element.style.zIndex = zz++;
+                    //element.style.zIndex = zz++;
 
                     element.addEventListener('transitionend', function(e){
                         if( e.propertyName == 'transform'){
                             element.remove()
-                            testCard.innerHTML = card.getT()
+                            myHand.splice(myHand.indexOf(card),1)
+                            
+                            cardsInArea.push(new Card(card.value, card.suit))
+
+                            //calculate position for newCard inside play-area
+
+                            playAreaWidth = playAreaColor.clientWidth;
+                            playAreaHeight = playAreaColor.clientHeight;
+
+                            
+                            playArea.appendChild(cardsInArea.at(-1).getPlayAreaElement())
+                            elementWidth = cardsInArea.at(-1).getElement().offsetWidth;
+                            elementHeight = cardsInArea.at(-1).getElement().offsetHeight;
+                            posX = (playAreaWidth - elementWidth) / 2;
+                            posY = (playAreaHeight - elementHeight) / 2;
+                          
+
+                            cardsInArea.at(-1).getElement().style.left = posX + 'px';
+                            cardsInArea.at(-1).getElement().style.top = posY + 'px';
+                            let sign;
+                            if (Math.random()< 0.5 )
+                                sign = 1;
+                            else sign = -1 ;
+
+                            let v = sign * Math.floor(Math.random() * 8) + 1
+                            //console.log(v)
+                            cardsInArea.at(-1).getElement().style.transform = `rotateZ(${v}deg)`;
+
+                            
+
+
+
+
+
+                            
                         }
                     })
                 }
@@ -118,3 +156,42 @@ sortButton.onclick = function(){
 }
 
 
+//card container cars alignment
+let body = document.querySelector('body');
+body.onresize = function(){
+    
+    let cW = cardContainer.clientWidth;
+    let totalW = 0;
+    myHand.forEach(function(card){
+        let element = card.getElement()
+       
+        totalW += element.clientWidth;
+    })
+
+
+
+    if(totalW > cW){
+        cardContainer.style.justifyContent = 'flex-start';
+    }
+    else{
+        cardContainer.style.justifyContent = 'center';
+
+    }
+
+    //recalculate area cards position
+    cardsInArea.forEach(function(obj){
+        let playAreaWidth = playAreaColor.clientWidth;
+        let playAreaHeight = playAreaColor.clientHeight;
+
+        let elementWidth = obj.getElement().offsetWidth;
+        let elementHeight = obj.getElement().offsetHeight;
+        let posX = (playAreaWidth - elementWidth) / 2;
+        let posY = (playAreaHeight - elementHeight) / 2;
+      
+        //console.log(posX)
+
+        obj.getElement().style.left = posX + 'px';
+        obj.getElement().style.top = posY + 'px';
+
+    })
+}

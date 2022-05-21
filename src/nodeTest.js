@@ -1,3 +1,4 @@
-setInterval(function(){
-    console.log('hello')
-}, 2000);
+
+x = 3
+console.log(x)
+let x=null;

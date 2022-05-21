@@ -50,9 +50,10 @@ body{
     // height: 100vh;
     // width: 90vw;
     background-color: transparent;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    position: relative;
     
     
 }
@@ -87,7 +88,7 @@ body{
     padding: 1rem 2rem;
     display: flex;
     align-items: flex-end;
-    //justify-content:  center;
+    justify-content:  center;
     gap: .5rem;
     
     z-index: 3;
@@ -195,7 +196,7 @@ body{
         
 
 .play_card{
-    margin: auto auto  0px auto ;
+    //margin: auto auto  0px auto ;
     position: relative;
 
     bottom: 50%;
@@ -213,7 +214,7 @@ body{
     flex-direction: column;
     font-size: var(--valueSize);
     border: 1px solid black;
-    transition: all .1s ease;
+    transition: all .2s ease;
     user-select: none;
 
     
@@ -227,33 +228,48 @@ body{
     }
 
    
+    
+}
 
-    .symbol{
-        flex-grow: 1;
-        // color: black;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: var(--symbolSize);
-
-        
-
-    }
-
-    &[suit="heart"]{
-        color: red;
-    }
-
-    &[suit="diam"]{
-        color: red;
-    }
+.symbol{
+    flex-grow: 1;
+    // color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--symbolSize);
 
     
 
-    
+}
 
-    
-    
+[suit="heart"]{
+    color: red;
+}
+
+[suit="diam"]{
+    color: red;
+}
+
+.area-play-card{
+    position: absolute;
+
+    width: max(7.5vw,8rem);
+    height: fit-content;
+    // aspect-ratio: 9/16;
+    background-color: #fefefe;
+    border-radius: 5px;
+    // color:white;
+    box-sizing: border-box;
+    padding: .5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    font-size: var(--valueSize);
+    border: 1px solid black;
+    transition: all .1s ease;
+    user-select: none;
+    //transform: rotateY(10deg);
+
 }
 
 
@@ -265,7 +281,7 @@ body{
 
 
 
-#_2OfHeart{
+#_2OfHeart, [value="2OfHeart"]{
     //flex-shrink: 0;
     //overflow: hidden;
     
@@ -333,6 +349,7 @@ body{
 // }
 
 // //Desktop
+
 @media only screen and (min-height: 600px){
     :root{
         --symbolSize:3rem;
