@@ -1,8 +1,9 @@
+
 let cardContainer = document.querySelector("#card-container");
 let sortButton = document.querySelector('#sort-button');
 let playArea = document.querySelector('#play-area');
 let playAreaColor = document.querySelector('.play-area-color-1');
-
+var mouseOverArea = false;
 var allowControls = false;
 d = new Deck();
 
@@ -200,7 +201,7 @@ body.onresize = function(){
 let overPlayArea = document.querySelector('#over-play-area');
 
 overPlayArea.onmouseover = function(){
-    
+    mouseOverArea = true;
     if(cardsInArea.length == 1) return;
 
     console.log(122)
@@ -228,6 +229,62 @@ overPlayArea.onmouseover = function(){
 
 
 overPlayArea.onmouseout = function(){
+    mouseOverArea = false;
+    centerAreaCard()
+}
+
+
+// spawn card from left 
+let spawnLeft = document.querySelector('#spawn-left')
+spawnLeft.onclick = function(){
+    let newCard = new Heart(10);
+    cardsInArea.push(newCard);
+    let element = newCard.getPlayAreaElement();
+    element.style.opacity = 1 ;
+    element.style.transitionDuration = '1s'
+    playArea.appendChild(newCard.getElement());
+
+    //calculate position of the new spawned card
+    newTop = (playArea.clientHeight - newCard.getElement().clientHeight )/2;
+
+    let playAreaWidth = playAreaColor.clientWidth;
+    let playAreaHeight = playAreaColor.clientHeight;
+
+    let toX = (playAreaWidth - newCard.getElement().clientWidth)/2;
+    let toY = (playAreaHeight - newCard.getElement().clientHeight)/2;
+
+
+
+    element.style.top = newTop + 'px';
+    element.style.left = -1.5*newCard.getElement().clientWidth + 'px';
+    let sign;
+    if (Math.random()< 0.5 )
+        sign = 1;
+    else sign = -1 ;
+
+    let v = sign * Math.floor(Math.random() * 8) + 1
+    //console.log(v)
+    element.style.transform = `rotateZ(${v}deg)`;
+
+    setTimeout(() => {
+        if(!mouseOverArea || cardsInArea.length == 1){
+            element.style.top = toY + 'px';
+            element.style.left = toX + 'px';
+        }else{
+            spreadAreaCard()
+        }
+    }, 500);
+
+    element.addEventListener('transitionend', function(e){
+        e.target.style.transitionDuration = '.1s';
+        e.target.removeEventListener('transitionend', arguments.callee);
+    })
+
+
+}
+
+
+function centerAreaCard(){
     cardsInArea.forEach(function(obj){
         let playAreaWidth = playAreaColor.clientWidth;
         let playAreaHeight = playAreaColor.clientHeight;
@@ -244,3 +301,83 @@ overPlayArea.onmouseout = function(){
 
     })
 }
+
+
+function spreadAreaCard(){
+   
+    if(cardsInArea.length == 1) return;
+
+    console.log(122)
+    let gap = 10; //px
+
+    let playAreaWidth = playArea.offsetWidth;
+    let playAreaHeight = playArea.clientHeight;
+
+    let totalCardWidth = 0;
+
+    for(let card of cardsInArea){
+        totalCardWidth += card.getElement().clientWidth;
+    }
+
+    let nextWidth = (playAreaWidth - totalCardWidth - (cardsInArea.length * gap))/2;
+
+    for(let i =0; i < cardsInArea.length ; i++){
+        console.log(nextWidth)
+        cardsInArea[i].getElement().style.left = nextWidth + 'px';
+        nextWidth += cardsInArea[i].getElement().clientWidth + gap;
+    }
+    
+    
+    
+}
+
+
+function spawnFromRight(){
+    let newCard = new Club(11);
+    cardsInArea.push(newCard);
+    let element = newCard.getPlayAreaElement();
+    element.style.opacity = 1 ;
+    element.style.transitionDuration = '1s'
+    playArea.appendChild(newCard.getElement());
+
+    //calculate position of the new spawned card
+    newTop = (playArea.clientHeight - newCard.getElement().clientHeight )/2;
+
+    let playAreaWidth = playAreaColor.clientWidth;
+    let playAreaHeight = playAreaColor.clientHeight;
+
+    let toX = (playAreaWidth - newCard.getElement().clientWidth)/2;
+    let toY = (playAreaHeight - newCard.getElement().clientHeight)/2;
+
+
+
+    element.style.top = newTop + 'px';
+    element.style.right = -1.5*newCard.getElement().clientWidth + 'px';
+    let sign;
+    if (Math.random()< 0.5 )
+        sign = 1;
+    else sign = -1 ;
+
+    let v = sign * Math.floor(Math.random() * 8) + 1
+    //console.log(v)
+    element.style.transform = `rotateZ(${v}deg)`;
+
+    setTimeout(() => {
+        if(!mouseOverArea || cardsInArea.length == 1){
+            element.style.top = toY + 'px';
+            element.style.right = toX + 'px';
+        }else{
+            spreadAreaCard()
+        }
+    }, 500);
+
+    element.addEventListener('transitionend', function(e){
+        e.target.style.transitionDuration = '.1s';
+        e.target.removeEventListener('transitionend', arguments.callee);
+    })
+
+
+}
+
+let spawnRight = document.querySelector('#spawn-right');
+spawnRight.onclick = spawnFromRight;

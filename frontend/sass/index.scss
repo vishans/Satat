@@ -37,7 +37,7 @@ body{
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-rows: 50vh 16vh 7vh 27vh;
+    grid-template-rows: 50vh 13vh 7vh 30vh;
     grid-template-columns:  100vw;
     
     
@@ -213,9 +213,14 @@ body{
     bottom: 50%;
     opacity: 0;
 
-    width: max(7.5vw,8rem);
-    //width: fit-content;
-    height: fit-content;
+    // width: max(7.5vw,8rem);
+    // max-width: calc(27vh);
+    // width: calc(27vw);
+    height: calc(0.8*30vh);
+
+    // width: fit-content;
+    // width: max(12%,fit-content);
+    //height: max-content;
     aspect-ratio: 9/16;
     background-color: #fefefe;
     border-radius: 5px;
@@ -257,6 +262,8 @@ body{
 
 }
 
+
+
 [suit="heart"]{
     color: red;
 }
@@ -268,9 +275,11 @@ body{
 .area-play-card{
     position: absolute;
 
-    width: max(7.5vw,8rem);
+    // width: max(7.5vw,8rem);
     
-    height: fit-content;
+    // height: fit-content;
+    height: calc(0.8*30vh);
+
     aspect-ratio: 9/16;
     background-color: #fefefe;
     border-radius: 5px;
