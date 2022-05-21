@@ -214,8 +214,9 @@ body{
     opacity: 0;
 
     width: max(7.5vw,8rem);
+    //width: fit-content;
     height: fit-content;
-    // aspect-ratio: 9/16;
+    aspect-ratio: 9/16;
     background-color: #fefefe;
     border-radius: 5px;
     // color:white;
@@ -268,8 +269,9 @@ body{
     position: absolute;
 
     width: max(7.5vw,8rem);
+    
     height: fit-content;
-    // aspect-ratio: 9/16;
+    aspect-ratio: 9/16;
     background-color: #fefefe;
     border-radius: 5px;
     // color:white;

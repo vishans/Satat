@@ -160,7 +160,7 @@ sortButton.onclick = function(){
 let body = document.querySelector('body');
 body.onresize = function(){
     
-    let cW = cardContainer.clientWidth;
+    let cW = cardContainer.offsetWidth;
     let totalW = 0;
     myHand.forEach(function(card){
         let element = card.getElement()
@@ -170,7 +170,7 @@ body.onresize = function(){
 
 
 
-    if(totalW > cW){
+    if(totalW > 0.9*cW){
         cardContainer.style.justifyContent = 'flex-start';
     }
     else{
