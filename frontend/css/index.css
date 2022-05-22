@@ -49,7 +49,9 @@ body {
   background-color: transparent;
   z-index: 10000000;
   height: 60%;
+  aspect-ratio: 1/1;
   align-self: center;
+  justify-self: center;
 }
 
 #controls {
@@ -209,6 +211,15 @@ body {
   border: 1px solid black;
   transition: all 0.1s ease;
   user-select: none;
+}
+
+.area-player-info {
+  height: 9.9vh;
+  aspect-ratio: 1/1;
+  background-color: black;
+  position: absolute;
+  color: white;
+  border-radius: 12px;
 }
 
 #_2OfHeart .symbol, [value="2OfHeart"] .symbol {
