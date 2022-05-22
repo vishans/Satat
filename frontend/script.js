@@ -540,3 +540,38 @@ spawnRight.onclick = spawnFromRight;
 // setInterval(spawnFromRight, 4000);
 // setInterval(spawnFromTop, 5000);
 
+playArea.appendChild(new MasterPlayerInfo('Mario',null,'Team A', 'beige').getElement());
+
+
+// var canvas=document.createElement("canvas");
+// var ctx=canvas.getContext("2d");
+
+// var img=new Image();
+
+// img.src="..\\..\\sprites.png";
+// playArea.appendChild(canvas)
+// canvas.setAttribute('width', '100');
+// canvas.setAttribute('height', '100');
+
+
+// img.onload = function(){ctx.drawImage(img,1,1,256,256,0,0,100,100)}
+// ctx.font = "30px Arial";
+// ctx.fillText("Hello World", 10, 50);
+
+// function start(){
+//     var canvasY=0;
+//     for(var col=0;col<spriteCols;col++){
+//     for(var row=0;row<spriteRows;row++){
+//         var sourceX=col*spriteWidth;
+//         var sourceY=row*spriteHeight;
+//         // testing: calc a random position to draw this sprite
+//         // on the canvas
+//         var canvasX=Math.random()*150+20;
+//         canvasY+=spriteHeight+5;
+//         // drawImage with changing source and canvas x/y positions
+//         ctx.drawImage(img,
+//             sourceX,sourceY,spriteWidth,spriteHeight,
+//             canvasX,canvasY,spriteWidth,spriteHeight
+//         );
+//     }}
+// }
