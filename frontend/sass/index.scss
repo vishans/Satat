@@ -70,11 +70,19 @@ body{
     grid-column-start: 1;
     grid-column-end: 2;
     background-color: transparent;
-    z-index: 10000000;
+    z-index: 1000;
+    
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#spread-card-hit-box{
     height: 60%;
     aspect-ratio: 1/1;
-    align-self: center;
-    justify-self: center;
 }
 
 #controls{
@@ -138,6 +146,7 @@ body{
     grid-template-rows: 2fr 6fr 2fr ;
 
     font-family: 'Roboto Condensed', sans-serif;
+    position: absolute;
     
     
 }
@@ -364,13 +373,34 @@ body{
 
 
         
-.area-player-info{
-    height: calc(0.33*30vh);
-    aspect-ratio: 1/1;
+.minimal-player-info{
+    height: calc(0.40*30vh);
+    display: flex;
+    flex-direction: column;
+    //aspect-ratio: 1/1;
     background-color: black;
     position: absolute;
     color: white;
     border-radius: 12px;
+}
+
+.minimal-avatar{
+    height: 80%;
+    aspect-ratio: 1/1;
+    border-radius: 12px 12px 0 0;
+
+}
+
+.minimal-name{
+    height: 20%;
+    background-color: white;
+    color: black;
+    border-radius: 0 0 12px 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto Condensed', sans-serif;
+
 }
 
 

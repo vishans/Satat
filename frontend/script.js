@@ -171,7 +171,7 @@ body.onresize = function(){
 
 
 
-    if(totalW > 0.9*cW){
+    if(totalW > 0.95*cW){
         cardContainer.style.justifyContent = 'flex-start';
     }
     else{
@@ -180,27 +180,32 @@ body.onresize = function(){
     }
 
     //recalculate area cards position
-    cardsInArea.forEach(function(obj){
-        let playAreaWidth = playAreaColor.clientWidth;
-        let playAreaHeight = playAreaColor.clientHeight;
+    // cardsInArea.forEach(function(obj){
+    //     let playAreaWidth = playAreaColor.clientWidth;
+    //     let playAreaHeight = playAreaColor.clientHeight;
 
-        let elementWidth = obj.getElement().offsetWidth;
-        let elementHeight = obj.getElement().offsetHeight;
-        let posX = (playAreaWidth - elementWidth) / 2;
-        let posY = (playAreaHeight - elementHeight) / 2;
+    //     let elementWidth = obj.getElement().offsetWidth;
+    //     let elementHeight = obj.getElement().offsetHeight;
+    //     let posX = (playAreaWidth - elementWidth) / 2;
+    //     let posY = (playAreaHeight - elementHeight) / 2;
       
-        //console.log(posX)
+    //     //console.log(posX)
 
-        obj.getElement().style.left = posX + 'px';
-        obj.getElement().style.top = posY + 'px';
+    //     obj.getElement().style.left = posX + 'px';
+    //     obj.getElement().style.top = posY + 'px';
 
-    })
+    // })
+    setTimeout(() => {centerAreaCard()
+    }, 100);
+    
 }
 
 
-let overPlayArea = document.querySelector('#over-play-area');
 
-overPlayArea.onmouseover = function(){
+
+let spreadCardHitBox = document.querySelector('#spread-card-hit-box');
+
+spreadCardHitBox.onmouseover = function(){
     mouseOverArea = true;
     //if(cardsInArea.length == 1) return;
 
@@ -231,7 +236,7 @@ overPlayArea.onmouseover = function(){
 }
 
 
-overPlayArea.onmouseout = function(){
+spreadCardHitBox.onmouseout = function(){
     mouseOverArea = false;
     centerAreaCard()
     removeCardPlayerInfo();
@@ -244,11 +249,11 @@ spawnLeft.onclick = spawnFromLeft;
 
 function centerAreaCard(){
     cardsInArea.forEach(function(obj){
-        let playAreaWidth = playAreaColor.clientWidth;
-        let playAreaHeight = playAreaColor.clientHeight;
+        let playAreaWidth = playArea.clientWidth;
+        let playAreaHeight = playArea.clientHeight;
 
-        let elementWidth = obj.getElement().offsetWidth;
-        let elementHeight = obj.getElement().offsetHeight;
+        let elementWidth = obj.getElement().clientWidth;
+        let elementHeight = obj.getElement().clientHeight;
         let posX = (playAreaWidth - elementWidth) / 2;
         let posY = (playAreaHeight - elementHeight) / 2;
       
@@ -492,16 +497,18 @@ function displayCardPlayerInfo(){
         
         let cardLeft =nextWidth;
         //console.log(arr[i])
-        let infoElement = document.createElement('div');
-        infoElement.innerHTML = cardsInArea[i].getPlayerInfo();
+        //let infoElement = document.createElement('div');
+        let infoElement = new MasterPlayerInfo('Mario',null,'Team A', 'beige').getMinimalPlayerInfoElement()
+
+        //infoElement.innerHTML = cardsInArea[i].getPlayerInfo();
         playArea.appendChild(infoElement);
 
-        infoElement.classList.add('area-player-info');
+        //infoElement.classList.add('minimal-player-info');
         let infoElementWidth = infoElement.clientWidth;
         let desiredOffsetX = (cardWidth-infoElementWidth)/2;
         let posX = cardLeft + desiredOffsetX;
         infoElement.style.left = posX + 'px';
-        infoElement.style.top = (cardTop + 1.2 * cardHeight) + 'px';
+        infoElement.style.top = (cardTop + 1.1 * cardHeight) + 'px';
         
         
         
@@ -525,7 +532,7 @@ function displayCardPlayerInfo(){
 
 function removeCardPlayerInfo(){
     console.log(865)
-    infoElements = document.querySelectorAll('.area-player-info');
+    infoElements = document.querySelectorAll('.minimal-player-info');
     for(let element of infoElements){
         element.parentNode.removeChild(element);
     }
@@ -539,8 +546,10 @@ spawnRight.onclick = spawnFromRight;
 // setInterval(spawnFromLeft, 2000);
 // setInterval(spawnFromRight, 4000);
 // setInterval(spawnFromTop, 5000);
-
-playArea.appendChild(new MasterPlayerInfo('Mario',null,'Team A', 'beige').getElement());
+let overPlayArea = document.querySelector('#over-play-area')
+let t = new MasterPlayerInfo('Mario',null,'Team A', 'beige')
+overPlayArea.appendChild(t.getElement());
+t.calculateAndSetPosition();
 
 
 // var canvas=document.createElement("canvas");
