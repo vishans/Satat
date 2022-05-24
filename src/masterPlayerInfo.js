@@ -10,7 +10,8 @@ var imagePromise = new Promise(function(resolve, reject){
 
 class MasterPlayerInfo{
 
-    constructor(playerName,avatar, team, teamColor, position = 'left', numberOfCards = 13, connectionStatus = 'online'){
+    constructor(playerID,playerName,avatar, team, teamColor, position = 'left', numberOfCards = 13, connectionStatus = 'online'){
+        this.playerID = playerID
         this.playerName = playerName;
         this.avatar = avatar;
         this.team = team;
@@ -22,11 +23,19 @@ class MasterPlayerInfo{
         this.Element = this.__createElement();
         this.MinimalPlayerInfoElement = this.__createMinimalPlayerInfoElement()
         
+        
+        
     }
 
     __createElement(){
         let newMasterElement = document.createElement('div');
-        newMasterElement.classList.add('master-player-info');
+        newMasterElement.classList.add('master-player-info'+'-'+this.position);
+        // let o = document.querySelector('#over-play-area')
+        // o.addEventListener('click', () => this.hideMasterInfoElement());
+
+        let semantic = document.createElement('div');
+        semantic.classList.add('master-player-info-semantic');
+       
 
         let team = document.createElement('div');
         team.classList.add('master-player-info-team');
@@ -43,8 +52,10 @@ class MasterPlayerInfo{
         playArea.appendChild(canvas)
         canvas.setAttribute('width', '100');
         canvas.setAttribute('height', '100');
+        let aRow = this.avatar[0];
+        let aCol = this.avatar[1];
 
-        imagePromise.then(function(){ctx.drawImage(img,1+(256*0),1+(257*0),256,256,0,0,100,100)})
+        imagePromise.then(function(){ctx.drawImage(img,1+(256*aCol),1+(257*aRow),256,256,0,0,100,100)})
         //img.onload = function(){ctx.drawImage(img,1+(256*0),1+(257*2),256,256,0,0,100,100)}
 
         avatar.appendChild(canvas);
@@ -57,6 +68,7 @@ class MasterPlayerInfo{
         newMasterElement.appendChild(team);
         newMasterElement.appendChild(avatar);
         newMasterElement.appendChild(name);
+        newMasterElement.appendChild(semantic);
 
         return newMasterElement;
 
@@ -78,7 +90,11 @@ class MasterPlayerInfo{
         playArea.appendChild(canvas)
         canvas.setAttribute('width', '100');
         canvas.setAttribute('height', '100');
-        imagePromise.then(function(){ctx.drawImage(img,1+(256*0),1+(257*0),256,256,0,0,100,100)})
+
+        let aRow = this.avatar[0];
+        let aCol = this.avatar[1];
+
+        imagePromise.then(function(){ctx.drawImage(img,1+(256*aCol),1+(257*aRow),256,256,0,0,100,100)})
 
         let avatar = document.createElement('div');
         avatar.classList.add('minimal-avatar');
@@ -106,24 +122,132 @@ class MasterPlayerInfo{
     }
 
     calculateAndSetPosition(){
+        
         let gapBetweenEdge = 30; //px
         let playArea = document.querySelector('#play-area')
-        let playAreaHeight = playArea.offsetHeight;
+        let playAreaHeight = playArea.clientHeight;
         let playAreaWidth = playArea.clientWidth;
 
-        let infoElementHeight = this.Element.offsetHeight;
-        let infoElementWidth = this.Element.offsetWidth;
+        let infoElementHeight = this.Element.clientHeight;
+        let infoElementWidth = this.Element.clientWidth;
 
+        let toY;
+        let toX;
         switch(this.position){
             case 'left':
                 
-                let toY = (playAreaHeight - infoElementHeight) / 2
+                toY = (playAreaHeight - infoElementHeight) / 2
                 
                 this.Element.style.top = toY + 'px';
                 this.Element.style.left = gapBetweenEdge + 'px';
+                break;
+
+            case 'right':
+
+                toY = (playAreaHeight - infoElementHeight) / 2
+                this.Element.style.top = toY + 'px';
+
+                toX = playAreaWidth - gapBetweenEdge - infoElementWidth;
+                this.Element.style.left = toX + 'px';
+                break;
+
+            case 'bottom':
+
+                toX = (playAreaWidth - infoElementWidth) / 2
+                this.Element.style.left = toX + 'px';
+
+                toY = playAreaHeight - (gapBetweenEdge*0.5) - infoElementHeight;
+                this.Element.style.top = toY + 'px';
+                
+                break;
+
+            case 'top':
+
+                toX = (playAreaWidth - infoElementWidth) / 2
+                this.Element.style.left = toX + 'px';
+
+               
+                this.Element.style.top = gapBetweenEdge*0.5 + 'px';
+                break;
+
+
+
+
 
             
         }
 
+    }
+
+    hideMasterInfoElement(){
+        let gapBetweenEdge = 30; //px
+        let playArea = document.querySelector('#play-area')
+        let playAreaHeight = playArea.offsetHeight;
+        let playAreaWidth = playArea.offsetWidth;
+      
+        let infoElementHeight = this.Element.offsetHeight;
+        let infoElementWidth = this.Element.offsetWidth;
+
+        let toY;
+        let toX;
+        
+        switch(this.position){
+            case 'left':
+                
+                toY = (playAreaHeight - infoElementHeight) / 2
+                
+                this.Element.style.top = toY + 'px';
+                this.Element.style.left = gapBetweenEdge - 1.5*infoElementWidth + 'px';
+                break;
+
+            case 'right':
+
+                toY = (playAreaHeight - infoElementHeight) / 2
+                this.Element.style.top = toY + 'px';
+
+                toX = playAreaWidth + gapBetweenEdge + 1.5*infoElementWidth;
+                this.Element.style.left = toX + 'px';
+                break;
+
+            case 'bottom':
+
+                toX = (playAreaWidth - infoElementWidth) / 2
+                this.Element.style.left = toX + 'px';
+
+                toY = playAreaHeight + (gapBetweenEdge*0.5) + 1.5*infoElementHeight;
+                this.Element.style.top = toY + 'px';
+
+                break;
+
+            case 'top':
+
+                toX = (playAreaWidth - infoElementWidth) / 2
+                this.Element.style.left = toX + 'px';
+
+               
+                this.Element.style.top = -(gapBetweenEdge*0.5) -1.5*infoElementHeight + 'px';
+                break;
+
+
+
+
+
+            
+        }
+
+        
+
+    }
+
+    listen(on, fn){
+        this.Element.addEventListener(on,fn)
+    }
+
+    removeListener(on, fn){
+        this.Element.removeEventListener(on,fn)
+    }
+
+    getNewMinimalPlayerInfoElement(){
+        return this.__createMinimalPlayerInfoElement()
     }
 }

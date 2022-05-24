@@ -5,6 +5,36 @@ let playArea = document.querySelector('#play-area');
 let playAreaColor = document.querySelector('.play-area-color-1');
 var mouseOverArea = false;
 var allowControls = false;
+
+//player info element
+var masterPlayerInfoPlane = document.querySelector('#master-player-info-plane')
+let t = new MasterPlayerInfo(1,'Mario',[0,0],'Team B', 'lightblue','right')
+let k = new MasterPlayerInfo(2,'Luigi',[0,1],'Team B', 'lightblue','left')
+let l = new MasterPlayerInfo(3,'Peach (You)',[0,2],'Team A', 'salmon','bottom')
+let q = new MasterPlayerInfo(4,'Yoshi',[0,3],'Team A', 'salmon','top')
+
+var masterPlayerInfoArray = [t,k,l,q];
+
+var playerIDToInfoObjMap = {1:t, 2:k, 3:l, 4:q, }
+
+
+masterPlayerInfoPlane.appendChild(t.getElement());
+t.calculateAndSetPosition();
+
+masterPlayerInfoPlane.appendChild(k.getElement());
+k.calculateAndSetPosition();
+
+masterPlayerInfoPlane.appendChild(l.getElement());
+l.calculateAndSetPosition();
+
+masterPlayerInfoPlane.appendChild(q.getElement());
+q.calculateAndSetPosition();
+
+
+
+
+
+
 d = new Deck();
 
 d.shuffle();
@@ -90,7 +120,7 @@ function trans(e){
                             myHand.splice(myHand.indexOf(card),1)
                             
                             cardsInArea.push(new Card(card.value, card.suit))
-                            cardsInArea.at(-1).setPlayerInfo('Me');
+                            cardsInArea.at(-1).setPlayerID(3);
                             //calculate position for newCard inside play-area
 
                             playAreaWidth = playAreaColor.clientWidth;
@@ -112,7 +142,7 @@ function trans(e){
                             else sign = -1 ;
 
                             let v = sign * Math.floor(Math.random() * 8) + 1
-                            //console.log(v)
+                            
                             cardsInArea.at(-1).getElement().style.transform = `rotateZ(${v}deg)`;
 
                             
@@ -131,7 +161,7 @@ function trans(e){
 
 
 setTimeout(function(){
-    console.log(55)
+    
     myHand[i].getElement().classList.add('CardTransition');
     
     myHand[i].getElement().addEventListener('transitionend', trans)
@@ -159,7 +189,7 @@ sortButton.onclick = function(){
 
 //card container cars alignment
 let body = document.querySelector('body');
-body.onresize = function(){
+window.onresize = function(){
     
     let cW = cardContainer.offsetWidth;
     let totalW = 0;
@@ -195,7 +225,23 @@ body.onresize = function(){
     //     obj.getElement().style.top = posY + 'px';
 
     // })
-    setTimeout(() => {centerAreaCard()
+    
+    // masterPlayerInfoArray.forEach(function(obj){
+    //     obj.listen('transitionend', function(){
+    //         obj.calculateAndSetPosition();
+    //         obj.removeListener('transitionend',arguments.callee)
+    //     })
+    // })
+
+    setTimeout(() => {
+        masterPlayerInfoArray.forEach(function(obj){
+            obj.calculateAndSetPosition();
+        })
+    }, 500);
+    
+
+    setTimeout(() => {
+        centerAreaCard()
     }, 100);
     
 }
@@ -207,9 +253,12 @@ let spreadCardHitBox = document.querySelector('#spread-card-hit-box');
 
 spreadCardHitBox.onmouseover = function(){
     mouseOverArea = true;
+    masterPlayerInfoArray.forEach(function(obj){
+        obj.hideMasterInfoElement()
+    })
     //if(cardsInArea.length == 1) return;
 
-    console.log(122)
+    
     let gap = 10; //px
 
     let playAreaWidth = playArea.offsetWidth;
@@ -225,7 +274,7 @@ spreadCardHitBox.onmouseover = function(){
     let nextWidth = (playAreaWidth - totalCardWidth - (cardsInArea.length * gap))/2;
 
     for(let i =0; i < cardsInArea.length ; i++){
-        console.log(nextWidth)
+        
         nextWidthArray.push(nextWidth);
         cardsInArea[i].getElement().style.left = nextWidth + 'px';
         nextWidth += cardsInArea[i].getElement().clientWidth + gap;
@@ -240,6 +289,9 @@ spreadCardHitBox.onmouseout = function(){
     mouseOverArea = false;
     centerAreaCard()
     removeCardPlayerInfo();
+    masterPlayerInfoArray.forEach(function(obj){
+        obj.calculateAndSetPosition()
+    })
 }
 
 
@@ -257,7 +309,7 @@ function centerAreaCard(){
         let posX = (playAreaWidth - elementWidth) / 2;
         let posY = (playAreaHeight - elementHeight) / 2;
       
-        //console.log(posX)
+        
 
         obj.getElement().style.left = posX + 'px';
         obj.getElement().style.top = posY + 'px';
@@ -270,7 +322,7 @@ function spreadAreaCard(){
    
     if(cardsInArea.length == 1) return;
 
-    console.log(122)
+    
     let gap = 10; //px
 
     let playAreaWidth = playArea.offsetWidth;
@@ -285,7 +337,7 @@ function spreadAreaCard(){
     let nextWidth = (playAreaWidth - totalCardWidth - (cardsInArea.length * gap))/2;
 
     for(let i =0; i < cardsInArea.length ; i++){
-        console.log(nextWidth)
+        
 
         cardsInArea[i].getElement().style.top = ((playAreaHeight-cardsInArea[i].getElement().clientHeight) / 2) + 'px';
         cardsInArea[i].getElement().style.left = nextWidth + 'px';
@@ -304,12 +356,12 @@ function spreadAreaCard(){
 
 function spawnFromRight(){
     let newCard = new Club(11);
-    newCard.setPlayerInfo('right');
+    newCard.setPlayerID(1);
 
     cardsInArea.push(newCard);
     let element = newCard.getPlayAreaElement();
     element.style.opacity = 1 ;
-    element.style.transitionDuration = '1s'
+    element.style.transitionDuration = '.7s'
     playArea.appendChild(newCard.getElement());
 
     //calculate position of the new spawned card
@@ -331,7 +383,7 @@ function spawnFromRight(){
     else sign = -1 ;
 
     let v = sign * Math.floor(Math.random() * 8) + 1
-    //console.log(v)
+    
     element.style.transform = `rotateZ(${v}deg)`;
 
     setTimeout(() => {
@@ -359,11 +411,11 @@ function spawnFromRight(){
 
 function spawnFromLeft(){
     let newCard = new Heart(10);
-    newCard.setPlayerInfo('left');
+    newCard.setPlayerID(2);
     cardsInArea.push(newCard);
     let element = newCard.getPlayAreaElement();
     element.style.opacity = 1 ;
-    element.style.transitionDuration = '1s'
+    element.style.transitionDuration = '.7s'
     playArea.appendChild(newCard.getElement());
 
     //calculate position of the new spawned card
@@ -385,7 +437,7 @@ function spawnFromLeft(){
     else sign = -1 ;
 
     let v = sign * Math.floor(Math.random() * 8) + 1
-    //console.log(v)
+    
     element.style.transform = `rotateZ(${v}deg)`;
 
     setTimeout(() => {
@@ -412,11 +464,11 @@ function spawnFromLeft(){
 
 function spawnFromTop(){
     let newCard = new Heart(12);
-    newCard.setPlayerInfo('top');
+    newCard.setPlayerID(4);
     cardsInArea.push(newCard);
     let element = newCard.getPlayAreaElement();
     element.style.opacity = 1 ;
-    element.style.transitionDuration = '1s'
+    element.style.transitionDuration = '.7s'
     playArea.appendChild(newCard.getElement());
 
     //calculate position of the new spawned card
@@ -438,7 +490,7 @@ function spawnFromTop(){
     else sign = -1 ;
 
     let v = sign * Math.floor(Math.random() * 8) + 1
-    //console.log(v)
+    
     element.style.transform = `rotateZ(${v}deg)`;
 
     setTimeout(() => {
@@ -496,11 +548,14 @@ function displayCardPlayerInfo(){
         let cardHeight = cardsInArea[0].getElement().clientHeight;
         
         let cardLeft =nextWidth;
-        //console.log(arr[i])
-        //let infoElement = document.createElement('div');
-        let infoElement = new MasterPlayerInfo('Mario',null,'Team A', 'beige').getMinimalPlayerInfoElement()
+        
+        //let infoElement = playerIDToInfoObjMap[cardsInArea[i].playerID].getMinimalPlayerInfoElement()
+        let infoElement = playerIDToInfoObjMap[cardsInArea[i].playerID].getNewMinimalPlayerInfoElement()
+
+
 
         //infoElement.innerHTML = cardsInArea[i].getPlayerInfo();
+        
         playArea.appendChild(infoElement);
 
         //infoElement.classList.add('minimal-player-info');
@@ -531,7 +586,7 @@ function displayCardPlayerInfo(){
 
 
 function removeCardPlayerInfo(){
-    console.log(865)
+    
     infoElements = document.querySelectorAll('.minimal-player-info');
     for(let element of infoElements){
         element.parentNode.removeChild(element);
@@ -546,41 +601,7 @@ spawnRight.onclick = spawnFromRight;
 // setInterval(spawnFromLeft, 2000);
 // setInterval(spawnFromRight, 4000);
 // setInterval(spawnFromTop, 5000);
-let overPlayArea = document.querySelector('#over-play-area')
-let t = new MasterPlayerInfo('Mario',null,'Team A', 'beige')
-overPlayArea.appendChild(t.getElement());
-t.calculateAndSetPosition();
 
 
-// var canvas=document.createElement("canvas");
-// var ctx=canvas.getContext("2d");
-
-// var img=new Image();
-
-// img.src="..\\..\\sprites.png";
-// playArea.appendChild(canvas)
-// canvas.setAttribute('width', '100');
-// canvas.setAttribute('height', '100');
 
 
-// img.onload = function(){ctx.drawImage(img,1,1,256,256,0,0,100,100)}
-// ctx.font = "30px Arial";
-// ctx.fillText("Hello World", 10, 50);
-
-// function start(){
-//     var canvasY=0;
-//     for(var col=0;col<spriteCols;col++){
-//     for(var row=0;row<spriteRows;row++){
-//         var sourceX=col*spriteWidth;
-//         var sourceY=row*spriteHeight;
-//         // testing: calc a random position to draw this sprite
-//         // on the canvas
-//         var canvasX=Math.random()*150+20;
-//         canvasY+=spriteHeight+5;
-//         // drawImage with changing source and canvas x/y positions
-//         ctx.drawImage(img,
-//             sourceX,sourceY,spriteWidth,spriteHeight,
-//             canvasX,canvasY,spriteWidth,spriteHeight
-//         );
-//     }}
-// }

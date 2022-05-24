@@ -1,4 +1,6 @@
 
+x = {
+    1: 'fdgg', 2:'dggs'
+}
 
-console.log(x)
-let x=null;
+console.log(x[1])

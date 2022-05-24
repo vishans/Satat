@@ -7,7 +7,7 @@ class Card {
         this.suit = suit;
         this.HTMLClass = "play_card";
         this.Element = this.__getElement()
-        this.playerInfo = null;
+        this.playerID = null;
     }
 
     getHTMLClass(){
@@ -125,13 +125,13 @@ class Card {
         return this.getLiteralValue() + suitWeight;
     }
 
-    setPlayerInfo(info){
-        this.playerInfo = info;
+    setPlayerID(info){
+        this.playerID = info;
 
     }
 
-    getPlayerInfo(){
-        return this.playerInfo;
+    getPlayerID(){
+        return this.playerID;
     }
     
 
