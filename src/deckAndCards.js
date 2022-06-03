@@ -337,7 +337,7 @@ class Card {
 
         element.style.transform = `translate(${-travelX}px, calc(${-travelY}px - 30%))`;
         //element.style.zIndex = zz++;
-
+        let card = this;
         element.addEventListener('transitionend', function(e){
             if( e.propertyName == 'transform'){
                 element.remove()

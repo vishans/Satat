@@ -45,7 +45,7 @@ myHand = d.getNCardsFromDeck(12);
 
 myHand.push(new Heart(2));
 
-for(card of myHand){
+for(let card of myHand){
     
     card.getElement().classList.add('beforeCardTransition');
     card.getElement().onmouseover = function(){
