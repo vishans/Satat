@@ -35,6 +35,13 @@ class MasterPlayerInfo{
 
         let semantic = document.createElement('div');
         semantic.classList.add('master-player-info-semantic');
+
+        //add number of card to semantic
+        let tempNumCard = document.createElement('div');
+        tempNumCard.id = 'number-of-cards';
+        semantic.appendChild(tempNumCard);
+
+        //add connection status
        
 
         let team = document.createElement('div');
@@ -249,5 +256,15 @@ class MasterPlayerInfo{
 
     getNewMinimalPlayerInfoElement(){
         return this.__createMinimalPlayerInfoElement()
+    }
+
+    setNumberOfCards(numberOfCards){
+        let numOfCardsElement = this.Element.querySelector('#number-of-cards');
+        this.numberOfCards = numberOfCards;
+        numOfCardsElement.innerText = '🃏 ' + this.numberOfCards;
+    }
+
+    getNumberOfCards(){
+        return this.numberOfCards;
     }
 }

@@ -180,6 +180,14 @@ body{
     grid-row: 2/3;
     grid-column: 2/3;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    #number-of-cards{
+        font-size: 1.5em;
+    }
 
 }
 

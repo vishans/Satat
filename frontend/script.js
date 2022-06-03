@@ -13,6 +13,8 @@ let k = new MasterPlayerInfo(2,'Luigi',[0,1],'Team B', 'lightblue','left')
 let l = new MasterPlayerInfo(3,'Peach (You)',[0,2],'Team A', 'salmon','bottom')
 let q = new MasterPlayerInfo(4,'Yoshi',[0,3],'Team A', 'salmon','top')
 
+t.setNumberOfCards(13);
+
 var masterPlayerInfoArray = [t,k,l,q];
 
 var playerIDToInfoObjMap = {1:t, 2:k, 3:l, 4:q, }
