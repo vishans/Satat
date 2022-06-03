@@ -21,6 +21,7 @@ class MasterPlayerInfo{
         this.connectionStatus = connectionStatus;
 
         this.Element = this.__createElement();
+        this.setNumberOfCards(this.numberOfCards)
         this.MinimalPlayerInfoElement = this.__createMinimalPlayerInfoElement()
         
         
@@ -76,7 +77,7 @@ class MasterPlayerInfo{
         newMasterElement.appendChild(avatar);
         newMasterElement.appendChild(name);
         newMasterElement.appendChild(semantic);
-
+       
         return newMasterElement;
 
     }
@@ -259,6 +260,7 @@ class MasterPlayerInfo{
     }
 
     setNumberOfCards(numberOfCards){
+        
         let numOfCardsElement = this.Element.querySelector('#number-of-cards');
         this.numberOfCards = numberOfCards;
         numOfCardsElement.innerText = '🃏 ' + this.numberOfCards;

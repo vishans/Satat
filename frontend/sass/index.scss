@@ -186,7 +186,7 @@ body{
     align-items: center;
 
     #number-of-cards{
-        font-size: 1.5em;
+        font-size: 1.5rem;
     }
 
 }
@@ -418,17 +418,22 @@ body{
     height: calc(0.40*30vh);
     display: flex;
     flex-direction: column;
-    //aspect-ratio: 1/1;
+    aspect-ratio: 1/1.2;
     background-color: black;
     position: absolute;
     color: white;
     border-radius: 12px;
+    font-size: 1vw;
+    text-overflow: ellipsis;
+    overflow:hidden;
 }
 
 .minimal-avatar{
     height: 80%;
     aspect-ratio: 1/1;
     border-radius: 12px 12px 0 0;
+    overflow:hidden;
+
 
 }
 
@@ -441,6 +446,9 @@ body{
     justify-content: center;
     align-items: center;
     font-family: 'Roboto Condensed', sans-serif;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow: ellipsis;
 
 }
 

@@ -145,7 +145,7 @@ body {
   align-items: center;
 }
 .master-player-info-semantic #number-of-cards {
-  font-size: 1.5em;
+  font-size: 1.5rem;
 }
 
 .master-player-info-avatar {
@@ -308,16 +308,21 @@ body {
   height: 12vh;
   display: flex;
   flex-direction: column;
+  aspect-ratio: 1/1.2;
   background-color: black;
   position: absolute;
   color: white;
   border-radius: 12px;
+  font-size: 1vw;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .minimal-avatar {
   height: 80%;
   aspect-ratio: 1/1;
   border-radius: 12px 12px 0 0;
+  overflow: hidden;
 }
 
 .minimal-name {
@@ -329,6 +334,9 @@ body {
   justify-content: center;
   align-items: center;
   font-family: "Roboto Condensed", sans-serif;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 #_2OfHeart .symbol, [value="2OfHeart"] .symbol {
