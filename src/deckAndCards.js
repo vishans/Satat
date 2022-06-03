@@ -28,7 +28,7 @@ class Card {
     }
 
     getSugarCoatedValue(){
-        if(this.value == 0 || this.value == 14){
+        if(this.value == 1 || this.value == 14){
             return 'A';
         }
 
@@ -58,7 +58,7 @@ class Card {
             values = range(2,15);
         }
         else{
-            values = range(2,14).concat(0);
+            values = range(1,14);
         }
 
         return values.map( (val) =>  new Card(val,suit));
@@ -132,6 +132,247 @@ class Card {
 
     getPlayerID(){
         return this.playerID;
+    }
+
+    //spawns
+
+    spawnFromLeft(){
+        let playArea = document.querySelector('#play-area');
+
+        this.setPlayerID(2);
+        cardsInArea.push(this);
+        let element = this.getPlayAreaElement();
+        element.style.opacity = 1 ;
+        element.style.transitionDuration = '.7s'
+        playArea.appendChild(this.getElement());
+
+        //calculate position of the new spawned card
+        let newTop = (playArea.clientHeight - this.getElement().clientHeight )/2;
+
+        let playAreaWidth = playArea.clientWidth;
+        let playAreaHeight = playArea.clientHeight;
+
+        let toX = (playAreaWidth - this.getElement().clientWidth)/2;
+        let toY = (playAreaHeight - this.getElement().clientHeight)/2;
+
+
+
+        element.style.top = newTop + 'px';
+        element.style.left = -1.5*this.getElement().clientWidth + 'px';
+        let sign;
+        if (Math.random()< 0.5 )
+            sign = 1;
+        else sign = -1 ;
+
+        let v = sign * Math.floor(Math.random() * 8) + 1
+        
+        element.style.transform = `rotateZ(${v}deg)`;
+
+        setTimeout(() => {
+            if(!mouseOverArea || cardsInArea.length == 1){
+                element.style.top = toY + 'px';
+                element.style.left = toX + 'px';
+            }else{
+                spreadAreaCard()
+            }
+        }, 500);
+
+        const tempFunc = function(e){
+            e.target.style.transitionDuration = '.1s';
+            e.target.removeEventListener('transitionend', tempFunc);
+            
+            if(mouseOverArea){
+                removeCardPlayerInfo();
+                displayCardPlayerInfo();
+            }
+        
+        }
+        
+        element.addEventListener('transitionend', tempFunc
+        )
+
+
+    }
+    
+
+    spawnFromRight(){
+        let playArea = document.querySelector('#play-area');
+
+        this.setPlayerID(1);
+        cardsInArea.push(this);
+        let element = this.getPlayAreaElement();
+        element.style.opacity = 1 ;
+        element.style.transitionDuration = '.7s'
+        playArea.appendChild(this.getElement());
+
+        //calculate position of the new spawned card
+        let newTop = (playArea.clientHeight - this.getElement().clientHeight )/2;
+
+        let playAreaWidth = playArea.clientWidth;
+        let playAreaHeight = playArea.clientHeight;
+
+        let toX = (playAreaWidth - this.getElement().clientWidth)/2;
+        let toY = (playAreaHeight - this.getElement().clientHeight)/2;
+
+
+
+        element.style.top = newTop + 'px';
+        element.style.left = 1.5*this.getElement().clientWidth + playAreaWidth + 'px';
+        let sign;
+        if (Math.random()< 0.5 )
+            sign = 1;
+        else sign = -1 ;
+
+        let v = sign * Math.floor(Math.random() * 8) + 1
+        
+        element.style.transform = `rotateZ(${v}deg)`;
+
+        setTimeout(() => {
+            if(!mouseOverArea || cardsInArea.length == 1){
+                element.style.top = toY + 'px';
+                element.style.left = toX + 'px';
+            }else{
+                
+                spreadAreaCard();
+            }
+        }, 500);
+
+        const tempFunc = function(e){
+            e.target.style.transitionDuration = '.1s';
+            e.target.removeEventListener('transitionend', tempFunc);
+            
+            if(mouseOverArea){
+                removeCardPlayerInfo();
+                displayCardPlayerInfo();
+            }
+        
+        }
+        
+        element.addEventListener('transitionend', tempFunc
+        )
+    }
+
+    spawnFromTop(){
+        let playArea = document.querySelector('#play-area');
+
+        this.setPlayerID(4);
+        cardsInArea.push(this);
+        let element = this.getPlayAreaElement();
+        element.style.opacity = 1 ;
+        element.style.transitionDuration = '.7s'
+        playArea.appendChild(this.getElement());
+
+        //calculate position of the new spawned card
+        let newTop = (playArea.clientHeight - this.getElement().clientHeight )/2;
+
+        let playAreaWidth = playAreaColor.clientWidth;
+        let playAreaHeight = playAreaColor.clientHeight;
+
+        let toX = (playAreaWidth - this.getElement().clientWidth)/2;
+        let toY = (playAreaHeight - this.getElement().clientHeight)/2;
+
+
+
+        element.style.top = (-1.5*this.getElement().clientHeight) + 'px';
+        element.style.left = toX  + 'px';
+        let sign;
+        if (Math.random()< 0.5 )
+            sign = 1;
+        else sign = -1 ;
+
+        let v = sign * Math.floor(Math.random() * 8) + 1
+        
+        element.style.transform = `rotateZ(${v}deg)`;
+
+        setTimeout(() => {
+            if(!mouseOverArea || cardsInArea.length == 1){
+                element.style.top = toY + 'px';
+                element.style.left = toX + 'px';
+            }else{
+                spreadAreaCard()
+            }
+        }, 500);
+
+        const tempFunc = function(e){
+            e.target.style.transitionDuration = '.1s';
+            e.target.removeEventListener('transitionend', tempFunc);
+            
+            if(mouseOverArea){
+                removeCardPlayerInfo();
+                displayCardPlayerInfo();
+            }
+        
+        }
+        
+        element.addEventListener('transitionend', tempFunc
+        )
+
+    }
+
+
+    spawnFromCardContainer(){
+        let playArea = document.querySelector('#play-area');
+
+
+        let element = this.getElement();
+
+        
+                    
+        element.classList.remove('card-hover');
+        while(element.classList.contains('card-hover'));
+
+        //get test card 
+        
+        let testX = (playArea.clientWidth-element.clientWidth) /2;
+        let testY = (playArea.clientHeight-element.clientHeight) / 2;
+
+        //actual card stats
+        let actualX = element.getBoundingClientRect().x;
+        let actualY = element.getBoundingClientRect().y;
+
+        //distance to travel 
+        let travelX = actualX - testX;
+        let travelY = actualY - testY;
+
+
+        element.style.transform = `translate(${-travelX}px, calc(${-travelY}px - 30%))`;
+        //element.style.zIndex = zz++;
+
+        element.addEventListener('transitionend', function(e){
+            if( e.propertyName == 'transform'){
+                element.remove()
+                myHand.splice(myHand.indexOf(card),1)
+                
+                cardsInArea.push(new Card(card.value, card.suit))
+                cardsInArea.at(-1).setPlayerID(3);
+                //calculate position for newCard inside play-area
+
+                let playAreaWidth = playArea.clientWidth;
+                let playAreaHeight = playArea.clientHeight;
+
+                
+                playArea.appendChild(cardsInArea.at(-1).getPlayAreaElement())
+                let elementWidth = cardsInArea.at(-1).getElement().offsetWidth;
+                let elementHeight = cardsInArea.at(-1).getElement().offsetHeight;
+                let posX = (playAreaWidth - elementWidth) / 2;
+                let posY = (playAreaHeight - elementHeight) / 2;
+                
+
+                cardsInArea.at(-1).getElement().style.left = posX + 'px';
+                cardsInArea.at(-1).getElement().style.top = posY + 'px';
+                let sign;
+                if (Math.random()< 0.5 )
+                    sign = 1;
+                else sign = -1 ;
+
+                let v = sign * Math.floor(Math.random() * 8) + 1
+                
+                cardsInArea.at(-1).getElement().style.transform = `rotateZ(${v}deg)`;
+
+           
+            }
+        })
+
     }
     
 
