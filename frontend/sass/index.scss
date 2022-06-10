@@ -146,18 +146,25 @@ body{
 }
 
 .master-player-info-left,.master-player-info-bottom{
+    box-sizing: border-box;
     height: calc(0.4*30vh);
     aspect-ratio: 16/9;
-    background-color: white;
+    background-color: yellow;
     border-radius: 12px;
     display: grid;
     grid-template-columns: 3fr 7fr;
     grid-template-rows: 2fr 6fr 2fr ;
+    grid-template-rows: 20% 60% 20% ;
+
 
     font-family: 'Roboto Condensed', sans-serif;
     position: absolute;
 
     transition: all .2s ease;
+    outline: 3px solid red;
+    outline-offset: 5px;
+    //border: 3px solid red;
+    //overflow: hidden;
     
     
 }
@@ -171,6 +178,8 @@ body{
     align-items: center;
     justify-content: center;
     border-top: 1px solid white;
+    //height: 2fr;
+    //flex-shrink: 0;
     
 
 
@@ -186,7 +195,7 @@ body{
     align-items: center;
 
     #number-of-cards{
-        font-size: 1.5rem;
+        font-size: 2.5vh;
     }
 
 }
@@ -214,6 +223,7 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
+    justify-self: stretch;
 
     border-bottom: 1px solid white;
 

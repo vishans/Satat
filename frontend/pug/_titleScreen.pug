@@ -1,0 +1,54 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="../css/titleScreen.css")
+        title Title Screen
+    body 
+        .main
+            .title
+                span S
+                .card-artifact(red)
+                    .card-upper A 
+                    .card-body &hearts;
+                    .card-lower A
+                span t
+                //- .card-artifact(black)
+                //-     .card-upper A 
+                //-     .card-body &spades;
+                //-     .card-lower A
+                span at
+            .hero 
+                .hero-element#create-room Create a Room
+                .hero-element#join-room Join a Room
+                .skeleton-hero-element 
+                    .mini-hero-element#sign-in Sign in
+                    .mini-hero-element#sign-up Sign up
+
+
+            .footer &copy; vissan 2022
+
+            .hero-join
+                form(action="", id="group-join-form")
+                    label#group-code-label(for="group-code") 
+                        span Group code: 
+            
+                    input(type="text", id="group-code", for="groupCode")
+
+                    .button-wrapper
+                        button#submit-room(type="submit").
+                            Join room
+
+            .title-join 
+                .title-join-wrap 
+                    span Join a room
+
+
+            .wrapper
+                .sign-in-board
+                    .hublot
+                    .sign-in-semantic Not signed in
+
+    script(src="../behaviour/titleScreen.js") 

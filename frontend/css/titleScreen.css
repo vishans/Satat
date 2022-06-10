@@ -1,0 +1,289 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: RetroLight;
+  src: url(../../font/Retrolight.ttf);
+}
+@font-face {
+  font-family: SMM;
+  src: url("../../font/Super Mario Maker Font.ttf");
+}
+.main {
+  display: grid;
+  grid-template-rows: 20vh 75vh 5vh;
+  grid-template-columns: repeat(4, 25vw);
+  background-color: #DB7B00;
+  transition: all 2s;
+}
+
+.title {
+  grid-column: 1/5;
+  grid-row: 1/2;
+  font-family: RetroLight;
+  font-family: SMM;
+  font-size: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.card-artifact {
+  font-family: "Times New Roman", Times, serif;
+  height: 7rem;
+  aspect-ratio: 9/16;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  transform: rotateZ(5deg);
+  border: 1px solid black;
+}
+.card-artifact .card-upper {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+.card-artifact .card-lower {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.card-artifact .card-body {
+  flex-grow: 1;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: heartbeat 2s infinite;
+}
+
+div[red] {
+  color: red;
+}
+
+div[black] {
+  color: black;
+  transform: rotateZ(-5deg);
+}
+
+.hero {
+  grid-row: 2/3;
+  grid-column: 1/5;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 4rem 0;
+  cursor: pointer;
+  transition: transform 2s;
+}
+
+.hero-element {
+  width: 35%;
+  height: 12%;
+  background-color: white;
+  background-color: #FFCD00;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4vh;
+  font-family: SMM;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: all 0.5s;
+}
+.hero-element:hover {
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.skeleton-hero-element {
+  width: 35%;
+  height: 12%;
+  background-color: transparent;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-size: 4vh;
+  font-family: SMM;
+}
+.skeleton-hero-element .mini-hero-element {
+  width: 40%;
+  height: 100%;
+  background-color: #FFCD00;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  transition: all 0.5s;
+}
+.skeleton-hero-element .mini-hero-element:hover {
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+}
+
+.footer {
+  grid-row: 3/4;
+  grid-column: 1/5;
+  font-family: SMM;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #5B1C1A;
+}
+
+.sign-in-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.sign-in-board .hublot {
+  height: 7vw;
+  aspect-ratio: 1/1;
+  background-color: #FFFDEE;
+  border: 2px solid black;
+  box-sizing: content-box;
+  border-radius: 8px;
+}
+.sign-in-board .sign-in-semantic {
+  font-family: SMM;
+}
+
+.wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  grid-column: 4/5;
+  grid-row: 1/2;
+  height: 100%;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.hero__away {
+  transform: translateY(-100vh);
+}
+
+.display-none {
+  display: none;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.otherBG {
+  background-color: #E5FBE6;
+}
+
+.hero-join {
+  grid-row: 2/3;
+  grid-column: 1/5;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+  cursor: pointer;
+  transition: transform 2s;
+}
+
+#group-join-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
+  align-items: flex-start;
+  font-family: SMM;
+  font-size: 4vh;
+  height: 100%;
+  width: 40%;
+}
+#group-join-form #group-code {
+  width: 90%;
+  height: 12%;
+  border-radius: 8px;
+  background-color: #F2FCF2;
+  border-style: none;
+  font-family: SMM;
+  font-size: 4vh;
+  text-align: center;
+  outline: 3px solid #41C9A4;
+  color: #5B1C1A;
+}
+#group-join-form #group-code:focus {
+  outline: 3px solid #FFCD00;
+}
+#group-join-form #group-code-label {
+  align-self: flex-start;
+  color: #5B1C1A;
+}
+
+.title-join {
+  grid-column: 1/5;
+  grid-row: 1/2;
+  font-family: SMM;
+  font-size: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #41C9A4;
+}
+
+.title-join-wrap {
+  height: 60%;
+  width: 100%;
+  border-bottom: 3px solid #41C9A4;
+  font-size: 4rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding-left: 2rem;
+  display: none;
+}
+
+.button-wrapper {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+#submit-room {
+  margin-right: 6rem;
+  height: 30%;
+  width: 25%;
+  font-family: SMM;
+  font-size: 2vh;
+  background-color: #41C9A4;
+  border-style: none;
+  color: #F2FCF2;
+  border-radius: 8px;
+  transition: all 0.5s;
+  border: 2px solid #41C9A4;
+}
+#submit-room:hover {
+  color: #41C9A4;
+  background-color: #F2FCF2;
+}
