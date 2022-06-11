@@ -38,8 +38,12 @@ html(lang="en")
                     input(type="text", id="group-code", for="groupCode")
 
                     .button-wrapper
+                        button#back-room(type="button").
+                            Back
+
                         button#submit-room(type="submit").
                             Join room
+
 
             .title-join 
                 .title-join-wrap 
@@ -50,5 +54,19 @@ html(lang="en")
                 .sign-in-board
                     .hublot
                     .sign-in-semantic Not signed in
+
+
+            .hero-create
+                .load-wrapper
+                    | <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    .load-text Creating room...
+
+                button#back-room-2(type="button").
+                    Cancel
+
+
+            .title-create 
+                .title-join-wrap 
+                    span Create a room
 
     script(src="../behaviour/titleScreen.js") 
