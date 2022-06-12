@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/titleScreen.css">
+    <link rel="stylesheet" href="/titleScreen.css">
     <title>Title Screen</title>
   </head>
   <body> 
@@ -20,14 +20,13 @@
         <div class="hero-element" id="create-room">Create a Room</div>
         <div class="hero-element" id="join-room">Join a Room</div>
         <div class="skeleton-hero-element"> 
-          <div class="mini-hero-element" id="sign-in">Sign in</div>
-          <div class="mini-hero-element" id="sign-up">Sign up</div>
+          <div class="mini-hero-element" id="sign-in">Sign in</div><a class="mini-hero-element" id="sign-up" href="/signup">Sign up</a>
         </div>
       </div>
       <div class="footer">&copy; vissan 2022</div>
       <div class="hero-join">
         <form action="" id="group-join-form">
-          <label id="group-code-label" for="group-code"> <span>Room code: </span></label>
+          <label id="group-code-label" for="groupCode"> <span>Room code: </span></label>
           <input type="text" id="group-code" for="groupCode">
           <div class="button-wrapper">
             <button id="back-room" type="button">
@@ -66,5 +65,5 @@
       </div>
     </div>
   </body>
-  <script src="../behaviour/titleScreen.js"> </script>
+  <script src="/titleScreen.js"> </script>
 </html>

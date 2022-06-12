@@ -4,7 +4,7 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        link(rel="stylesheet", href="../css/titleScreen.css")
+        link(rel="stylesheet", href="/titleScreen.css")
         title Title Screen
     body 
         .main
@@ -25,14 +25,14 @@ html(lang="en")
                 .hero-element#join-room Join a Room
                 .skeleton-hero-element 
                     .mini-hero-element#sign-in Sign in
-                    .mini-hero-element#sign-up Sign up
+                    a.mini-hero-element#sign-up(href="/signup") Sign up
 
 
             .footer &copy; vissan 2022
 
             .hero-join
                 form(action="", id="group-join-form")
-                    label#group-code-label(for="group-code") 
+                    label#group-code-label(for="groupCode") 
                         span Room code: 
             
                     input(type="text", id="group-code", for="groupCode")
@@ -69,4 +69,4 @@ html(lang="en")
                 .title-join-wrap 
                     span Create a room
 
-    script(src="../behaviour/titleScreen.js") 
+    script(src="/titleScreen.js") 

@@ -37,9 +37,9 @@ history.pushState(null, document.title, location.pathname);
 window.addEventListener("popstate", function() {
     if(location.hash === "#!/tempURL") {
         history.replaceState(null, document.title, location.pathname);
-        //replaces first element of last element of stack with google.com/gmail so can be used further
+        //replaces first element of last element of stack
         setTimeout(function(){
-            location.replace("file:///C:/Users/VISHAN/Documents/satate/frontend/html/_titleScreen.html");
+            location.replace("/");
         },0);
     }
 }, false);

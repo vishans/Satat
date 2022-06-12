@@ -1,0 +1,33 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="/titleScreen.css")
+
+        title Sign up
+    body 
+        .main.otherBG
+            .title-join 
+                    .title-join-wrap 
+                        span Sign up
+
+            .hero 
+                .signup-form
+                    form#sign-up(action="submit")
+                        .wrap 
+                            label#sign-up-name-label(for="signUpName") Name: 
+                            input#sing-up-name-input(for="signUpName", type="text")
+                        .wrap
+                            label#sign-up-username-label(for="signUpUsername") Username:
+                            input#sing-up-username-input(for="signUpUsername", type="text")
+                        .wrap
+                            label#sign-up-email-label(for="signUpEmail") Email:
+                            input#sing-up-email-input(for="signUpEmail", type="email")
+                        .wrap 
+
+                            label#sign-up-password-label(for="signUpPassword") Password:
+                            input#sing-up-password-input(for="signUpPassword", type="password")
+
+                        button(type="submit") Submit

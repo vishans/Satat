@@ -1,0 +1,31 @@
+{
+  "name": "satat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/app.js",
+  "dependencies": {
+    "express": "^4.18.1",
+    "gulp": "^4.0.2",
+    "gulp-pug": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.51.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon backend/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishans/Satat.git"
+  },
+  "author": "Vishan Summinga-Sonagadu",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/vishans/Satat/issues"
+  },
+  "homepage": "https://github.com/vishans/Satat#readme",
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.16"
+  }
+}
