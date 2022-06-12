@@ -125,6 +125,9 @@ div[black] {
   align-items: center;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   transition: all 0.5s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .skeleton-hero-element .mini-hero-element:hover {
   box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
@@ -147,7 +150,7 @@ div[black] {
   gap: 1rem;
 }
 .sign-in-board .hublot {
-  height: 7vw;
+  height: 4.5vw;
   aspect-ratio: 1/1;
   background-color: #FFFDEE;
   border: 2px solid black;
@@ -160,10 +163,10 @@ div[black] {
 
 .wrapper {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
   grid-column: 4/5;
-  grid-row: 1/2;
+  grid-row: 2/3;
   height: 100%;
 }
 
