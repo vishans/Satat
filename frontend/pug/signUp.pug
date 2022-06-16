@@ -30,4 +30,20 @@ html(lang="en")
                             label#sign-up-password-label(for="signUpPassword") Password:
                             input#sing-up-password-input(for="signUpPassword", type="password")
 
-                        button(type="submit") Submit
+                        button#submit-button(type="submit") Submit
+
+            //- .pop-up-container
+            //-     .pop-up 
+            //-         .pop-up-title Re-type your password again
+            //-         input#re-password(type="text") 
+            //-         button#retype-confirm-button Confirm
+
+            //- .pop-up-container.frosted-glass
+            //-     .pop-up(incorrect)
+            //-         .pop-up-title Incorrect password
+            //-         //input#re-password(type="text") 
+            //-         button#retype-confirm-button(incorrect) Ok
+
+
+    script(src="/signUp.js") 
+    

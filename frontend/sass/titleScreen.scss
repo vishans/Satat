@@ -293,6 +293,7 @@ div[black]{
         outline: 3px solid  #41C9A4;
         color: #5B1C1A;
         caret-color: #5B1C1A;
+        align-self: center;
 
 
         &:focus{
@@ -350,10 +351,10 @@ div[black]{
 
 #submit-room{
     //margin-right: 6rem;
-    height: 30%;
-    width: 25%;
+    height: 7vh;
+    padding: 0 1rem;
     font-family: SMM;
-    font-size: 2vh;
+    font-size: 3vh;
     background-color: #F66F2F;
     border-style: none;
     color: #F2FCF2;
@@ -372,10 +373,13 @@ div[black]{
 
 #back-room, #back-room-2{
     //margin-right: 6rem;
-    height: 30%;
-    width: 25%;
+    padding: 0 1rem;
+    
+    height: 7vh;
+   
+    //width: 8.5vw;
     font-family: SMM;
-    font-size: 2vh;
+    font-size: 3vh;
     background-color: #41C9A4;
     border-style: none;
     color: #F2FCF2;
@@ -392,10 +396,11 @@ div[black]{
 }
 
 #back-room-2{
-    width: 10%;
-    height: 10%;
+    height: 7vh;
+    //width: 8.5vw;
     background-color: #FE4845;
     border-color: #FE4845;
+    padding: 0 1rem;
 
     &:hover{
         color: #FE4845;
@@ -590,4 +595,113 @@ div[black]{
     }
 
 }
+
+.frosted-glass{
+    background-color: rgba(255, 255, 255, .15);  
+ backdrop-filter: blur(5px);
+}
   
+.pop-up-container{
+    grid-row: 2/4;
+    grid-column: 1/5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //background-color: red;
+}
+
+.pop-up{
+    height: 80%;
+    width: 60%;
+    background-color: blue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+    padding-bottom: 5%;
+    background-color: #FFFDEE;
+    //border: 3px solid #41C9A4;
+
+
+    .pop-up-title{
+        color: #5B1C1A;
+        font-family: SMM;
+        align-self: flex-start;
+        padding: 1rem 0 1rem 1rem;
+        font-size: 4.5vh;
+        border-bottom: 3px solid   #5B1C1A;
+        width: 100%;
+    }
+
+    .pop-up-text-box{
+        display: flex;
+        font-family: SMM;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    input{
+        width: 25vw;
+        height: 6vh;
+        border-radius: 8px;
+        color: #5B1C1A;
+        border-style: none;
+        outline: 3px solid  #5B1C1A;
+        font-size: 100%;
+        text-align: center;
+        font-family: SMM;
+        
+
+
+            &:focus{
+                outline: 3px solid  #FFCD00;
+            }
+    }
+
+    button{
+        width: 10vw;
+        height: 7vh;
+        font-family: SMM;
+        font-size: 100%;
+        border-radius: 8px;
+        outline: 3px solid  #FECE00;
+        background-color: #FECE00;
+        border-style: none;
+        color: #5B1C1A;
+        
+        transition: all .5s;
+        
+
+
+
+        &:hover{
+            color:#FECE00;
+            background-color: #F2FCF2;
+            
+        }
+
+    
+    }
+
+    
+}
+
+.pop-up[incorrect]{
+    height: 40%;
+    background-color: #FE4845;
+}
+
+button[incorrect]{
+    //height: 40%;
+    background-color: #CB3937;
+    outline-color:#CB3937;
+
+    &:hover{
+        color: #CB3937;
+    }
+}

@@ -6,12 +6,14 @@ const app = express();
 
 const authRouter = require('./routes/authRouter.js')
 
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 
 console.log(__dirname);
 app.use(express.static(__dirname + '/../frontend/css'));
 app.use(express.static(__dirname + '/../frontend/behaviour'));
 app.use(express.static(__dirname + '/../frontend/font'));
+app.use(express.static(__dirname + '/../avatar'));
+
 
 
 
