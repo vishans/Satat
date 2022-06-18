@@ -25,6 +25,7 @@ a, a:hover, a:focus, a:active {
     background-color: #DB7B00;
     transition: all 2s;
     //background-color: #FFCD00;
+    overflow-x: hidden;
     
 
 }
@@ -108,6 +109,14 @@ div[black]{
     cursor: pointer;
     transition: transform 2s;
 
+    
+
+}
+
+.hero[signUp]{
+    grid-row: 2/5;
+    //background-color: #41C9A4;
+
 }
 
 .hero-element{
@@ -186,14 +195,44 @@ div[black]{
     
     //background-color: red;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1rem;
+
+    button{
+        width: 10vw;
+        height: 7vh;
+        font-family: SMM;
+        font-size: 100%;
+        border-radius: 8px;
+        outline: 3px solid  #FECE00;
+        background-color: #FECE00;
+        border-style: none;
+        color: #5B1C1A;
+        
+        transition: all .5s;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+        
+
+
+
+        &:hover{
+            color:#FECE00;
+            background-color: #F2FCF2;
+            box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+
+            
+        }
+
+    
+    }
     
     
 
     .hublot{
-        height: calc(0.45*10vw);
+        height: calc(0.6*10vw);
         aspect-ratio: 1/1;
         background-color: #FFFDEE;
         border: 2px solid black;
@@ -545,6 +584,10 @@ div[black]{
         align-items: flex-start;
         gap: 3px;
 
+        span{
+            font-size: 1rem;
+        }
+
         input{
             width: 25vw;
             height: 5vh;
@@ -602,29 +645,53 @@ div[black]{
 }
   
 .pop-up-container{
-    grid-row: 2/4;
+    grid-row: 2/5;
     grid-column: 1/5;
     display: flex;
     justify-content: center;
     align-items: center;
     //background-color: red;
+    height: 100%;
+    width:100%;
 }
 
+
+
+
+
 .pop-up{
-    height: 80%;
+    height: 60vh;
     width: 60%;
+    gap: 0;
     background-color: blue;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 20% 80%;
+    // justify-content: space-between;
+    // align-items: center;
+    // flex-direction: column;
     border-radius: 8px;
     background-color: rgba(255, 255, 255, .15);  
     backdrop-filter: blur(5px);
     overflow: hidden;
-    padding-bottom: 5%;
     background-color: #FFFDEE;
     //border: 3px solid #41C9A4;
+    
+
+    .pop-up-body{
+        display: flex;
+        justify-content: center;
+        gap: .5rem;
+        align-items: center;
+        flex-direction: column;
+        grid-row: 2/3;
+        font-family: SMM;
+        
+        
+
+        //overflow: hidden;
+        //background-color: yellow;
+    }
 
 
     .pop-up-title{
@@ -635,6 +702,8 @@ div[black]{
         font-size: 4.5vh;
         border-bottom: 3px solid   #5B1C1A;
         width: 100%;
+        grid-row: 1/2;
+        //background-color: green;
     }
 
     .pop-up-text-box{
@@ -692,16 +761,115 @@ div[black]{
 }
 
 .pop-up[incorrect]{
-    height: 40%;
+    height: 60%;
     background-color: #FE4845;
+    
+}
+
+.pop-up-body[incorrect]{
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 2rem;
 }
 
 button[incorrect]{
     //height: 40%;
     background-color: #CB3937;
     outline-color:#CB3937;
+    margin-top: 2rem;
+    align-self: center;
 
     &:hover{
         color: #CB3937;
+    }
+}
+
+.wrapper[signup]{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 3/5;
+    grid-row: 2/3;
+    height: 100%;
+}
+
+
+.sign-up-board{
+   
+    //background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    
+
+    .hublot{
+        height: calc(0.6*10vw);
+        aspect-ratio: 1/1;
+        background-color: #FFFDEE;
+        border: 2px solid #DB7B00;
+        box-sizing: content-box;
+        border-radius: 8px;
+    }
+
+    .sign-up-semantic{
+        font-family: SMM;
+        color: #DB7B00;
+        
+
+    }
+
+    button{
+        width: 10vw;
+        height: 7vh;
+        font-family: SMM;
+        font-size: 100%;
+        border-radius: 8px;
+        outline: 3px solid #F66F2F;
+        background-color: #F66F2F;
+        border-style: none;
+        color: #5B1C1A;
+        
+        transition: all .5s;
+        
+
+
+
+        &:hover{
+            color:#F66F2F;
+            background-color: #F2FCF2;
+            
+        }
+
+    
+    }
+
+}
+
+.hublot-container{
+    //background-color: red;
+    
+    grid-row: 2/3;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1rem;
+    //padding-bottom: 10vh;
+    overflow-y: scroll;
+    //height: 100%;
+    .hublot{
+        height: calc(0.6*10vw);
+        aspect-ratio: 1/1;
+        background-color: #FFFDEE;
+        border: 2px solid black;
+        box-sizing: content-box;
+        border-radius: 8px;
+
+        .selected{
+            border-color: #FE4845;
+        }
     }
 }

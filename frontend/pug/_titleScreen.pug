@@ -23,9 +23,10 @@ html(lang="en")
             .hero 
                 .hero-element#create-room Create a Room
                 .hero-element#join-room Join a Room
-                .skeleton-hero-element 
-                    .mini-hero-element#sign-in Sign in
-                    a.mini-hero-element#sign-up(href="/signup") Sign up
+                if !loggedIn
+                    .skeleton-hero-element 
+                        a.mini-hero-element#sign-in(href="/signin") Sign in
+                        a.mini-hero-element#sign-up(href="/signup") Sign up
 
 
             .footer &copy; vissan 2022
@@ -52,8 +53,14 @@ html(lang="en")
 
             .wrapper
                 .sign-in-board
-                    .hublot
-                    .sign-in-semantic Not signed in
+                    if !loggedIn
+                        .hublot
+                        .sign-in-semantic Not signed in
+                    if loggedIn
+                        img.hublot(src=imgSrc)
+                        .sign-in-semantic Signed in as #{userName}
+                        a(href='/signout')
+                            button#log-out-button Log out
 
 
             .hero-create

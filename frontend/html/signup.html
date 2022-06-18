@@ -12,27 +12,33 @@
       <div class="title-join"> 
         <div class="title-join-wrap"> <span>Sign up</span></div>
       </div>
-      <div class="hero"> 
+      <div class="hero" signUp> 
         <div class="signup-form">
-          <form id="sign-up" action="submit">
+          <form id="sign-up" method="post">
             <div class="wrap"> 
               <label id="sign-up-name-label" for="signUpName">Name: </label>
-              <input id="sing-up-name-input" for="signUpName" type="text">
+              <input id="sign-up-name-input" for="signUpName" type="text" name="name" value="dsfgsd">
             </div>
             <div class="wrap">
               <label id="sign-up-username-label" for="signUpUsername">Username:</label>
-              <input id="sing-up-username-input" for="signUpUsername" type="text">
+              <input id="sign-up-username-input" for="signUpUsername" type="text" name="username" value="dsigsd"><span>only alphanumeric characters are allowed</span><span>at most 15 characters long </span>
             </div>
             <div class="wrap">
               <label id="sign-up-email-label" for="signUpEmail">Email:</label>
-              <input id="sing-up-email-input" for="signUpEmail" type="email">
+              <input id="sign-up-email-input" for="signUpEmail" type="email" name="email" value="dsfgsd@mail.com">
             </div>
             <div class="wrap"> 
               <label id="sign-up-password-label" for="signUpPassword">Password:</label>
-              <input id="sing-up-password-input" for="signUpPassword" type="password">
+              <input id="sign-up-password-input" for="signUpPassword" type="password" name="password" value="dsfgfgfagsd"><span>at least 8 characters long </span>
             </div>
             <button id="submit-button" type="submit">Submit</button>
           </form>
+        </div>
+      </div>
+      <div class="wrapper" signup>
+        <div class="sign-up-board"><img class="hublot">
+          <div class="sign-up-semantic">choose an avatar</div>
+          <button id="choose-avatar-button">choose</button>
         </div>
       </div>
     </div>
