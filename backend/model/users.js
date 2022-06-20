@@ -21,6 +21,14 @@ const userSchema = new mongoose.Schema({
     avatar: {
         type: String,
         //required: true
+    },
+    inGame:{
+        type: Boolean,
+        default: false
+    },
+    tempAuth:{
+        type: String,
+        
     }
 });
 
