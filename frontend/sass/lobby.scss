@@ -56,8 +56,54 @@
 #team-area{
     grid-column: 1/2;
     grid-row: 2/3;
-    //background-color: green;
+    background-color: #FAFFBD;
     //border-bottom: 3px solid white;
+    margin: 1vh;
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+    padding: 3vh;
+    
+
+    #teamA{
+        grid-column: 1/2;
+        background-color: #EE6360;
+        border-radius: 8px 0 0 8px;
+        border-right: 5px solid #FAFFBD;
+
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 100%;
+        color: #A14341;
+
+    }
+
+    #teamB{
+        grid-column: 2/3;
+        background-color: #6355C4;
+        border-radius: 0 8px 8px 0;
+        border-left: 5px solid #FAFFBD;
+
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 100%;
+        color: #3C3377;
+
+    }
+
+    .team-background-text{
+        grid-row: 1/2;
+        grid-column: 1/2;
+        font-size: 8vh;
+        font-family: SMM;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+
     
 
 }
@@ -81,37 +127,42 @@
     //background-color: #DCD8D4;
     grid-column: 2/3;
     grid-row: 2/4;
-    border-left: 3px solid white;
+    //border-left: 3px solid white;
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 10% 75% 15%;
+    grid-template-rows: 85% 15%;
 
-    .title{
-        //background-color: red;
-        color: #5B1C1A;
-        font-family: SMM;
-        font-size: 4vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+    #setting{
 
-    .body{
+        grid-row: 1/2;
+        background-color: #7FF6CE;
         margin: 1vh;
+        border-radius: 8px;
 
-        #body-items{
-            background-color: #10AF92;
+        display: grid;
+        grid-template-rows: 15% 85%;
+        grid-template-columns: 100%;
+
+        #setting-title{
+            grid-row: 1/2;
+            font-family: SMM;
+            font-size: 5vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
     }
 
     .foot{
         background-color: #11906F;
-        margin: .5vh 1vh;
+        margin: 1vh 1vh;
         border-radius: 8px;
         font-family: SMM;
         display: flex;
         align-items: center;
         justify-content: space-around;
+        grid-row: 2/3;
 
         button{
             all: unset;
