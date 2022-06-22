@@ -1,0 +1,121 @@
+#lobby {
+  grid-row: 1/5;
+  grid-column: 1/2;
+  background-color: #D1CEC5;
+  z-index: 2000;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-template-rows: 15% 60% 25%;
+  background-color: #00BE9C;
+}
+
+.lobby-title {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  font-family: SMM;
+  font-size: 8vh;
+  padding: 0 3vh;
+  display: flex;
+  align-items: center;
+  border-bottom: 3px solid #7FF5D3;
+  color: #5B1C1A;
+}
+
+.room-code {
+  grid-column: 2/3;
+  grid-row: 1/2;
+  border-bottom: 3px solid #7FF5D3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+.room-code #code {
+  font-size: 6vh;
+  background-color: #7FF5D3;
+  padding: 1vh;
+  border-radius: 8px;
+  width: fit-content;
+  font-family: SMM;
+}
+.room-code .code-title {
+  color: #5B1C1A;
+  font-family: SMM;
+}
+
+#team-area {
+  grid-column: 1/2;
+  grid-row: 2/3;
+}
+
+#player-area {
+  grid-column: 1/2;
+  grid-row: 3/4;
+}
+#player-area #player-container {
+  background-color: #FAFFBD;
+  margin: 1vh;
+  height: calc(100% - 2vh);
+  border-radius: 8px;
+}
+
+#lobby-setting {
+  grid-column: 2/3;
+  grid-row: 2/4;
+  border-left: 3px solid white;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 10% 75% 15%;
+}
+#lobby-setting .title {
+  color: #5B1C1A;
+  font-family: SMM;
+  font-size: 4vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#lobby-setting .body {
+  margin: 1vh;
+}
+#lobby-setting .body #body-items {
+  background-color: #10AF92;
+}
+#lobby-setting .foot {
+  background-color: #11906F;
+  margin: 0.5vh 1vh;
+  border-radius: 8px;
+  font-family: SMM;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+#lobby-setting .foot button {
+  all: unset;
+  font-family: SMM;
+  height: 7vh;
+  width: 10vw;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+  border: 3px solid;
+  box-sizing: content-box;
+  transition: all 0.2s;
+}
+#lobby-setting .foot #leave {
+  background-color: #FC6A6C;
+  border-color: #FC6A6C;
+}
+#lobby-setting .foot #leave:hover {
+  background-color: transparent;
+  color: #FC6A6C;
+}
+#lobby-setting .foot #ready {
+  background-color: #48D767;
+  border-color: #48D767;
+}
+#lobby-setting .foot #ready:hover {
+  background-color: transparent;
+  color: #48D767;
+}

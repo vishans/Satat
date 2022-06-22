@@ -63,6 +63,8 @@ app.use(express.static(__dirname + '/../frontend/css'));
 app.use(express.static(__dirname + '/../frontend/behaviour'));
 app.use(express.static(__dirname + '/../frontend/font'));
 app.use(express.static(__dirname + '/../avatar'));
+app.use(express.static(__dirname + '/../src/'));
+
 
 
 
@@ -120,6 +122,11 @@ app.post('/signin', async function(req,res){
     res.send('Bad credentials')
 
 
+})
+
+
+app.get('/game', function(req,res){
+    res.render('index');
 })
 
 io.on('connection', (socket) => {

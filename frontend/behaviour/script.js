@@ -100,14 +100,14 @@ function trans(e){
         }
 }
 
-
-setTimeout(function(){
+//Pause 
+// setTimeout(function(){
     
-    myHand[i].getElement().classList.add('CardTransition');
+//     myHand[i].getElement().classList.add('CardTransition');
     
-    myHand[i].getElement().addEventListener('transitionend', trans)
+//     myHand[i].getElement().addEventListener('transitionend', trans)
 
-}, 500);
+// }, 500);
     
 
 //sort button function

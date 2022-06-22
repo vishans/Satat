@@ -1,0 +1,160 @@
+#lobby{
+    grid-row: 1/5;
+    grid-column: 1/2;
+    background-color: #D1CEC5;
+    z-index: 2000;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 15% 60% 25%;
+    background-color: #00BE9C;
+    
+}
+
+.lobby-title{
+    grid-column: 1/2;
+    grid-row: 1/2;
+    //background-color: red;
+    font-family: SMM;
+    font-size: 8vh;
+    padding: 0 3vh;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid #7FF5D3;
+    color: #5B1C1A;
+
+
+    
+}
+
+.room-code{
+    grid-column: 2/3;
+    grid-row: 1/2;
+    //background-color: purple;
+    border-bottom: 3px solid #7FF5D3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+
+    #code{
+        font-size: 6vh;
+        background-color: #7FF5D3;
+        padding: 1vh;
+        border-radius: 8px;
+        width: fit-content;
+        font-family: SMM;
+    }
+
+    .code-title{
+        color: #5B1C1A;
+        font-family: SMM;
+    }
+
+}
+
+#team-area{
+    grid-column: 1/2;
+    grid-row: 2/3;
+    //background-color: green;
+    //border-bottom: 3px solid white;
+    
+
+}
+
+#player-area{
+    grid-column: 1/2;
+    grid-row: 3/4;
+    //background-color: skyblue;
+
+
+    #player-container{
+        background-color: #FAFFBD;
+        margin: 1vh;
+        height: calc(100% - 2vh);
+        border-radius: 8px;
+    }
+    
+}
+
+#lobby-setting{
+    //background-color: #DCD8D4;
+    grid-column: 2/3;
+    grid-row: 2/4;
+    border-left: 3px solid white;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 10% 75% 15%;
+
+    .title{
+        //background-color: red;
+        color: #5B1C1A;
+        font-family: SMM;
+        font-size: 4vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .body{
+        margin: 1vh;
+
+        #body-items{
+            background-color: #10AF92;
+        }
+    }
+
+    .foot{
+        background-color: #11906F;
+        margin: .5vh 1vh;
+        border-radius: 8px;
+        font-family: SMM;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        button{
+            all: unset;
+            font-family: SMM;
+            height: 7vh;
+            width: 10vw;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            border: 3px solid;
+            box-sizing: content-box;
+            transition: all .2s;
+
+        }
+
+        #leave{
+            background-color: #FC6A6C;
+            border-color: #FC6A6C;
+
+            &:hover{
+                background-color: transparent;
+                color: #FC6A6C;
+
+            }
+            
+            
+        }
+
+        #ready{
+            background-color: #48D767;
+            border-color: #48D767;
+
+            &:hover{
+                background-color: transparent;
+                color: #48D767;
+
+            }
+            
+        }
+
+        
+
+    }
+
+
+}
