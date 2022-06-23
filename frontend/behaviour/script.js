@@ -8,10 +8,10 @@ var allowControls = false;
 
 //player info element
 var masterPlayerInfoPlane = document.querySelector('#master-player-info-plane')
-let t = new MasterPlayerInfo(1,'Mario',[0,0],'Team B', 'lightblue','right')
-let k = new MasterPlayerInfo(2,'Luigi',[0,1],'Team B', 'lightblue','left')
-let l = new MasterPlayerInfo(3,'Peach (You)',[0,2],'Team A', 'salmon','bottom')
-let q = new MasterPlayerInfo(4,'Yoshi',[0,3],'Team A', 'salmon','top')
+let t = new MasterPlayerInfo(1,'Mario','0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png','Team B', 'lightblue','right')
+let k = new MasterPlayerInfo(2,'Luigi','f85090cb7a700ffa2ff2694a8c3e6593f2d6a952477f7461da1a03e42e29f0d8.png','Team B', 'lightblue','left')
+let l = new MasterPlayerInfo(3,'Peach (You)','f4bd88b3c722f2107fab95fbabc17165c060a19baf4bf0beccc6c576bcc6cabc.png','Team A', 'salmon','bottom')
+let q = new MasterPlayerInfo(4,'Yoshi','eee9e16a4d1da1005e393ae96f00b979acdcfa47510f25fd70cc0978ced3b7ff.png','Team A', 'salmon','top')
 
 t.setNumberOfCards(13);
 
@@ -409,3 +409,9 @@ function removeCardPlayerInfo(){
 
 
 
+let playerContainer = document.querySelector('#player-container');
+
+playerContainer.appendChild(t.getNewMinimalPlayerInfoElement())
+playerContainer.appendChild(k.getNewMinimalPlayerInfoElement())
+playerContainer.appendChild(l.getNewMinimalPlayerInfoElement())
+playerContainer.appendChild(q.getNewMinimalPlayerInfoElement())

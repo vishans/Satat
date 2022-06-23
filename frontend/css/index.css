@@ -163,6 +163,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  height: 100%;
 }
 
 .master-player-info-name {
@@ -314,11 +315,10 @@ body {
 }
 
 .minimal-player-info {
-  height: 12vh;
+  height: 15vh;
   display: flex;
   flex-direction: column;
   aspect-ratio: 1/1.2;
-  background-color: black;
   position: absolute;
   color: white;
   border-radius: 12px;
@@ -328,7 +328,7 @@ body {
 }
 
 .minimal-avatar {
-  height: 80%;
+  height: 100%;
   aspect-ratio: 1/1;
   border-radius: 12px 12px 0 0;
   overflow: hidden;

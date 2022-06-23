@@ -1,6 +1,3 @@
-var img = new Image();
-img.src="..\\..\\sprites.png";
-
 var imagePromise = new Promise(function(resolve, reject){
     img.onload = function(){
         resolve();
@@ -50,23 +47,11 @@ class MasterPlayerInfo{
         team.style.backgroundColor = this.teamColor;
         team.innerText = this.team;
 
-        let avatar = document.createElement('div');
+        let avatar = document.createElement('img');
         avatar.classList.add('master-player-info-avatar');
         avatar.style.backgroundColor = this.teamColor;
+        avatar.src = '/' + this.avatar;
         
-        let canvas=document.createElement("canvas");
-        let ctx=canvas.getContext("2d");
-
-        playArea.appendChild(canvas)
-        canvas.setAttribute('width', '100');
-        canvas.setAttribute('height', '100');
-        let aRow = this.avatar[0];
-        let aCol = this.avatar[1];
-
-        imagePromise.then(function(){ctx.drawImage(img,1+(256*aCol),1+(257*aRow),256,256,0,0,100,100)})
-        //img.onload = function(){ctx.drawImage(img,1+(256*0),1+(257*2),256,256,0,0,100,100)}
-
-        avatar.appendChild(canvas);
 
         let name = document.createElement('div');
         name.classList.add('master-player-info-name');
@@ -92,23 +77,13 @@ class MasterPlayerInfo{
         let newParent = document.createElement('div');
         newParent.classList.add('minimal-player-info');
 
-        let canvas=document.createElement("canvas");
-        let ctx=canvas.getContext("2d");
-
-        playArea.appendChild(canvas)
-        canvas.setAttribute('width', '100');
-        canvas.setAttribute('height', '100');
-
-        let aRow = this.avatar[0];
-        let aCol = this.avatar[1];
-
-        imagePromise.then(function(){ctx.drawImage(img,1+(256*aCol),1+(257*aRow),256,256,0,0,100,100)})
-
-        let avatar = document.createElement('div');
+        
+        let avatar = document.createElement('img');
         avatar.classList.add('minimal-avatar');
         avatar.style.backgroundColor = this.teamColor;
+        avatar.src = '/' + this.avatar;
 
-        avatar.appendChild(canvas);
+
 
         let name = document.createElement('div');
         name.classList.add('minimal-name');

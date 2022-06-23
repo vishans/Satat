@@ -90,10 +90,17 @@
   grid-row: 3/4;
 }
 #player-area #player-container {
+  width: 95%;
   background-color: #FAFFBD;
   margin: 1vh;
   height: calc(100% - 2vh);
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+#player-area #player-container .minimal-player-info {
+  position: static;
 }
 
 #lobby-setting {

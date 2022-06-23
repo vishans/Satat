@@ -7,6 +7,7 @@
     grid-template-columns: 70% 30%;
     grid-template-rows: 15% 60% 25%;
     background-color: #00BE9C;
+    //display: none;
     
 }
 
@@ -115,10 +116,20 @@
 
 
     #player-container{
+        width: 95%;
         background-color: #FAFFBD;
         margin: 1vh;
         height: calc(100% - 2vh);
         border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        
+
+        .minimal-player-info{
+            position: static;
+            
+        }
     }
     
 }
