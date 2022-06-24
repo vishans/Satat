@@ -1,19 +1,9 @@
-var imagePromise = new Promise(function(resolve, reject){
-    img.onload = function(){
-        resolve();
-    }
-})
-
 
 class MasterPlayerInfo{
 
-    constructor(playerID,playerName,avatar, team, teamColor, position = 'left', numberOfCards = 13, connectionStatus = 'online'){
-        this.playerID = playerID
-        this.playerName = playerName;
-        this.avatar = avatar;
-        this.team = team;
-        this.teamColor = teamColor;
-        this.position = position
+    constructor(playerObj, position = 'left', numberOfCards = 13, connectionStatus = 'online'){
+        this.playerObj = playerObj;
+        this.position = position;
         this.numberOfCards = numberOfCards;
         this.connectionStatus = connectionStatus;
 
@@ -44,19 +34,19 @@ class MasterPlayerInfo{
 
         let team = document.createElement('div');
         team.classList.add('master-player-info-team');
-        team.style.backgroundColor = this.teamColor;
-        team.innerText = this.team;
+        team.style.backgroundColor = this.playerObj.teamColor;
+        team.innerText = this.playerObj.team;
 
         let avatar = document.createElement('img');
         avatar.classList.add('master-player-info-avatar');
-        avatar.style.backgroundColor = this.teamColor;
-        avatar.src = '/' + this.avatar;
+        avatar.style.backgroundColor = this.playerObj.teamColor;
+        avatar.src = '/' + this.playerObj.avatar;
         
 
         let name = document.createElement('div');
         name.classList.add('master-player-info-name');
-        name.style.backgroundColor = this.teamColor;
-        name.innerText = this.playerName;
+        name.style.backgroundColor = this.playerObj.teamColor;
+        name.innerText = this.playerObj.name;
 
         newMasterElement.appendChild(team);
         newMasterElement.appendChild(avatar);
@@ -80,15 +70,15 @@ class MasterPlayerInfo{
         
         let avatar = document.createElement('img');
         avatar.classList.add('minimal-avatar');
-        avatar.style.backgroundColor = this.teamColor;
-        avatar.src = '/' + this.avatar;
+        avatar.style.backgroundColor = this.playerObj.teamColor;
+        avatar.src = '/' + this.playerObj.avatar;
 
 
 
         let name = document.createElement('div');
         name.classList.add('minimal-name');
         //name.style.backgroundColor = this.teamColor;
-        name.innerText = this.playerName;
+        name.innerText = this.playerObj.name;
 
         newParent.appendChild(avatar);
         newParent.appendChild(name);

@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
     tempAuth:{
         type: String,
         
+    },
+    socketID:{
+        type: String,
+        
     }
 });
 

@@ -1,3 +1,7 @@
+let playerContainer = document.querySelector('#player-container');
+
+
+
 
 let cardContainer = document.querySelector("#card-container");
 let sortButton = document.querySelector('#sort-button');
@@ -6,31 +10,36 @@ let playAreaColor = document.querySelector('.play-area-color-1');
 var mouseOverArea = false;
 var allowControls = false;
 
+let playerList = new Map();
+const clientCommunication = new ClientCommunication();
+
+
+
 //player info element
 var masterPlayerInfoPlane = document.querySelector('#master-player-info-plane')
-let t = new MasterPlayerInfo(1,'Mario','0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png','Team B', 'lightblue','right')
-let k = new MasterPlayerInfo(2,'Luigi','f85090cb7a700ffa2ff2694a8c3e6593f2d6a952477f7461da1a03e42e29f0d8.png','Team B', 'lightblue','left')
-let l = new MasterPlayerInfo(3,'Peach (You)','f4bd88b3c722f2107fab95fbabc17165c060a19baf4bf0beccc6c576bcc6cabc.png','Team A', 'salmon','bottom')
-let q = new MasterPlayerInfo(4,'Yoshi','eee9e16a4d1da1005e393ae96f00b979acdcfa47510f25fd70cc0978ced3b7ff.png','Team A', 'salmon','top')
+// let t = new MasterPlayerInfo(1,'Mario','0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png','Team B', 'lightblue','right')
+// let k = new MasterPlayerInfo(2,'Luigi','f85090cb7a700ffa2ff2694a8c3e6593f2d6a952477f7461da1a03e42e29f0d8.png','Team B', 'lightblue','left')
+// let l = new MasterPlayerInfo(3,'Peach (You)','f4bd88b3c722f2107fab95fbabc17165c060a19baf4bf0beccc6c576bcc6cabc.png','Team A', 'salmon','bottom')
+// let q = new MasterPlayerInfo(4,'Yoshi','eee9e16a4d1da1005e393ae96f00b979acdcfa47510f25fd70cc0978ced3b7ff.png','Team A', 'salmon','top')
 
-t.setNumberOfCards(13);
+// t.setNumberOfCards(13);
 
-var masterPlayerInfoArray = [t,k,l,q];
+// var masterPlayerInfoArray = [t,k,l,q];
 
-var playerIDToInfoObjMap = {1:t, 2:k, 3:l, 4:q, }
+// var playerIDToInfoObjMap = {1:t, 2:k, 3:l, 4:q, }
 
 
-masterPlayerInfoPlane.appendChild(t.getElement());
-t.calculateAndSetPosition();
+// masterPlayerInfoPlane.appendChild(t.getElement());
+// t.calculateAndSetPosition();
 
-masterPlayerInfoPlane.appendChild(k.getElement());
-k.calculateAndSetPosition();
+// masterPlayerInfoPlane.appendChild(k.getElement());
+// k.calculateAndSetPosition();
 
-masterPlayerInfoPlane.appendChild(l.getElement());
-l.calculateAndSetPosition();
+// masterPlayerInfoPlane.appendChild(l.getElement());
+// l.calculateAndSetPosition();
 
-masterPlayerInfoPlane.appendChild(q.getElement());
-q.calculateAndSetPosition();
+// masterPlayerInfoPlane.appendChild(q.getElement());
+// q.calculateAndSetPosition();
 
 
 
@@ -409,9 +418,8 @@ function removeCardPlayerInfo(){
 
 
 
-let playerContainer = document.querySelector('#player-container');
 
-playerContainer.appendChild(t.getNewMinimalPlayerInfoElement())
-playerContainer.appendChild(k.getNewMinimalPlayerInfoElement())
-playerContainer.appendChild(l.getNewMinimalPlayerInfoElement())
-playerContainer.appendChild(q.getNewMinimalPlayerInfoElement())
+// playerContainer.appendChild(t.getNewMinimalPlayerInfoElement())
+// playerContainer.appendChild(k.getNewMinimalPlayerInfoElement())
+// playerContainer.appendChild(l.getNewMinimalPlayerInfoElement())
+// playerContainer.appendChild(q.getNewMinimalPlayerInfoElement())

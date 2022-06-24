@@ -1,10 +1,14 @@
 class Player{
-    constructor(name,team,hand,socketID=null){
+    constructor(name, avatar, socketID){
         this.name = name;
-        this.team = team;
+        this.avatar = avatar;
+        this.team = null;
         this.socketID = socketID;
-        this.score = 0;
-        this.hand = hand;
+        this.team = null;
+        this.teamColor = 'beige';
+        this.masterPlayerInfoObject = null;
+        //this.score = 0;
+        //this.hand = hand;
         this.renounce = {
             'Spade': [],
             'Heart': [],

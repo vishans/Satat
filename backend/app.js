@@ -27,9 +27,21 @@ const port = 3000;
 //utils
 const makeTempID = require('./utils/makeTempID')
 
+//src
+const Communication = require('./src/communication');
+const Room = require('./src/room');
+
+
 //pug
 app.set('view engine', 'pug');
 app.set('views', './frontend/pug');
+
+//game stuffs
+let globalRoom = new Map();
+let connectedUsers = new Map();
+
+globalRoom.set('123456789', new Room('123456789'))
+
 
 
 
@@ -74,9 +86,10 @@ app.get('/',async (req, res)=>{
     if (result) {
         avatar = result.avatar;
         const tempID = makeTempID(10);
-        if(!result.inGame)
-        await Users.updateOne({username: req.session.username}, {tempAuth: tempID});
-        res.cookie('tempAuth', tempID);
+        if(!result.inGame){
+            await Users.updateOne({username: req.session.username}, {tempAuth: tempID});
+            res.cookie('tempAuth', tempID);
+        }
     }
     res.render('_titleScreen', {loggedIn: req.session.username,
     userName: req.session.username,
@@ -108,6 +121,8 @@ app.post('/signin', async function(req,res){
     username = req.body.username;
     password = req.body.password;
 
+    console.log(req.body)
+
     const doc = await Users.findOne({username: username});
     console.log(doc)
     if(doc){
@@ -119,7 +134,7 @@ app.post('/signin', async function(req,res){
         }
     }
 
-    res.send('Bad credentials')
+    res.status(403).send('Bad credentials')
 
 
 })
@@ -129,18 +144,36 @@ app.get('/game', function(req,res){
     res.render('index');
 })
 
-io.on('connection', (socket) => {
-    console.log('a user connected');
-    socket.on('disconnect', () => {
-      console.log('user disconnected');
-    });
+app.get('/aroom', function(req, res){
+    if(req.session.username){
+        let roomCode = makeTempID(9,true);
+        globalRoom.set(roomCode, new Romm(roomCode))
+        res.send({
+            status: 'sucess',
+            roomCode});
 
-    socket.on('bro', (v) => {
-        console.log(v);
-      });
+        console.log(globalRoom);
+        return
+    }
+
+    res.status(403).send('You need to be signed in');
+})
+
+// io.on('connection', (socket) => {
+//     console.log('a user connected');
+//     socket.on('disconnect', () => {
+//       console.log('user disconnected');
+//     });
+
+//     socket.on('bro', (v) => {
+//         console.log(v);
+//       });
 
 
-});
+// });
+
+com = new Communication(io, connectedUsers);
+com.start();
 
 
 
