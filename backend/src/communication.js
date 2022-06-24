@@ -2,9 +2,9 @@ const io = require('socket.io');
 const Users = require('../model/users')
 
 class Communication{
-    constructor(io, connectedUsers){
+    constructor(io, rooms){
         this.io = io;
-        this.connectedUsers = connectedUsers;
+        this.rooms = rooms;
     
     }
 
@@ -16,23 +16,52 @@ class Communication{
             console.log('a user connected ' + socket.request
             ._query['authCookie']);
             console.log(tempAuth)
+
+            let roomCode = socket.request
+            ._query['roomCode'];
+
+            //invalid room
+            if(!this.rooms.has(roomCode)){
+                console.log('invalid room')
+                socket.emit('invalid room')
+                socket.disconnect();
+                return;
+            }
+            
+
+
             const result = await Users.findOne({tempAuth : tempAuth})
             //console.log(result)
+            
+            //invalid tempAuth
             if(!result){
                 //to test
                 console.log('forceful disconnect')
                 socket.disconnect();
                 return;
             }
+
+            if(result.inGame && result.socketId != socket.id){
+                console.log('more than 1 instances');
+                socket.emit('more than 1 instances');
+                socket.disconnect()
+                return;
+            }
+
+
+
+
+
             await Users.updateOne({_id : result._id}, {inGame: true, socketID : socket.id});
-            this.connectedUsers.set(socket.id, socket);
-            //console.log(this.connectedUsers)
+            this.rooms.get(roomCode).players.set(socket.id, 0);
+            socket.join(roomCode);
             
             socket.on('disconnect', async () => {
                 //implement socket disconnect on logout
               console.log('user disconnected');
               await Users.updateOne({socketID : socket.id}, {inGame: false, socketID : null});
-              this.connectedUsers.delete(socket.id);
+              this.rooms.get(roomCode).players.delete(socket.id);
+
             });
         
             socket.emit('handshake', {username: result.username, 

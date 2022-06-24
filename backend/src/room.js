@@ -1,7 +1,7 @@
 class Room{
     constructor(roomCode){
         this.roomCode = roomCode;
-        this.players = [];
+        this.players = new Map();
     }
 }
 

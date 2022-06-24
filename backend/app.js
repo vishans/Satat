@@ -158,21 +158,14 @@ app.get('/aroom', function(req, res){
 
     res.status(403).send('You need to be signed in');
 })
+//await Users.updateMany({inGame: true}, {inGame: false, socketID: null})
+const resetInGame = async () =>{
+    await Users.updateMany({inGame: true}, {inGame: false, socketID: null})
+}
 
-// io.on('connection', (socket) => {
-//     console.log('a user connected');
-//     socket.on('disconnect', () => {
-//       console.log('user disconnected');
-//     });
+resetInGame();
 
-//     socket.on('bro', (v) => {
-//         console.log(v);
-//       });
-
-
-// });
-
-com = new Communication(io, connectedUsers);
+com = new Communication(io, globalRoom);
 com.start();
 
 

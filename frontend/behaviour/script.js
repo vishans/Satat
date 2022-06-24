@@ -24,7 +24,7 @@ var masterPlayerInfoPlane = document.querySelector('#master-player-info-plane')
 
 // t.setNumberOfCards(13);
 
-// var masterPlayerInfoArray = [t,k,l,q];
+// var playerList = [t,k,l,q];
 
 // var playerIDToInfoObjMap = {1:t, 2:k, 3:l, 4:q, }
 
@@ -176,7 +176,7 @@ window.onresize = function(){
 
     // })
     
-    // masterPlayerInfoArray.forEach(function(obj){
+    // playerList.forEach(function(obj){
     //     obj.listen('transitionend', function(){
     //         obj.calculateAndSetPosition();
     //         obj.removeListener('transitionend',arguments.callee)
@@ -184,8 +184,8 @@ window.onresize = function(){
     // })
 
     setTimeout(() => {
-        masterPlayerInfoArray.forEach(function(obj){
-            obj.calculateAndSetPosition();
+        playerList.forEach(function(value, key){
+            value.masterPlayerInfoObject.calculateAndSetPosition();
         })
     }, 500);
     
@@ -203,8 +203,8 @@ let spreadCardHitBox = document.querySelector('#spread-card-hit-box');
 
 spreadCardHitBox.onmouseover = function(){
     mouseOverArea = true;
-    masterPlayerInfoArray.forEach(function(obj){
-        obj.hideMasterInfoElement()
+    playerList.forEach(function(value, key){
+        value.hideMasterInfoElement()
     })
     //if(cardsInArea.length == 1) return;
 
@@ -239,8 +239,8 @@ spreadCardHitBox.onmouseout = function(){
     mouseOverArea = false;
     centerAreaCard()
     removeCardPlayerInfo();
-    masterPlayerInfoArray.forEach(function(obj){
-        obj.calculateAndSetPosition()
+    playerList.forEach(function(value, key){
+        value.calculateAndSetPosition()
     })
 }
 
