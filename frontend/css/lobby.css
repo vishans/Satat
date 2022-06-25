@@ -13,7 +13,7 @@
   grid-column: 1/2;
   grid-row: 1/2;
   font-family: SMM;
-  font-size: 8vh;
+  font-size: min(4vw, 8vh);
   padding: 0 3vh;
   display: flex;
   align-items: center;
@@ -32,7 +32,7 @@
   gap: 3px;
 }
 .room-code #code {
-  font-size: 6vh;
+  font-size: min(6vh, 3vw);
   background-color: #7FF5D3;
   padding: 1vh;
   border-radius: 8px;
@@ -75,6 +75,10 @@
   grid-template-rows: 100%;
   color: #3C3377;
 }
+#team-area .minimal-player-info {
+  position: static;
+  height: 15vh;
+}
 #team-area .team-background-text {
   grid-row: 1/2;
   grid-column: 1/2;
@@ -85,9 +89,23 @@
   align-items: center;
 }
 
+.team-player-container {
+  grid-row: 1/2;
+  grid-column: 1/2;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.team-player-container .minimal-player-info {
+  position: static;
+}
+
 #player-area {
   grid-column: 1/2;
   grid-row: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #player-area #player-container {
   width: 95%;
@@ -101,6 +119,7 @@
 }
 #player-area #player-container .minimal-player-info {
   position: static;
+  height: 15vh;
 }
 
 #lobby-setting {
@@ -122,10 +141,44 @@
 #lobby-setting #setting #setting-title {
   grid-row: 1/2;
   font-family: SMM;
-  font-size: 5vh;
+  font-size: min(5vh, 2.5vw);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+#lobby-setting #setting #setting-body {
+  grid-row: 2/3;
+  overflow: auto;
+}
+#lobby-setting #setting #setting-body form {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+}
+#lobby-setting .setting-form-element {
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 1vh;
+  font-family: SMM;
+}
+#lobby-setting .setting-form-element .form-question {
+  grid-row: 1/2;
+  display: flex;
+  align-items: center;
+  padding-left: 1vw;
+}
+#lobby-setting .setting-form-element .form-choice {
+  grid-row: 2/3;
+  display: flex;
+  justify-content: space-around;
+  padding-left: 2vw;
+  flex-direction: column;
+  gap: 1vh;
+}
+#lobby-setting .setting-form-element .form-choice .radio-choice {
+  display: flex;
+  gap: 2vh;
+  align-items: center;
 }
 #lobby-setting .foot {
   background-color: #11906F;

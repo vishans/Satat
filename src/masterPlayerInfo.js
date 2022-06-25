@@ -68,6 +68,10 @@ class MasterPlayerInfo{
         newParent.classList.add('minimal-player-info');
         newParent.setAttribute('username', this.playerObj.username)
         
+        if(this.playerObj.socketID){
+            newParent.classList.add('outline');
+        }
+
         let avatar = document.createElement('img');
         avatar.classList.add('minimal-avatar');
         avatar.style.backgroundColor = this.playerObj.teamColor;

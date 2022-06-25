@@ -16,7 +16,7 @@
     grid-row: 1/2;
     //background-color: red;
     font-family: SMM;
-    font-size: 8vh;
+    font-size: min(4vw,8vh);
     padding: 0 3vh;
     display: flex;
     align-items: center;
@@ -39,7 +39,7 @@
     gap: 3px;
 
     #code{
-        font-size: 6vh;
+        font-size: min(6vh,3vw);
         background-color: #7FF5D3;
         padding: 1vh;
         border-radius: 8px;
@@ -93,6 +93,12 @@
 
     }
 
+    .minimal-player-info{
+        position: static;
+        height: 15vh//min(20vh,11vw);
+        
+    }
+
     .team-background-text{
         grid-row: 1/2;
         grid-column: 1/2;
@@ -109,10 +115,28 @@
 
 }
 
+.team-player-container{
+    grid-row: 1/2;
+    grid-column: 1/2;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .minimal-player-info{
+        position: static;
+        //height: 16vw//min(16vh,8vw);
+
+        
+    }
+}
+
 #player-area{
     grid-column: 1/2;
     grid-row: 3/4;
     //background-color: skyblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 
     #player-container{
@@ -122,12 +146,14 @@
         height: calc(100% - 2vh);
         border-radius: 8px;
         display: flex;
+        
         align-items: center;
         justify-content: space-around;
         
 
         .minimal-player-info{
             position: static;
+            height: 15vh;
             
         }
     }
@@ -157,12 +183,57 @@
         #setting-title{
             grid-row: 1/2;
             font-family: SMM;
-            font-size: 5vh;
+            font-size: min(5vh,2.5vw);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
+        #setting-body{
+            grid-row: 2/3;
+            //background-color: red;
+            overflow: auto;
+            form{
+                display: flex;
+                flex-direction: column;
+                gap: 3vh;
+            }
+        }
+
+    }
+
+    .setting-form-element{
+        display: grid;
+        grid-template-rows: auto auto;//minmax(3vh,20vh);
+        gap: 1vh;
+        font-family: SMM;
+        //font-family: 'Roboto Condensed', sans-serif;
+
+
+        .form-question{
+            grid-row: 1/2;
+            //background-color: gold;
+            display: flex;
+            align-items: center;
+            padding-left: 1vw;
+
+        }
+        .form-choice{
+            grid-row: 2/3;
+            //background-color: green;
+            display: flex;
+            justify-content: space-around;
+            padding-left: 2vw;
+            flex-direction: column;
+            gap: 1vh;
+
+            .radio-choice{
+                display: flex;
+                gap: 2vh;
+                align-items: center;
+                
+            }
+        }
     }
 
     .foot{

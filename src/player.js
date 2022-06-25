@@ -1,10 +1,10 @@
 class Player{
-    constructor(username, avatar, socketID){
+    constructor(username, avatar,team, socketID){
         this.username = username;
         this.avatar = avatar;
         this.team = null;
         this.socketID = socketID;
-        this.team = null;
+        this.team = team;
         this.teamColor = 'beige';
         this.masterPlayerInfoObject = null;
         //this.score = 0;

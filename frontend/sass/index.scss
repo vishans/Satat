@@ -437,9 +437,15 @@ body{
     position: absolute;
     color: white;
     border-radius: 12px;
-    font-size: 1vw;
+    font-size: 90%;
     text-overflow: ellipsis;
     overflow:hidden;
+
+    
+}
+
+.outline{
+    outline: 2px solid red;
 }
 
 .minimal-avatar{

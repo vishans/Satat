@@ -38,9 +38,11 @@
         <div id="team-area">
           <div id="teamA">
             <div class="team-background-text">Team A</div>
+            <div class="team-player-container"></div>
           </div>
           <div id="teamB">
             <div class="team-background-text">Team B</div>
+            <div class="team-player-container"></div>
           </div>
         </div>
         <div id="player-area">
@@ -49,6 +51,66 @@
         <div id="lobby-setting">
           <div id="setting">
             <div id="setting-title">Game setting</div>
+            <div id="setting-body">
+              <form> 
+                <div class="setting-form-element">
+                  <div class="form-question">Who starts the game</div>
+                  <div class="form-choice">
+                    <div class="radio-choice">
+                      <input id="start-game" type="radio" name="start-game" value="server">
+                      <label>The server randomly chooses a player.</label>
+                    </div>
+                    <div class="radio-choice">
+                      <input id="start-game" type="radio" name="start-game" value="playerCard" checked>
+                      <label>The players will each draw a card. The one having the strongest card starts.</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="setting-form-element">
+                  <div class="form-question">Who chooses troop</div>
+                  <div class="form-choice">
+                    <div class="radio-choice">
+                      <input id="start-game" type="radio" name="troop-chooser" value="startingPlayer" checked>
+                      <label>The player who starts.</label>
+                    </div>
+                    <div class="radio-choice">
+                      <input id="start-game" type="radio" name="troop-chooser" value="playerCard">
+                      <label>The server randomly chooses a player.</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="setting-form-element">
+                  <div class="form-question">Wait time before moving on to the next round</div>
+                  <div class="form-choice" style="flex-direction: row;">
+                    <div class="radio-choice">
+                      <input id="start-game" type="radio" name="next-round-wait-time" value="5">
+                      <label>5s</label>
+                    </div>
+                    <div class="radio-choice">
+                      <input id="start-game" type="radio" name="next-round-wait-time" value="8" checked>
+                      <label>8s</label>
+                    </div>
+                    <div class="radio-choice">
+                      <input id="start-game" type="radio" name="next-round-wait-time" value="12">
+                      <label>12s</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="setting-form-element">
+                  <div class="form-question">What happens when someone leaves the room mid-game</div>
+                  <div class="form-choice">
+                    <div class="radio-choice">
+                      <input id="start-game" type="radio" name="mid-game-leaver" value="loseGame" checked>
+                      <label>That person's team loses the game.</label>
+                    </div>
+                    <div class="radio-choice" style="color: gray;">
+                      <input id="start-game" type="radio" name="mid-game-leaver" value="wait" disabled>
+                      <label>Hold the game and wait for that person to come back.</label>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
           <div class="foot">
             <button id="ready">Ready</button>

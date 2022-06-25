@@ -1,6 +1,8 @@
+var socket = io('/', {query: {'authCookie': this.authCookie,
+                            'roomCode': this.roomCode}});
 let playerContainer = document.querySelector('#player-container');
-
-
+let teamA = document.querySelector('#teamA .team-player-container');
+let teamB = document.querySelector('#teamB .team-player-container');
 
 
 let cardContainer = document.querySelector("#card-container");
@@ -12,6 +14,26 @@ var allowControls = false;
 
 let playerList = new Map();
 const clientCommunication = new ClientCommunication();
+
+
+teamA.onclick = ()=>{
+    console.log('A')
+    socket.emit('team','A')
+}
+
+teamB.onclick = ()=>{
+    console.log('B')
+    socket.emit('team','B')
+}
+
+
+playerContainer.onclick = ()=>{
+    //console.log('B')
+    socket.emit('team',null);
+}
+
+
+
 
 
 
