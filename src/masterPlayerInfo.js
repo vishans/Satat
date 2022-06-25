@@ -46,7 +46,7 @@ class MasterPlayerInfo{
         let name = document.createElement('div');
         name.classList.add('master-player-info-name');
         name.style.backgroundColor = this.playerObj.teamColor;
-        name.innerText = this.playerObj.name;
+        name.innerText = this.playerObj.username;
 
         newMasterElement.appendChild(team);
         newMasterElement.appendChild(avatar);
@@ -66,7 +66,7 @@ class MasterPlayerInfo{
     __createMinimalPlayerInfoElement(){
         let newParent = document.createElement('div');
         newParent.classList.add('minimal-player-info');
-
+        newParent.setAttribute('username', this.playerObj.username)
         
         let avatar = document.createElement('img');
         avatar.classList.add('minimal-avatar');
@@ -78,7 +78,7 @@ class MasterPlayerInfo{
         let name = document.createElement('div');
         name.classList.add('minimal-name');
         //name.style.backgroundColor = this.teamColor;
-        name.innerText = this.playerObj.name;
+        name.innerText = this.playerObj.username;
 
         newParent.appendChild(avatar);
         newParent.appendChild(name);

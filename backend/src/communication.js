@@ -1,10 +1,14 @@
 const io = require('socket.io');
 const Users = require('../model/users')
+const Player = require('./players')
+
 
 class Communication{
     constructor(io, rooms){
         this.io = io;
         this.rooms = rooms;
+
+
     
     }
 
@@ -41,6 +45,7 @@ class Communication{
                 return;
             }
 
+            // do not allow more than 1 instances of game per client
             if(result.inGame && result.socketId != socket.id){
                 console.log('more than 1 instances');
                 socket.emit('more than 1 instances');
@@ -53,20 +58,43 @@ class Communication{
 
 
             await Users.updateOne({_id : result._id}, {inGame: true, socketID : socket.id});
-            this.rooms.get(roomCode).players.set(socket.id, 0);
+            let newPlayer = new Player(result.username, result.avatar, socket.id)
+            this.rooms.get(roomCode).players.set(socket.id, newPlayer);
             socket.join(roomCode);
+            socket.data.roomCode = roomCode;
             
-            socket.on('disconnect', async () => {
+            socket.on('disconnecting', async ()=> {
                 //implement socket disconnect on logout
               console.log('user disconnected');
               await Users.updateOne({socketID : socket.id}, {inGame: false, socketID : null});
-              this.rooms.get(roomCode).players.delete(socket.id);
+              
+             
+              const username =this.rooms.get(socket.data.roomCode).players.get(socket.id).username
+              this.rooms.get(socket.data.roomCode).players.delete(socket.id);
+              socket.broadcast.to(socket.data.roomCode).emit('user disconnect', {username: username })
 
             });
         
+            const playersInRoom = this.rooms.get(roomCode).players;
+           
+            const tempPlayerArray = []
+            playersInRoom.forEach((value, key, map)=>{
+                
+                tempPlayerArray.push({'username': value.username,
+                                        'avatar': value.avatar,
+                                    'lobbyVisibility': value.lobbyVisibility});
+            })
+            
+            const justConnectedPlayer = this.rooms.get(roomCode).players.get(socket.id)
+            socket.broadcast.to(roomCode).emit('new conn', {'username': justConnectedPlayer.username,
+                                                    'avatar': justConnectedPlayer.avatar,
+                                                'lobbyVisibility': justConnectedPlayer.lobbyVisibility})
+            
             socket.emit('handshake', {username: result.username, 
-                                        avatar: result.avatar});
-        
+                                        avatar: result.avatar,
+                                        players: tempPlayerArray});
+                
+            //console.log(socket.rooms)
         
         });
 

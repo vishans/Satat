@@ -7,25 +7,18 @@ class Player{
         this.team = null;
         this.teamColor = 'beige';
         this.masterPlayerInfoObject = null;
-        //this.score = 0;
-        //this.hand = hand;
+        this.lobbyVisibility = true;
+        this.score = 0;
+        this.hand = null;
+        this.roomCode = 0;
         this.renounce = {
             'Spade': [],
             'Heart': [],
             'Diamond': [],
             'Club': [],
 
-        };
+        }
     }
 }
 
-class gameCapture{
-    constructor(Playerorder){
-        this.Playerorder = Playerorder;
-        this.currentTurn = 1;
-        this.playerTurnCounter = 1;
-        this.history = [];
-    }
-
-
-}
+module.exports = Player;
