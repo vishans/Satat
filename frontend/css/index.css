@@ -324,7 +324,19 @@ body {
   border-radius: 12px;
   font-size: 90%;
   text-overflow: ellipsis;
-  overflow: hidden;
+}
+
+.ready::after {
+  font-family: SMM;
+  content: "Ready";
+  height: 15%;
+  top: -5%;
+  right: -5%;
+  aspect-ratio: 1/1;
+  border-radius: 8px;
+  background-color: green;
+  position: absolute;
+  padding: 0.5vh;
 }
 
 .outline {

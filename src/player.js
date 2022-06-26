@@ -1,5 +1,5 @@
 class Player{
-    constructor(username, avatar,team, socketID){
+    constructor(username, avatar,team, ready, admin,socketID){
         this.username = username;
         this.avatar = avatar;
         this.team = null;
@@ -7,6 +7,8 @@ class Player{
         this.team = team;
         this.teamColor = 'beige';
         this.masterPlayerInfoObject = null;
+        this.ready = ready;
+        this.admin = admin;
         //this.score = 0;
         //this.hand = hand;
         this.renounce = {

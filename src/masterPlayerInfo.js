@@ -72,6 +72,10 @@ class MasterPlayerInfo{
             newParent.classList.add('outline');
         }
 
+        if(this.playerObj.ready){
+            newParent.classList.add('ready');
+        }
+
         let avatar = document.createElement('img');
         avatar.classList.add('minimal-avatar');
         avatar.style.backgroundColor = this.playerObj.teamColor;
@@ -81,7 +85,8 @@ class MasterPlayerInfo{
 
         let name = document.createElement('div');
         name.classList.add('minimal-name');
-        //name.style.backgroundColor = this.teamColor;
+        if(this.playerObj.admin)
+            name.style.backgroundColor = 'red';
         name.innerText = this.playerObj.username;
 
         newParent.appendChild(avatar);

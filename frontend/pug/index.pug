@@ -48,13 +48,18 @@ html(lang="en")
             #lobby
                 .lobby-title Lobby
                 .room-code
-                    #code 123-456-789
+                    #code=roomCode
                     .code-title Room-code
                 #team-area
                     #teamA
+                        .team-count 0/2
+
                         .team-background-text Team A
                         .team-player-container
+
                     #teamB
+                        .team-count 0/2
+
                         .team-background-text Team B
                         .team-player-container
 
@@ -113,7 +118,7 @@ html(lang="en")
                                         .radio-choice(style='color: gray;')
                                             input#start-game(type="radio", name="mid-game-leaver", value="wait" disabled)
                                             label Hold the game and wait for that person to come back.
-                                            
+                        .settings-cover                  
                     .foot
                      button#ready Ready
                      button#leave Leave 

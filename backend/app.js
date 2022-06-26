@@ -41,6 +41,8 @@ let globalRoom = new Map();
 let connectedUsers = new Map();
 
 globalRoom.set('123456789', new Room('123456789'))
+globalRoom.set('123456000', new Room('123456000'))
+
 
 
 
@@ -88,7 +90,7 @@ app.get('/',async (req, res)=>{
         const tempID = makeTempID(10);
         if(!result.inGame){
             await Users.updateOne({username: req.session.username}, {tempAuth: tempID});
-            res.cookie('tempAuth', tempID);
+            res.cookie('tempAuth', tempID, {maxAge: 3600 * 24 * 1000});
         }
     }
     res.render('_titleScreen', {loggedIn: req.session.username,
@@ -141,7 +143,11 @@ app.post('/signin', async function(req,res){
 
 
 app.get('/game', function(req,res){
-    res.render('index');
+    res.render('index', {roomCode : '123-456-789'});
+})
+
+app.get('/game2', function(req,res){
+    res.render('index', {roomCode : '123-456-000'});
 })
 
 app.get('/aroom', function(req, res){

@@ -4,6 +4,12 @@ let playerContainer = document.querySelector('#player-container');
 let teamA = document.querySelector('#teamA .team-player-container');
 let teamB = document.querySelector('#teamB .team-player-container');
 
+let teamACountElement = document.querySelector("#teamA .team-count");
+let teamBCountElement = document.querySelector("#teamB .team-count");
+let teamACount = 0;
+let teamBCount = 0;
+
+let readyButton = document.querySelector("#ready");
 
 let cardContainer = document.querySelector("#card-container");
 let sortButton = document.querySelector('#sort-button');
@@ -15,6 +21,7 @@ var allowControls = false;
 let playerList = new Map();
 const clientCommunication = new ClientCommunication();
 
+let moi = null;
 
 teamA.onclick = ()=>{
     console.log('A')
@@ -24,6 +31,12 @@ teamA.onclick = ()=>{
 teamB.onclick = ()=>{
     console.log('B')
     socket.emit('team','B')
+}
+
+ready.onclick = ()=>{
+    
+    socket.emit('ready');
+ 
 }
 
 

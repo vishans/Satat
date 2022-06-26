@@ -1,5 +1,5 @@
 class Player{
-    constructor(username, avatar, socketID){
+    constructor(username, avatar,admin, socketID){
         this.username = username;
         this.avatar = avatar;
         this.team = null;
@@ -11,6 +11,8 @@ class Player{
         this.score = 0;
         this.hand = null;
         this.roomCode = 0;
+        this.ready = false;
+        this.admin = admin;
         this.renounce = {
             'Spade': [],
             'Heart': [],

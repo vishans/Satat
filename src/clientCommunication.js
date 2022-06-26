@@ -8,19 +8,21 @@ class ClientCommunication{
         socket = io('/', {query: {'authCookie': this.authCookie,
                                         'roomCode': this.roomCode}});
         this.mySocketID = socket.id; 
-        this.moi = null;   
+        this.moi = null; 
+
         socket.on('handshake', (params)=>
         {
             playerContainer.innerHTML = '';
             teamA.innerHTML = '';
             teamB.innerHTML = '';
 
-            const {username, avatar, players} = params;
+            const {username, players} = params;
             this.moi = username;
+            moi = username;
             players.forEach((player)=>{
                 if(player.username === this.moi){
                     console.log(this.moi)
-                    playerList.set(this.moi, new Player(username,avatar,player.team,socket.id));
+                    playerList.set(this.moi, new Player(username,player.avatar,player.team,player.ready,player.admin,socket.id));
                     playerList.get(this.moi).masterPlayerInfoObject = new MasterPlayerInfo(playerList.get(this.moi));
 
                     // playerContainer.appendChild(playerList.get(this.moi).masterPlayerInfoObject.getMinimalPlayerInfoElement())
@@ -28,7 +30,7 @@ class ClientCommunication{
                     
                     return;
                 }
-                playerList.set(player.username, new Player(player.username,player.avatar,player.team,null));
+                playerList.set(player.username, new Player(player.username,player.avatar,player.team,player.ready,player.admin,null));
                 playerList.get(player.username).masterPlayerInfoObject = new MasterPlayerInfo(playerList.get(player.username));
                 // playerContainer.appendChild(playerList.get(player.username).masterPlayerInfoObject.getMinimalPlayerInfoElement())
 
@@ -59,7 +61,7 @@ class ClientCommunication{
             //playerList = new Map();
             console.log(player)
             //if(!playerList.has(player.username)){
-            playerList.set(player.username, new Player(player.username,player.avatar,player.team,null));
+            playerList.set(player.username, new Player(player.username,player.avatar,player.team,player.ready, player.admin,null));
             playerList.get(player.username).masterPlayerInfoObject = new MasterPlayerInfo(playerList.get(player.username));
             //playerContainer.appendChild(playerList.get(player.username).masterPlayerInfoObject.getMinimalPlayerInfoElement())
             //}
@@ -67,12 +69,16 @@ class ClientCommunication{
         })
 
 
-        socket.on('user disconnect', (username)=>{
+        socket.on('user disconnect', (params)=>{
             console.log('user disconnect')
-            console.log(username)
-            const playerToRemove = document.querySelector("[username="+username.username+"]");
-            playerList.delete(username.username)
-            playerToRemove.remove();
+            console.log(params)
+            const {username, newAdmin} = params;
+            // const playerToRemove = document.querySelector("[username="+username.username+"]");
+            playerList.delete(username)
+            if(newAdmin)
+            console.log(newAdmin)
+             playerList.get(newAdmin).admin = true;
+            this.putPlayersWhereTheyBelong()
             
             
         })
@@ -81,14 +87,45 @@ class ClientCommunication{
             const {username, teamName} = param;
             console.log('put')
             playerList.get(username).team = teamName;
+
+           
+
+
             this.putPlayersWhereTheyBelong();
             
             
         })
 
-        socket.on('put in B', (player)=>{
-            console.log('put')
-            playerList.get(player.username).team = 'B';
+        socket.on('ready', (param)=>{
+            const {username, state} = param;
+            console.log(username)
+
+            console.log(state)
+            playerList.get(username).ready = state;
+            if(username === this.moi){
+                if(state){
+                    ready.removeAttribute('cantready');
+
+                    ready.setAttribute('unready', 'unready');
+                    ready.innerText = 'Unready'
+                    
+                }
+                else{
+                    ready.removeAttribute('cantready');
+                    ready.removeAttribute('unready');
+                    console.log(playerList.get(username))
+                    if(playerList.get(username).team == null){
+                        console.log('ttt')
+                        ready.setAttribute('cantready','cantready');
+
+                    }
+                    // else{
+                    //     ready.removeAttribute('unready');
+                    // }
+                    ready.innerText = 'Ready'
+                }
+            }
+
             this.putPlayersWhereTheyBelong();
             
             
@@ -102,14 +139,18 @@ class ClientCommunication{
     }
 
     putPlayersWhereTheyBelong(){
+        
+        teamACount = 0;
+        teamBCount = 0;
+        let toRemove = document.querySelectorAll("[username]");
+        toRemove.forEach((element)=>{
+            element.remove();
+        })
         playerList.forEach((player, key)=>{
-            let toRemove = document.querySelector("[username="+player.username+"]")
-            if(toRemove){
-                toRemove.remove();
-            }
+            
             if(player.team == null){
                  //if(!playerContainer.querySelector("[username="+player.username+"]")){
-                    playerContainer.appendChild(player.masterPlayerInfoObject.getMinimalPlayerInfoElement())
+                    playerContainer.appendChild(player.masterPlayerInfoObject.getNewMinimalPlayerInfoElement())
                     return;
                 //}
 
@@ -117,7 +158,8 @@ class ClientCommunication{
 
             if(player.team === 'A'){
                 //if(!teamA.querySelector("[username="+player.username+"]")){
-                    teamA.appendChild(player.masterPlayerInfoObject.getMinimalPlayerInfoElement())
+                    teamA.appendChild(player.masterPlayerInfoObject.getNewMinimalPlayerInfoElement())
+                    teamACount++;
                     return;
                 //}
 
@@ -126,12 +168,18 @@ class ClientCommunication{
 
             if(player.team === 'B'){
                 //if(!teamA.querySelector("[username="+player.username+"]")){
-                    teamB.appendChild(player.masterPlayerInfoObject.getMinimalPlayerInfoElement())
+                    teamB.appendChild(player.masterPlayerInfoObject.getNewMinimalPlayerInfoElement())
+                    teamBCount++;
                     return;
                 //}
 
 
             }
         })
+
+        teamACountElement.innerText = teamACount+'/2';
+        teamBCountElement.innerText = teamBCount+'/2';
+
+
     }
 }
