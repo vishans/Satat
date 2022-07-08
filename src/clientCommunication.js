@@ -1,12 +1,12 @@
 class ClientCommunication{
     constructor(){
-        this.authCookie = document.cookie.split('=')[1];
-        this.roomCode = document.querySelector('.room-code #code').innerText.split('-').join('');
-        console.log(this.roomCode)
+        this.authCookie = authCookie; //document.cookie.split('=')[1];
+        this.roomCode =roomCode; document.querySelector('.room-code #code').innerText.split('-').join('');
+        //console.log(this.roomCode)
 
 
-        socket = io('/', {query: {'authCookie': this.authCookie,
-                                        'roomCode': this.roomCode}});
+        //socket = io('/', {query: {'authCookie': this.authCookie,
+        //                            'roomCode': this.roomCode}});
         this.mySocketID = socket.id; 
         this.moi = null; 
 
@@ -16,14 +16,40 @@ class ClientCommunication{
             teamA.innerHTML = '';
             teamB.innerHTML = '';
 
-            const {username, players} = params;
+            const {username, players, settingParam} = params;
             this.moi = username;
             moi = username;
+            this.setSettingFromParam(settingParam);
             players.forEach((player)=>{
                 if(player.username === this.moi){
                     console.log(this.moi)
                     playerList.set(this.moi, new Player(username,player.avatar,player.team,player.ready,player.admin,socket.id));
                     playerList.get(this.moi).masterPlayerInfoObject = new MasterPlayerInfo(playerList.get(this.moi));
+
+                    if(!player.admin){
+                        // let cover = document.createElement('div');
+                        // cover.classList.add('settings-cover');
+                        // setting.appendChild(cover);
+                        setting.onclick = function(e){
+                            e.preventDefault();
+                            return false;
+                        }
+                    }
+                    else{
+                        console.log(555)
+                        setting.onclick = function(){
+                                console.log('form clicked')
+                                const midgamelLeavers = settingForm.elements['mid-game-leaver']['value'];
+                                const nextRoundWaitTime= settingForm.elements['next-round-wait-time']['value'];
+                                const startGame= settingForm.elements['start-game']['value'];
+                                const troopChooser = settingForm.elements['troop-chooser']['value'];
+
+                                const settingsParam = {midgamelLeavers,nextRoundWaitTime,startGame,troopChooser};
+
+                                socket.emit('settingParam', settingsParam)
+        
+                        }
+                    }
 
                     // playerContainer.appendChild(playerList.get(this.moi).masterPlayerInfoObject.getMinimalPlayerInfoElement())
                 
@@ -36,6 +62,8 @@ class ClientCommunication{
 
 
             })
+            
+            
 
             this.putPlayersWhereTheyBelong()
             // if(!playerList.has(this.moi)){
@@ -65,6 +93,8 @@ class ClientCommunication{
             playerList.get(player.username).masterPlayerInfoObject = new MasterPlayerInfo(playerList.get(player.username));
             //playerContainer.appendChild(playerList.get(player.username).masterPlayerInfoObject.getMinimalPlayerInfoElement())
             //}
+            PN.issueGenericSideNotif('New Connection', player.avatar, `${player.username} connected`);
+
             this.putPlayersWhereTheyBelong();
         })
 
@@ -74,11 +104,33 @@ class ClientCommunication{
             console.log(params)
             const {username, newAdmin} = params;
             // const playerToRemove = document.querySelector("[username="+username.username+"]");
+            const disconnectedPlayer = playerList.get(username);
             playerList.delete(username)
-            if(newAdmin)
+            if(newAdmin){
             console.log(newAdmin)
              playerList.get(newAdmin).admin = true;
-            this.putPlayersWhereTheyBelong()
+             if(newAdmin == this.moi){
+                //document.querySelector('.settings-cover').remove();
+                setting.onclick = function(){
+                    
+                        console.log('form clicked')
+                        const midgamelLeavers = settingForm.elements['mid-game-leaver']['value'];
+                        const nextRoundWaitTime= settingForm.elements['next-round-wait-time']['value'];
+                        const startGame= settingForm.elements['start-game']['value'];
+                        const troopChooser = settingForm.elements['troop-chooser']['value'];
+
+                        const settingsParam = {midgamelLeavers,nextRoundWaitTime,startGame,troopChooser};
+
+                        socket.emit('settingParam', settingsParam)
+
+                
+
+                }
+             }
+            }
+            PN.issueGenericSideNotif('Player Disconnected', disconnectedPlayer.avatar, `${disconnectedPlayer.username} disconnected`);
+
+            this.putPlayersWhereTheyBelong();
             
             
         })
@@ -131,6 +183,11 @@ class ClientCommunication{
             
         })
 
+        socket.on('settingParam', param =>{
+            console.log('form data received')
+            this.setSettingFromParam(param);
+        })
+
     }
 
 
@@ -181,5 +238,17 @@ class ClientCommunication{
         teamBCountElement.innerText = teamBCount+'/2';
 
 
+    }
+
+    setSettingFromParam(param){
+        const {midgamelLeavers,
+            nextRoundWaitTime,
+            startGame,
+            troopChooser} = param;
+
+            settingForm.elements['mid-game-leaver']['value'] = midgamelLeavers;
+            settingForm.elements['next-round-wait-time']['value'] = nextRoundWaitTime;
+            settingForm.elements['start-game']['value'] = startGame;
+            settingForm.elements['troop-chooser']['value'] = troopChooser ;
     }
 }

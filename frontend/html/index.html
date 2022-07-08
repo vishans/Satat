@@ -5,10 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/index.css">
-    <link rel="stylesheet" href="/lobby.css"><script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/lobby.css">
+    <link rel="stylesheet" href="/popUpAndNotif.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
     <script src="/deckAndCards.js"> </script>
     <script src="/masterPlayerInfo.js"> </script>
     <script src="/clientCommunication.js"></script>
+    <script src="/popUpAndNotif.js"></script>
     <script src="/player.js"> </script>
     <title>Satat</title>
   </head>
@@ -59,11 +62,11 @@
                   <div class="form-question">Who starts the game</div>
                   <div class="form-choice">
                     <div class="radio-choice">
-                      <input id="start-game" type="radio" name="start-game" value="server">
+                      <input type="radio" name="start-game" value="server">
                       <label>The server randomly chooses a player.</label>
                     </div>
                     <div class="radio-choice">
-                      <input id="start-game" type="radio" name="start-game" value="playerCard" checked>
+                      <input type="radio" name="start-game" value="playerCard" checked>
                       <label>The players will each draw a card. The one having the strongest card starts.</label>
                     </div>
                   </div>
@@ -72,12 +75,16 @@
                   <div class="form-question">Who chooses troop</div>
                   <div class="form-choice">
                     <div class="radio-choice">
-                      <input id="start-game" type="radio" name="troop-chooser" value="startingPlayer" checked>
+                      <input type="radio" name="troop-chooser" value="startingPlayer" checked>
                       <label>The player who starts.</label>
                     </div>
                     <div class="radio-choice">
-                      <input id="start-game" type="radio" name="troop-chooser" value="playerCard">
+                      <input type="radio" name="troop-chooser" value="randomServer">
                       <label>The server randomly chooses a player.</label>
+                    </div>
+                    <div class="radio-choice">
+                      <input type="radio" name="troop-chooser" value="playerCard" checked>
+                      <label>The players will each draw a card. The one having the strongest card starts.</label>
                     </div>
                   </div>
                 </div>
@@ -85,15 +92,15 @@
                   <div class="form-question">Wait time before moving on to the next round</div>
                   <div class="form-choice" style="flex-direction: row;">
                     <div class="radio-choice">
-                      <input id="start-game" type="radio" name="next-round-wait-time" value="5">
+                      <input type="radio" name="next-round-wait-time" value="5">
                       <label>5s</label>
                     </div>
                     <div class="radio-choice">
-                      <input id="start-game" type="radio" name="next-round-wait-time" value="8" checked>
+                      <input type="radio" name="next-round-wait-time" value="8" checked>
                       <label>8s</label>
                     </div>
                     <div class="radio-choice">
-                      <input id="start-game" type="radio" name="next-round-wait-time" value="12">
+                      <input type="radio" name="next-round-wait-time" value="12">
                       <label>12s</label>
                     </div>
                   </div>
@@ -102,24 +109,27 @@
                   <div class="form-question">What happens when someone leaves the room mid-game</div>
                   <div class="form-choice">
                     <div class="radio-choice">
-                      <input id="start-game" type="radio" name="mid-game-leaver" value="loseGame" checked>
+                      <input type="radio" name="mid-game-leaver" value="loseGame" checked>
                       <label>That person's team loses the game.</label>
                     </div>
                     <div class="radio-choice" style="color: gray;">
-                      <input id="start-game" type="radio" name="mid-game-leaver" value="wait" disabled>
+                      <input type="radio" name="mid-game-leaver" value="wait" disabled>
                       <label>Hold the game and wait for that person to come back.</label>
                     </div>
                   </div>
                 </div>
               </form>
             </div>
-            <div class="settings-cover">                 </div>
+            <!--.settings-cover                  -->
           </div>
           <div class="foot">
             <button id="ready">Ready</button>
             <button id="leave">Leave </button>
           </div>
         </div>
+      </div>
+      <div class="popup-notif">
+        <div class="side-bar"> </div>
       </div>
     </div>
   </body>

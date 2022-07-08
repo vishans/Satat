@@ -92,11 +92,13 @@ class Communication{
                                                     'avatar': justConnectedPlayer.avatar,
                                                 'lobbyVisibility': justConnectedPlayer.lobbyVisibility,
                                                 'ready': justConnectedPlayer.ready,
-                                                'admin': justConnectedPlayer.admin})
-            
+                                                'admin': justConnectedPlayer.admin
+                                            })
+            //console.log(this.rooms.get(roomCode).settingParam)
             socket.emit('handshake', {username: result.username, 
                                         //avatar: result.avatar,
-                                        players: tempPlayerArray});
+                                        players: tempPlayerArray,
+                                        settingParam: this.rooms.get(roomCode).settingParam});
             
             const username = this.rooms.get(socket.data.roomCode).players.get(socket.id).username
             this.io.to(socket.data.roomCode).emit('ready', {username, state: false})
@@ -168,6 +170,15 @@ class Communication{
                 this.rooms.get(socket.data.roomCode).players.get(socket.id).ready = !state;
                 this.io.to(socket.data.roomCode).emit('ready', {username, state: !state})
             })
+
+            socket.on('settingParam', (param)=>{
+                //if(param.length != 4) return;
+                //TODO: to validate params 
+                if(!this.rooms.get(socket.data.roomCode).players.get(socket.id).admin) return;
+                
+                this.rooms.get(socket.data.roomCode).settingParam = param;
+                socket.broadcast.to(socket.data.roomCode).emit('settingParam', param);
+            })
         
         });
 
@@ -178,6 +189,8 @@ class Communication{
     start(){
         this.init();
     }
+
+    
 }
 
 module.exports = Communication;

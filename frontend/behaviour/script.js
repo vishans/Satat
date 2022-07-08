@@ -1,5 +1,8 @@
-var socket = io('/', {query: {'authCookie': this.authCookie,
-                            'roomCode': this.roomCode}});
+var authCookie = document.cookie.split('=')[1];
+var roomCode = document.querySelector('.room-code #code').innerText.split('-').join('');
+
+var socket = io('/', {query: {'authCookie': authCookie,
+                           'roomCode': roomCode}});
 let playerContainer = document.querySelector('#player-container');
 let teamA = document.querySelector('#teamA .team-player-container');
 let teamB = document.querySelector('#teamB .team-player-container');
@@ -10,6 +13,8 @@ let teamACount = 0;
 let teamBCount = 0;
 
 let readyButton = document.querySelector("#ready");
+let setting = document.querySelector("#setting");
+let settingForm = document.querySelector("#setting form");
 
 let cardContainer = document.querySelector("#card-container");
 let sortButton = document.querySelector('#sort-button');
@@ -19,7 +24,10 @@ var mouseOverArea = false;
 var allowControls = false;
 
 let playerList = new Map();
+const PN = new popUpAndNotification(document.querySelector('.popup-notif'));
 const clientCommunication = new ClientCommunication();
+
+
 
 let moi = null;
 

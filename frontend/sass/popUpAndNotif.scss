@@ -1,0 +1,113 @@
+.popup-notif{
+    grid-row: 1/5;
+    grid-column: 1/2;
+   
+    z-index: 5000;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 100%;
+    //background-color: #00BE9C;
+    //display: none;
+    pointer-events: none;
+
+
+    .side-bar{
+        grid-column: 2/3;
+        grid-row: 1/2;
+        //background-color: rgba(255,0,0,.5);
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        padding: 5vh 0;
+        gap: 5vh;
+
+
+        .notif{
+            height: 30vh;
+            width: 95%;
+            background-color: #DDDCCF;
+            border-radius: 8px;
+            display: grid;
+            grid-template-rows: 20% 80%;
+            grid-template-columns: 25% 75%;
+            overflow: hidden;
+            font-family: SMM;
+            pointer-events: all;
+            user-select: none;
+            flex-shrink: 0;
+            //transition: all .8s ease-in-out;
+            transform: translateX(150%);
+
+
+
+            .notif-title{
+                grid-row: 1/2;
+                grid-column: 1/3;
+                background-color: #FECB02;
+                font-size: min(4vh, 2vw);
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                
+
+
+                .text{
+                    flex-grow: 1;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+
+                }
+
+                .close{
+                    width: 3vw;
+                    //border-left: 3px solid red;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #FECB02;
+                    transition: all .5s;
+
+
+                    &:hover{
+                        background-color: red;
+
+                    }
+
+
+                }
+
+            }
+
+            .notif-picture{
+                grid-row: 2/3;
+                grid-column: 1/2;
+                //background-color: purple;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                img{
+                    width: 95%;
+                    background-color: red;
+                }
+            }
+
+            .notif-text{
+                grid-row: 2/3;
+                grid-column: 2/3;
+                //background-color:cornflowerblue;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: min(2.5vh, 2vw);
+            }
+
+        }
+    }
+    
+}
+
