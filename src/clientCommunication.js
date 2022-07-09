@@ -66,11 +66,7 @@ class ClientCommunication{
             
 
             this.putPlayersWhereTheyBelong()
-            // if(!playerList.has(this.moi)){
-            //     playerList.set(this.moi, new Player(username,avatar,socket.id));
-            //     playerList.get(this.moi).masterPlayerInfoObject = new MasterPlayerInfo(playerList.get(this.moi));
-            //     playerContainer.appendChild(playerList.get(this.moi).masterPlayerInfoObject.getMinimalPlayerInfoElement())
-            // }
+            
         })
         
         
