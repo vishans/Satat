@@ -28,8 +28,8 @@ const PN = new popUpAndNotification(document.querySelector('.popup-notif'));
 const clientCommunication = new ClientCommunication();
 
 
-
 let moi = null;
+PN.issueGenericPopUp('Error', 'First line.\nSecond line', 'OK', null, 3000)
 
 teamA.onclick = ()=>{
     console.log('A')

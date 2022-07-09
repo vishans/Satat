@@ -108,6 +108,86 @@
 
         }
     }
+
+    .full{
+        grid-column: 1/3;
+        grid-row: 1/2;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        //backdrop-filter: blur(5px);
+
+        .notif{
+            height: 50vh;
+            width: 55vw;
+            background-color: green;
+            border-radius: 8px;
+
+            display: grid;
+            grid-template-rows: 15% auto 30%;
+            grid-template-columns: 100%;
+            overflow: hidden;
+            font-family: SMM;
+            pointer-events: all;
+            color: #5B1C1A;
+            position: absolute;
+
+            .notif-title{
+                background-color: #FECB02;
+                grid-row: 1/2;
+                grid-auto-columns: 1/2;
+                font-size: min(3vh, 2.5vw);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .notif-text{
+                background-color: #DDDCCF;
+                grid-row: 2/3;
+                grid-column: 1/2;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: min(3vh, 2.5vw);
+                flex-direction: column;
+                
+
+            }
+
+            .notif-button-container{
+                grid-row: 3/4;
+                grid-column: 1/2;
+                background-color: #DDDCCF;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                button{
+                    all: unset;
+                    width: 40%;
+                    height: 50%;
+                    background-color: #FECB02;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: min(2.5vh, 2vw);
+                    border: 3px solid #FECB02;
+                    transition: .3s all;
+                    
+
+                    &:hover{
+                        background-color: #DDDCCF;
+                        color: #FECB02;
+                    }
+
+                }
+
+            }
+        }
+    }
     
 }
 

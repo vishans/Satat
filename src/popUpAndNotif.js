@@ -1,21 +1,15 @@
 class popUpAndNotification{
+    popUpCount = 0;
     constructor(notifLayer){
         this.notifLayer = notifLayer;
         this.sideBar = this.notifLayer.querySelector('.side-bar');
+        this.full = this.notifLayer.querySelector('.full');
+
     }
 
 
     issueGenericSideNotif(title, avatar, semantic, persistance = 8000){
-    //     this.sideBar.innerHTML = `<div class="notif"> 
-    //     <div class="notif-title"> 
-    //       <div class="text">User Disconnected</div>
-    //       <div class="close">
-    //          <span class="material-symbols-outlined">close</span>
-    //         </div>
-    //     </div>
-    //     <div class="notif-picture"> <img src="/0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png" alt="" srcset=""></div>
-    //     <div class="notif-text">kirby disconnected</div>
-    //   </div>`
+   
 
         const newSideNotif = document.createElement('div');
         newSideNotif.classList.add('notif');
@@ -49,5 +43,58 @@ class popUpAndNotification{
             }, persistance)
     }, 500);
 
+    }
+
+
+    issueGenericPopUp(title , semantic='', buttonText, buttonCallback = null, persistance = 0){
+        const newPopUp = document.createElement('div');
+        newPopUp.classList.add('notif');
+
+        semantic = semantic.split('\n');
+        semantic = semantic.map((sentence)=> {
+            return `<span>${sentence}</span>`
+        })
+        semantic = semantic.join('');
+        
+        newPopUp.innerHTML = 
+        `<div class="notif-title">${title}</div>
+        <div class="notif-text">${semantic}</div>
+        <div class="notif-button-container">
+          <button>${buttonText}</button>
+        </div>`;
+
+        while(newPopUp.innerHTML == '');
+
+        
+
+        const btn = newPopUp.querySelector('button');
+
+        if(buttonCallback){
+            btn.onclick = buttonCallback;
+        }
+        else{
+            btn.onclick = (e)=>{ 
+                e.target.parentNode.parentNode.remove();
+                if(!--this.popUpCount){
+                    this.full.style.backdropFilter = null;
+                }
+            };
+        }
+
+        if(persistance){
+            
+            setTimeout(()=>{
+                newPopUp.remove();
+                if(!--this.popUpCount){
+                    this.full.style.backdropFilter = null;
+                }
+            }, persistance);
+        }
+
+        this.full.appendChild(newPopUp);
+        if(!this.popUpCount){
+            this.full.style.backdropFilter ='blur(5px)';
+        }
+        this.popUpCount++;
     }
 }
