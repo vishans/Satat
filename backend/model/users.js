@@ -33,6 +33,11 @@ const userSchema = new mongoose.Schema({
     socketID:{
         type: String,
         
+    },
+    roomCode:{
+        type: String,
+        default: null
+        
     }
 });
 

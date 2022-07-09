@@ -17,6 +17,20 @@ class Communication{
 
     }
 
+    addPlayerToRoom(roomCode, socket, player){
+        this.rooms.get(roomCode).players.set(socket.id, player);
+
+    }
+
+    getPlayer(socket){
+        return this.rooms.get(socket.data.roomCode).players.get(socket.id);
+    }
+
+    deletePlayerFromRoom(socket){
+        return this.rooms.get(socket.data.roomCode).players.delete(socket.id);
+
+    }
+
     async init(){
         this.io.on('connection', async (socket) => {
             
@@ -65,9 +79,10 @@ class Communication{
             }
 
 
-            await Users.updateOne({_id : result._id}, {inGame: true, socketID : socket.id});
+            await Users.updateOne({_id : result._id}, {inGame: true, socketID : socket.id, roomCode});
             let newPlayer = new Player(result.username, result.avatar, playerAdmin, socket.id)
-            this.rooms.get(roomCode).players.set(socket.id, newPlayer);
+            
+            this.addPlayerToRoom(roomCode, socket, newPlayer)
             socket.join(roomCode);
             socket.data.roomCode = roomCode;
             
@@ -75,7 +90,7 @@ class Communication{
         
             const playersInRoom = this.rooms.get(roomCode).players;
            
-            const tempPlayerArray = []
+            const tempPlayerArray = [];
             playersInRoom.forEach((value, key, map)=>{
                 
                 tempPlayerArray.push({'username': value.username,
@@ -100,23 +115,24 @@ class Communication{
                                         players: tempPlayerArray,
                                         settingParam: this.rooms.get(roomCode).settingParam});
             
-            const username = this.rooms.get(socket.data.roomCode).players.get(socket.id).username
+            const username = this.getUsername(socket); //this.rooms.get(socket.data.roomCode).players.get(socket.id).username
             this.io.to(socket.data.roomCode).emit('ready', {username, state: false})
             
                 
             socket.on('disconnecting', async ()=> {
                 //implement socket disconnect on logout
                 console.log('user disconnected');
-                await Users.updateOne({socketID : socket.id}, {inGame: false, socketID : null});
+                await Users.updateOne({socketID : socket.id}, {inGame: false, socketID : null, roomCode: null});
                 
                 
-                const userThatDisconnected =this.rooms.get(socket.data.roomCode).players.get(socket.id);
+                const userThatDisconnected = this.getPlayer(socket);
                 const username = userThatDisconnected.username;
                 let newAdmin = null;
-                this.rooms.get(socket.data.roomCode).players.delete(socket.id);
+                
+                this.deletePlayerFromRoom(socket);
                 let newUsername = null;
                 if(userThatDisconnected.admin && this.rooms.get(socket.data.roomCode).players.size > 0){
-                    newAdmin = this.rooms.get(socket.data.roomCode).players.values().next().value;
+                    const newAdmin = this.rooms.get(socket.data.roomCode).players.values().next().value;
                     
                     this.rooms.get(socket.data.roomCode).players.get(newAdmin.socketID).admin = true;
                     newUsername = newAdmin.username;
@@ -150,31 +166,36 @@ class Communication{
                 }
 
                 
-                this.rooms.get(socket.data.roomCode).players.get(socket.id).team = teamName;
+                
+                this.getPlayer(socket).team = teamName;
                 this.io.to(socket.data.roomCode).emit(`put in`, {username, teamName})
 
-                //if(teamName === null){
-                    this.rooms.get(socket.data.roomCode).players.get(socket.id).ready = false;
-                    this.io.to(socket.data.roomCode).emit('ready', {username, state: false})
+                // when player changes team, his state becomes unready by default
+                this.getPlayer(socket).ready = false;
+                this.io.to(socket.data.roomCode).emit('ready', {username, state: false})
 
-                //}
+                
             })
 
 
             socket.on('ready', ()=>{
-                if(this.rooms.get(socket.data.roomCode).players.get(socket.id).team == null){
+                if(this.getPlayer(socket).team == null){
                     return;
                 }
-                const state = this.rooms.get(socket.data.roomCode).players.get(socket.id).ready;
+                
+                const state = this.getPlayer(socket).ready;
+
                 const username = this.getUsername(socket);
-                this.rooms.get(socket.data.roomCode).players.get(socket.id).ready = !state;
+               
+                this.getPlayer(socket).ready = !state;
+
                 this.io.to(socket.data.roomCode).emit('ready', {username, state: !state})
             })
 
             socket.on('settingParam', (param)=>{
-                //if(param.length != 4) return;
+                
                 //TODO: to validate params 
-                if(!this.rooms.get(socket.data.roomCode).players.get(socket.id).admin) return;
+                if(!this.getPlayer(socket).admin) return;
                 
                 this.rooms.get(socket.data.roomCode).settingParam = param;
                 socket.broadcast.to(socket.data.roomCode).emit('settingParam', param);
