@@ -117,6 +117,7 @@
   justify-content: center;
   font-size: min(3vh, 2.5vw);
   flex-direction: column;
+  padding: 0 min(3vh, 2.5vw);
 }
 .popup-notif .full .notif .notif-button-container {
   grid-row: 3/4;

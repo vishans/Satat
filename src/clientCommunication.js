@@ -76,11 +76,14 @@ class ClientCommunication{
         
         socket.on('invalid room', ()=>{
             console.log('invalid room');
+            PN.issueGenericPopUp('Invalid Room', 'Room does not exist.\n ERRCODE:RM404', 'OK', ()=>window.location.href = '/');
             socket.disconnect();
         })
 
         socket.on('more than 1 instances', ()=>{
             console.log('more than 1 instances');
+            PN.issueGenericPopUp('Already have a game instance opened', 'You already have a game instance opened in another tab.\n Close this one.\n ERRCODE:INST403', 'OK', ()=>window.location.href = '/');
+
             socket.disconnect();
         })
 
