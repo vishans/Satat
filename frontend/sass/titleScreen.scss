@@ -626,6 +626,8 @@ div[black]{
         margin-top: 3rem;
         transition: all .5s;
         align-self: flex-end;
+        pointer-events: all;
+
 
 
 
@@ -791,6 +793,8 @@ button[incorrect]{
     grid-column: 3/5;
     grid-row: 2/3;
     height: 100%;
+    pointer-events: none;
+    //background-color: yellow;
 }
 
 
@@ -832,6 +836,7 @@ button[incorrect]{
         color: #5B1C1A;
         
         transition: all .5s;
+        pointer-events: all;
         
 
 

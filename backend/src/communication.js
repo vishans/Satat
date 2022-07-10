@@ -1,4 +1,3 @@
-const io = require('socket.io');
 const Users = require('../model/users')
 const Player = require('./players')
 
@@ -47,6 +46,14 @@ class Communication{
             if(!this.rooms.has(roomCode)){
                 console.log('invalid room')
                 socket.emit('invalid room')
+                socket.disconnect();
+                return;
+            }
+
+            //more than 4 players in room
+            if(this.rooms.get(roomCode).players.size >= 4){
+                console.log('room full')
+                socket.emit('room full')
                 socket.disconnect();
                 return;
             }
@@ -139,6 +146,11 @@ class Communication{
 
                 }
                 socket.broadcast.to(socket.data.roomCode).emit('user disconnect', {username: username, newAdmin: newUsername })
+
+                if(this.rooms.get(socket.data.roomCode).players.size == 0){
+                    this.rooms.delete(socket.data.roomCode);
+                    console.log('room deleted ')
+                }
 
             });
 

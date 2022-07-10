@@ -187,6 +187,16 @@ class ClientCommunication{
             this.setSettingFromParam(param);
         })
 
+        socket.on('room timeout', () =>{
+            PN.issueGenericPopUp('Room Timed Out', 'Room was closed due to inactivity.', 'OK',()=>window.location.href = '/')
+            
+        })
+
+        socket.on('room full', () =>{
+            PN.issueGenericPopUp('Full Room', 'This room already has 4 players.', 'OK',()=>window.location.href = '/')
+            
+        })
+
     }
 
 

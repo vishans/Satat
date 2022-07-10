@@ -521,6 +521,7 @@ div[black] {
   margin-top: 3rem;
   transition: all 0.5s;
   align-self: flex-end;
+  pointer-events: all;
 }
 #sign-up button:hover {
   color: #41C9A4;
@@ -641,6 +642,7 @@ button[incorrect]:hover {
   grid-column: 3/5;
   grid-row: 2/3;
   height: 100%;
+  pointer-events: none;
 }
 
 .sign-up-board {
@@ -673,6 +675,7 @@ button[incorrect]:hover {
   border-style: none;
   color: #5B1C1A;
   transition: all 0.5s;
+  pointer-events: all;
 }
 .sign-up-board button:hover {
   color: #F66F2F;
