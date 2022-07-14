@@ -1,6 +1,6 @@
 
 class Room{
-    roomTimeout = 5*60 * 1000;
+    roomTimeout = 60*60 * 1000;
     constructor(io, roomCode, rooms, timeOut = null){
         this.io = io;
         this.rooms = rooms;
@@ -14,6 +14,7 @@ class Room{
             troopChooser: 'startingPlayer'
         };
         this.timeOutID = setTimeout(()=>{
+            console.log('triggerd')
             if(this.players.size == 0){
                 console.log('Terminated empty room ' + this.roomCode);
                 this.rooms.delete(this.roomCode);
@@ -27,7 +28,7 @@ class Room{
                 socket.emit('room timeout');
                 socket.disconnect();
             })
-        }, this.timeOut || this.roomTimeout)
+        }, this.roomTimeout)
     }
 }
 

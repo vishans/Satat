@@ -18,12 +18,13 @@ class ClientCommunication{
 
             const {username, players, settingParam} = params;
             this.moi = username;
-            moi = username;
+            //moi = username;
             this.setSettingFromParam(settingParam);
             players.forEach((player)=>{
                 if(player.username === this.moi){
                     console.log(this.moi)
-                    playerList.set(this.moi, new Player(username,player.avatar,player.team,player.ready,player.admin,socket.id));
+                    moi = new Player(username,player.avatar,player.team,player.ready,player.admin,socket.id)
+                    playerList.set(this.moi, moi );
                     playerList.get(this.moi).masterPlayerInfoObject = new MasterPlayerInfo(playerList.get(this.moi));
 
                     if(!player.admin){
@@ -194,6 +195,20 @@ class ClientCommunication{
 
         socket.on('room full', () =>{
             PN.issueGenericPopUp('Full Room', 'This room already has 4 players.', 'OK',()=>window.location.href = '/')
+            
+        })
+
+        socket.on('not signed in', () =>{
+            PN.issueGenericPopUp('Not Signed In', 'Please sign in to join a room.', 'OK',()=>window.location.href = '/')
+            
+        })
+
+
+        socket.on('do transition', () =>{
+            const p = SM.prepareTransitionScreen()
+            p.then( ()=>SM.showTransitionScreen())
+            console.log('TRANSSS')
+            console.log(p)
             
         })
 

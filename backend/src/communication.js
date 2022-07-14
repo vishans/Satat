@@ -30,6 +30,10 @@ class Communication{
 
     }
 
+    getPlayers(socket){
+        return this.rooms.get(socket.data.roomCode).players;
+    }
+
     async init(){
         this.io.on('connection', async (socket) => {
             
@@ -67,6 +71,7 @@ class Communication{
             if(!result){
                 //to test
                 console.log('forceful disconnect')
+                socket.emit('not signed in')
                 socket.disconnect();
                 return;
             }
@@ -147,10 +152,10 @@ class Communication{
                 }
                 socket.broadcast.to(socket.data.roomCode).emit('user disconnect', {username: username, newAdmin: newUsername })
 
-                if(this.rooms.get(socket.data.roomCode).players.size == 0){
-                    this.rooms.delete(socket.data.roomCode);
-                    console.log('room deleted ')
-                }
+                // if(this.rooms.get(socket.data.roomCode).players.size == 0){
+                //     this.rooms.delete(socket.data.roomCode);
+                //     console.log('room deleted ')
+                // }
 
             });
 
@@ -202,6 +207,17 @@ class Communication{
                 this.getPlayer(socket).ready = !state;
 
                 this.io.to(socket.data.roomCode).emit('ready', {username, state: !state})
+                let readyCount = 0;
+                this.getPlayers(socket).forEach(player => {
+                    if (player.team != null && player.ready){
+                        readyCount++;
+                    }
+                })
+
+                if(readyCount > 1){
+                    this.io.to(socket.data.roomCode).emit('do transition');
+                }
+
             })
 
             socket.on('settingParam', (param)=>{

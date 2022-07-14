@@ -40,7 +40,7 @@ app.set('views', './frontend/pug');
 let globalRoom = new Map();
 let connectedUsers = new Map();
 
-globalRoom.set('123456789', new Room(io,'123456789', globalRoom))
+globalRoom.set('123456789', new Room(io,'123456789', globalRoom,3 * 60 *60 * 1000))
 globalRoom.set('123456000', new Room(io,'123456000', globalRoom))
 
 

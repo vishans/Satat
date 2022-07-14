@@ -1,6 +1,6 @@
 var authCookie = document.cookie.split('=')[1];
 var roomCode = document.querySelector('.room-code #code').innerText.split('-').join('');
-
+var moi = null;
 var socket = io('/', {query: {'authCookie': authCookie,
                            'roomCode': roomCode}});
 let playerContainer = document.querySelector('#player-container');
@@ -24,11 +24,12 @@ var mouseOverArea = false;
 var allowControls = false;
 
 let playerList = new Map();
+const SM = new screenManager();
 const PN = new popUpAndNotification(document.querySelector('.popup-notif'));
 const clientCommunication = new ClientCommunication();
 
 
-let moi = null;
+//let moi = null;
 //PN.issueGenericPopUp('Error', 'First line.\nSecond line', 'OK', ()=>window.location.href = '/', 3000)
 
 teamA.onclick = ()=>{
@@ -52,9 +53,17 @@ playerContainer.onclick = ()=>{
     //console.log('B')
     socket.emit('team',null);
 }
+//setTimeout(()=>SM.prepareTransitionScreen().then( SM.showTransitionScreen), 1000)
+//SM.prepareTransitionScreen().then( SM.showTransitionScreen);
 
-
-
+// const ts = document.querySelector('.transition-screen');
+// setTimeout(()=>{
+//     ts.style.display = 'grid';
+//     setTimeout(()=>ts.classList.add('show-transition-screen') , 1000)
+    
+    
+    
+// },1000)
 
 
 
