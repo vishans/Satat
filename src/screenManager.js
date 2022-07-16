@@ -56,13 +56,26 @@ class screenManager{
             })
             avatarContainerLImg[0].src = '/' + moi.avatar;
             avatarContainerLImg[1].src = '/' + teamMate.avatar;
+            const teamLColorBlock = this.transitionScreen.querySelector('.teamL');
+            teamLColorBlock.style.backgroundColor = teamCol;
 
             const avatarContainerRImg = this.transitionScreen.querySelectorAll('.avatar-container-R img');
             opposingTeam.forEach((player, index)=>{
                 avatarContainerRImg[index].src = '/' + player.avatar;
+                avatarContainerRImg[index].style.borderColor = opposingTeamCol;
+                avatarContainerRImg[index].style.backgroundColor = opposingTeamSubCol;
             })
 
+            const teamRColorBlock = this.transitionScreen.querySelector('.teamR');
+            teamRColorBlock.style.backgroundColor = opposingTeamCol;
+
             resolve();
+
+            const pos = ['left', 'right', 'top', 'bottom'];
+            pos.forEach((p, index)=>{
+                players[index].masterPlayerInfoObject.position = p;
+                masterPlayerInfoPlane.appendChild(players[index].getElement())
+            })
 
 
         }))

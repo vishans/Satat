@@ -206,7 +206,7 @@ class ClientCommunication{
 
         socket.on('do transition', () =>{
             const p = SM.prepareTransitionScreen();
-            pp = p.then( ()=>SM.showTransitionScreen())
+            p.then( ()=>SM.showTransitionScreen())
             
         })
 

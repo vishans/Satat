@@ -19,6 +19,7 @@ let settingForm = document.querySelector("#setting form");
 let cardContainer = document.querySelector("#card-container");
 let sortButton = document.querySelector('#sort-button');
 let playArea = document.querySelector('#play-area');
+var masterPlayerInfoPlane = document.querySelector('#master-player-info-plane')
 let playAreaColor = document.querySelector('.play-area-color-1');
 var mouseOverArea = false;
 var allowControls = false;
@@ -70,7 +71,6 @@ playerContainer.onclick = ()=>{
 
 
 //player info element
-var masterPlayerInfoPlane = document.querySelector('#master-player-info-plane')
 // let t = new MasterPlayerInfo(1,'Mario','0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png','Team B', 'lightblue','right')
 // let k = new MasterPlayerInfo(2,'Luigi','f85090cb7a700ffa2ff2694a8c3e6593f2d6a952477f7461da1a03e42e29f0d8.png','Team B', 'lightblue','left')
 // let l = new MasterPlayerInfo(3,'Peach (You)','f4bd88b3c722f2107fab95fbabc17165c060a19baf4bf0beccc6c576bcc6cabc.png','Team A', 'salmon','bottom')

@@ -218,13 +218,13 @@ class Communication{
                     }
                 })
 
-                if(readyCount > 1){
+                if(readyCount > 3){
                     this.io.to(socket.data.roomCode).emit('do transition');
-                    setTimeout(()=>{
-                        this.io.to(socket.data.roomCode).emit('do game');
-                        this.getRoom(socket.data.roomCode).roomState = 'game';
+                    // setTimeout(()=>{
+                    //     this.io.to(socket.data.roomCode).emit('do game');
+                    //     this.getRoom(socket.data.roomCode).roomState = 'game';
 
-                    },3000)
+                    // },3000)
                 }
 
             })
