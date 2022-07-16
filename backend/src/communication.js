@@ -97,7 +97,10 @@ class Communication{
 
             await Users.updateOne({_id : result._id}, {inGame: true, socketID : socket.id, roomCode});
             let newPlayer = new Player(result.username, result.avatar, playerAdmin, socket.id)
-            
+            // for testing
+            newPlayer.team = 'A'
+            //newPlayer.ready = true;
+
             this.addPlayerToRoom(roomCode, socket, newPlayer)
             socket.join(roomCode);
             socket.data.roomCode = roomCode;
@@ -132,7 +135,14 @@ class Communication{
                                         settingParam: this.rooms.get(roomCode).settingParam});
             
             const username = this.getUsername(socket); //this.rooms.get(socket.data.roomCode).players.get(socket.id).username
-            this.io.to(socket.data.roomCode).emit('ready', {username, state: false})
+            this.io.to(socket.data.roomCode).emit('ready', {username, state: 1}) // should be state: false
+            this.io.to(socket.data.roomCode).emit('do transition');
+            setTimeout(()=>{
+                        this.io.to(socket.data.roomCode).emit('do game');
+                        this.getRoom(socket.data.roomCode).roomState = 'game';
+
+                    },500)
+
             
                 
             socket.on('disconnecting', async ()=> {

@@ -69,14 +69,17 @@ class screenManager{
             const teamRColorBlock = this.transitionScreen.querySelector('.teamR');
             teamRColorBlock.style.backgroundColor = opposingTeamCol;
 
-            resolve();
-
-            const pos = ['left', 'right', 'top', 'bottom'];
-            pos.forEach((p, index)=>{
+            
+            const posi = ['left', 'right', 'top', 'bottom'];
+            posi.forEach((p, index)=>{
+                console.log(p)
+                console.log(players[index].masterPlayerInfoObject)
                 players[index].masterPlayerInfoObject.position = p;
-                masterPlayerInfoPlane.appendChild(players[index].getElement())
+                masterPlayerInfoPlane.appendChild(players[index].masterPlayerInfoObject.getElement())
+                players[index].masterPlayerInfoObject.calculateAndSetPosition()
             })
-
+            
+            resolve();
 
         }))
     }
@@ -101,6 +104,8 @@ class screenManager{
 
     showGameScreen(latency = 3000){
         // normally called after transition scree is shown 
+        this.lobby.style.display = 'none';
+
         return new Promise((resolve, reject)=>{
             setTimeout(()=>{
                 this.transitionScreen.classList.remove('show-transition-screen');

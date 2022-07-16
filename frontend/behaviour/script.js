@@ -258,7 +258,7 @@ let spreadCardHitBox = document.querySelector('#spread-card-hit-box');
 spreadCardHitBox.onmouseover = function(){
     mouseOverArea = true;
     playerList.forEach(function(value, key){
-        value.hideMasterInfoElement()
+        value.masterPlayerInfoObject.hideMasterInfoElement()
     })
     //if(cardsInArea.length == 1) return;
 
@@ -294,7 +294,7 @@ spreadCardHitBox.onmouseout = function(){
     centerAreaCard()
     removeCardPlayerInfo();
     playerList.forEach(function(value, key){
-        value.calculateAndSetPosition()
+        value.masterPlayerInfoObject.calculateAndSetPosition()
     })
 }
 
