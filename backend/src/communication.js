@@ -21,6 +21,10 @@ class Communication{
 
     }
 
+    getRoom(roomCode){
+        return this.rooms.get(roomCode);
+    }
+
     getPlayer(socket){
         return this.rooms.get(socket.data.roomCode).players.get(socket.id);
     }
@@ -216,6 +220,11 @@ class Communication{
 
                 if(readyCount > 1){
                     this.io.to(socket.data.roomCode).emit('do transition');
+                    setTimeout(()=>{
+                        this.io.to(socket.data.roomCode).emit('do game');
+                        this.getRoom(socket.data.roomCode).roomState = 'game';
+
+                    },3000)
                 }
 
             })

@@ -2,6 +2,8 @@ class screenManager{
     constructor(){
         this.currentScreen = 'lobby';
         this.transitionScreen = document.querySelector('.transition-screen');
+        this.lobby = document.querySelector('#lobby');
+
     }
 
     prepareTransitionScreen(){
@@ -70,7 +72,33 @@ class screenManager{
         console.log(this.currentScreen)
         this.currentScreen = 'transition';
         this.transitionScreen.style.display = 'grid';
-        setTimeout(()=>this.transitionScreen.classList.add('show-transition-screen'), 500 );
+        return new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                this.transitionScreen.classList.add('show-transition-screen');
+                setTimeout(()=>{
+                    this.lobby.style.display = 'none';
+
+                    resolve();
+                },1000)
+            }, 500 );
+        })
+        
+        
+    }
+
+    showGameScreen(latency = 3000){
+        // normally called after transition scree is shown 
+        return new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                this.transitionScreen.classList.remove('show-transition-screen');
+                // wait for fade transition to be over before removing screen
+                setTimeout(()=>{
+                    this.transitionScreen.style.display = 'none';
+                    resolve()
+
+                },1000)
+            },latency)
+        })
         
     }
 }

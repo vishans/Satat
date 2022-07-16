@@ -205,11 +205,15 @@ class ClientCommunication{
 
 
         socket.on('do transition', () =>{
-            const p = SM.prepareTransitionScreen()
-            p.then( ()=>SM.showTransitionScreen())
-            console.log('TRANSSS')
-            console.log(p)
+            const p = SM.prepareTransitionScreen();
+            pp = p.then( ()=>SM.showTransitionScreen())
             
+        })
+
+
+        socket.on('do game', () =>{
+            SM.showGameScreen(0);
+           
         })
 
     }

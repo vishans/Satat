@@ -74,7 +74,8 @@ class popUpAndNotification{
         }
         else{
             btn.onclick = (e)=>{ 
-                e.target.parentNode.parentNode.remove();
+                //e.target.parentNode.parentNode.remove();
+                newPopUp.remove();
                 if(!--this.popUpCount){
                     this.full.style.backdropFilter = null;
                 }

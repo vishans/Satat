@@ -53,6 +53,8 @@ playerContainer.onclick = ()=>{
     //console.log('B')
     socket.emit('team',null);
 }
+
+//PN.issueGenericPopUp('test', 'test','ok')
 //setTimeout(()=>SM.prepareTransitionScreen().then( SM.showTransitionScreen), 1000)
 //SM.prepareTransitionScreen().then( SM.showTransitionScreen);
 
