@@ -106,9 +106,9 @@ d.shuffle();
 d.shuffle();
 
 
-myHand = d.getNCardsFromDeck(12);
+myHand = d.getNCardsFromDeck(13);
 
-myHand.push(new Heart(2));
+//myHand.push(new Heart(2));
 
 for(let card of myHand){
     
@@ -124,8 +124,8 @@ for(let card of myHand){
 
 //cardContainer.appendChild(new Heart(2).getElement());
 
-// cardContainer.lastChild.classList.add('CardTransition');
-//deckOfCards = cardContainer.children;
+//cardContainer.lastChild.classList.add('CardTransition');
+// deckOfCards = cardContainer.children;
 
 // setTimeout(()=>{
 //     cardContainer.lastChild.classList.add('CardTransition');
@@ -140,6 +140,7 @@ for(let card of myHand){
 
     
 // },500);
+
 var i = 0;
 var zz = 100000;
 var cardsInArea = [];
@@ -164,13 +165,13 @@ function trans(e){
 }
 
 //Pause 
-// setTimeout(function(){
+setTimeout(function(){
     
-//     myHand[i].getElement().classList.add('CardTransition');
+    myHand[i].getElement().classList.add('CardTransition');
     
-//     myHand[i].getElement().addEventListener('transitionend', trans)
+    myHand[i].getElement().addEventListener('transitionend', trans)
 
-// }, 500);
+}, 500);
     
 
 //sort button function
