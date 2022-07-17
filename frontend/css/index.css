@@ -128,7 +128,6 @@ body {
   font-family: "Roboto Condensed", sans-serif;
   position: absolute;
   transition: all 0.2s ease;
-  outline: 3px solid red;
   outline-offset: 5px;
 }
 
@@ -141,6 +140,10 @@ body {
   align-items: center;
   justify-content: center;
   border-top: 1px solid white;
+}
+
+.turn {
+  outline: 3px solid red;
 }
 
 .master-player-info-semantic {

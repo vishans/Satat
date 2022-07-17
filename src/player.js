@@ -1,4 +1,5 @@
 class Player{
+    
     constructor(username, avatar,team, ready, admin,socketID){
         this.username = username;
         this.avatar = avatar;

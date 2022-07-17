@@ -1,5 +1,9 @@
 
 class MasterPlayerInfo{
+    AColor = '#EE6360';
+    ASubColor = '#A14341'
+    BColor = '#6355C4';
+    BSubColor = '#3C3377'
 
     constructor(playerObj, position = 'left', numberOfCards = 13, connectionStatus = 'online'){
         this.playerObj = playerObj;
@@ -16,6 +20,22 @@ class MasterPlayerInfo{
     }
 
     __createElement(){
+        let teamColor = null;
+        let teamSubColor = null;
+        if(this.playerObj.team === 'A'){
+             teamColor = this.AColor;
+             teamSubColor = this.ASubColor;
+        }else{
+             teamColor = this.BColor;
+             teamSubColor = this.BSubColor;
+
+
+        }
+
+
+
+
+
         let newMasterElement = document.createElement('div');
         newMasterElement.classList.add('master-player-info'+'-'+this.position);
         // let o = document.querySelector('#over-play-area')
@@ -34,18 +54,18 @@ class MasterPlayerInfo{
 
         let team = document.createElement('div');
         team.classList.add('master-player-info-team');
-        team.style.backgroundColor = this.playerObj.teamColor;
+        team.style.backgroundColor = teamColor;
         team.innerText = this.playerObj.team;
 
         let avatar = document.createElement('img');
         avatar.classList.add('master-player-info-avatar');
-        avatar.style.backgroundColor = this.playerObj.teamColor;
+        avatar.style.backgroundColor = teamSubColor;
         avatar.src = '/' + this.playerObj.avatar;
         
 
         let name = document.createElement('div');
         name.classList.add('master-player-info-name');
-        name.style.backgroundColor = this.playerObj.teamColor;
+        name.style.backgroundColor = teamColor;
         name.innerText = this.playerObj.username;
 
         newMasterElement.appendChild(team);
