@@ -99,7 +99,7 @@ class Communication{
             let newPlayer = new Player(result.username, result.avatar, playerAdmin, socket.id)
             // for testing
             newPlayer.team = 'A'
-            //newPlayer.ready = true;
+            newPlayer.ready = true;
 
             this.addPlayerToRoom(roomCode, socket, newPlayer)
             socket.join(roomCode);
@@ -126,7 +126,8 @@ class Communication{
                                                     'avatar': justConnectedPlayer.avatar,
                                                 'lobbyVisibility': justConnectedPlayer.lobbyVisibility,
                                                 'ready': justConnectedPlayer.ready,
-                                                'admin': justConnectedPlayer.admin
+                                                'admin': justConnectedPlayer.admin,
+                                                'team': justConnectedPlayer.team
                                             })
             //console.log(this.rooms.get(roomCode).settingParam)
             socket.emit('handshake', {username: result.username, 
@@ -136,7 +137,14 @@ class Communication{
             
             const username = this.getUsername(socket); //this.rooms.get(socket.data.roomCode).players.get(socket.id).username
             this.io.to(socket.data.roomCode).emit('ready', {username, state: 1}) // should be state: false
-            this.io.to(socket.data.roomCode).emit('do transition');
+            
+            const pL = this.getRoom(socket.data.roomCode).orderPlayer();
+            console.log(pL)
+            
+            
+            
+            
+            this.io.to(socket.data.roomCode).emit('do transition', pL);
             setTimeout(()=>{
                         this.io.to(socket.data.roomCode).emit('do game');
                         this.getRoom(socket.data.roomCode).roomState = 'game';
@@ -221,21 +229,21 @@ class Communication{
                 this.getPlayer(socket).ready = !state;
 
                 this.io.to(socket.data.roomCode).emit('ready', {username, state: !state})
-                let readyCount = 0;
-                this.getPlayers(socket).forEach(player => {
-                    if (player.team != null && player.ready){
-                        readyCount++;
-                    }
-                })
+                // let readyCount = 0;
+                // this.getPlayers(socket).forEach(player => {
+                //     if (player.team != null && player.ready){
+                //         readyCount++;
+                //     }
+                // })
 
-                if(readyCount > 3){
-                    this.io.to(socket.data.roomCode).emit('do transition');
-                    // setTimeout(()=>{
-                    //     this.io.to(socket.data.roomCode).emit('do game');
-                    //     this.getRoom(socket.data.roomCode).roomState = 'game';
+                // if(readyCount > 3){
+                //     this.io.to(socket.data.roomCode).emit('do transition',this.getRoom(socket.data.roomCode).orderPlayer());
+                //     setTimeout(()=>{
+                //         this.io.to(socket.data.roomCode).emit('do game');
+                //         this.getRoom(socket.data.roomCode).roomState = 'game';
 
-                    // },3000)
-                }
+                //     },3000)
+                // }
 
             })
 

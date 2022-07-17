@@ -70,13 +70,22 @@ class screenManager{
             teamRColorBlock.style.backgroundColor = opposingTeamCol;
 
             
-            const posi = ['left', 'right', 'top', 'bottom'];
-            posi.forEach((p, index)=>{
-                console.log(p)
-                console.log(players[index].masterPlayerInfoObject)
-                players[index].masterPlayerInfoObject.position = p;
-                masterPlayerInfoPlane.appendChild(players[index].masterPlayerInfoObject.getElement())
-                players[index].masterPlayerInfoObject.calculateAndSetPosition()
+            // const posi = ['left', 'right', 'top', 'bottom'];
+            // posi.forEach((p, index)=>{
+            //     console.log(p)
+            //     console.log(players[index].masterPlayerInfoObject)
+            //     //players[index].masterPlayerInfoObject.position = p;
+            //     masterPlayerInfoPlane.appendChild(players[index].masterPlayerInfoObject.getElement())
+            //     players[index].masterPlayerInfoObject.calculateAndSetPosition()
+            // })
+
+            playerList.forEach((player)=>{
+                masterPlayerInfoPlane.appendChild(player.masterPlayerInfoObject.getElement())
+                //setTimeout(()=>{
+                    player.masterPlayerInfoObject.calculateAndSetPosition()
+
+                //},1000)
+                
             })
             
             resolve();

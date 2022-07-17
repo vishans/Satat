@@ -204,8 +204,23 @@ class ClientCommunication{
         })
 
 
-        socket.on('do transition', () =>{
+        socket.on('do transition', (orderTeam) =>{
+
+            let myIndex = orderTeam.findIndex((username =>{
+                return username === this.moi
+            }))
+
+            console.log(myIndex)
+            let count = 0;
+            let orders = ['bottom', 'left', 'top', 'right'];
+            while(count < 4){
+                playerList.get(orderTeam[myIndex]).masterPlayerInfoObject.position = orders[count];
+                console.log(playerList.get(orderTeam[myIndex]))
+                myIndex = (myIndex + 1) % 4
+                count++;
+            }
             const p = SM.prepareTransitionScreen();
+            
             p.then( ()=>SM.showTransitionScreen())
             
         })
