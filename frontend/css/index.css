@@ -291,6 +291,7 @@ body {
 }
 
 .play_card {
+  font-family: SMM;
   position: relative;
   bottom: 50%;
   opacity: 0;
@@ -320,6 +321,47 @@ body {
   font-size: var(--symbolSize);
 }
 
+.play_card[flip] {
+  background-color: transparent;
+  perspective: 1000px;
+  opacity: 1;
+  bottom: 0%;
+  padding: 0;
+  border: unset;
+}
+.play_card[flip] .card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+.play_card[flip] .front-card, .play_card[flip] .back-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  /* Safari */
+  backface-visibility: hidden;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.play_card[flip] .front-card {
+  background-color: #fefefe;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+}
+.play_card[flip] .back-card {
+  background-color: dodgerblue;
+  color: white;
+  transform: rotateY(180deg);
+}
+.play_card[flip]:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
 [suit=heart] {
   color: red;
 }
@@ -329,6 +371,7 @@ body {
 }
 
 .area-play-card {
+  font-family: SMM;
   position: absolute;
   height: 24vh;
   aspect-ratio: 9/16;

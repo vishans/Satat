@@ -73,6 +73,22 @@ class Card {
             `;
     }
 
+    getFlipableHTML(){
+        return `<div class="${this.getHTMLClass()}" id="_${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}" suit="${this.getSugarCoatedSuit().toLowerCase()}" flip>
+            <div class="card-inner">
+                <div class="front-card">
+                    <div class="upper">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
+                    <div class="symbol" >${this.getCardSymbol()}</div>
+                    <div class="lower">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
+                </div>
+                <div class="back-card">
+                    hi
+                </div>
+            </div>
+        </div>
+            `;
+    }
+
     getT(){
         return `
             <div class="upper">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>

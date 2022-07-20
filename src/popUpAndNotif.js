@@ -85,17 +85,40 @@ class popUpAndNotification{
         if(persistance){
             
             setTimeout(()=>{
-                newPopUp.remove();
-                if(!--this.popUpCount){
-                    this.full.style.backdropFilter = null;
-                }
+                // newPopUp.remove();
+                // if(!--this.popUpCount){
+                //     this.full.style.backdropFilter = null;
+                // }
+                this.removeFromFull(newPopUp)
             }, persistance);
         }
 
-        this.full.appendChild(newPopUp);
+        // this.full.appendChild(newPopUp);
+        // if(!this.popUpCount){
+        //     this.full.style.backdropFilter ='blur(5px)';
+        // }
+        // this.popUpCount++;
+
+        this.appendToFull(newPopUp)
+    }
+
+    appendToFull(element){
+        this.full.appendChild(element);
         if(!this.popUpCount){
             this.full.style.backdropFilter ='blur(5px)';
         }
         this.popUpCount++;
     }
+
+    removeFromFull(element){
+        element.remove();
+                if(!--this.popUpCount){
+                    this.full.style.backdropFilter = null;
+                }
+    }
+}
+
+
+class settleCardChooser {
+
 }

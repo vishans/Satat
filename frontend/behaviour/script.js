@@ -56,6 +56,14 @@ playerContainer.onclick = ()=>{
 }
 
 //PN.issueGenericPopUp('test', 'test','ok')
+let pBody = document.querySelector('.choose-card-pop-up .body');
+pBody.innerHTML = new Card(11, Suit.Heart).getFlipableHTML()
+pBody.innerHTML += new Card(11, Suit.Heart).getFlipableHTML()
+
+
+
+
+
 //setTimeout(()=>SM.prepareTransitionScreen().then( SM.showTransitionScreen), 1000)
 //SM.prepareTransitionScreen().then( SM.showTransitionScreen);
 

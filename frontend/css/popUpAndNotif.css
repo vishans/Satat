@@ -144,3 +144,46 @@
   background-color: #DDDCCF;
   color: #FECB02;
 }
+
+.choose-card-pop-up {
+  height: 70vh;
+  width: 55vw;
+  border-radius: 8px;
+  display: grid;
+  grid-template-rows: 13% auto 20%;
+  grid-template-columns: 100%;
+  overflow: hidden;
+  font-family: SMM;
+  pointer-events: all;
+  background-color: #E1E7F7;
+  position: absolute;
+  font-size: 70vh;
+}
+.choose-card-pop-up .title {
+  grid-column: 1/2;
+  grid-row: 1/2;
+  background-color: #9B9FAA;
+  font-size: 0.08em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.choose-card-pop-up .body {
+  grid-column: 1/2;
+  grid-row: 2/3;
+  background-color: #E1E7F7;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.choose-card-pop-up .bottom {
+  grid-column: 1/2;
+  grid-row: 3/4;
+  font-size: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
