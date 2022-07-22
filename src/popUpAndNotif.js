@@ -133,7 +133,7 @@ class popUpAndNotification{
 
 
 class settleStarter {
-    constructor(flipped = false){
+    constructor(flipped = true){
         this.element = document.createElement('div');
         this.element.innerHTML = `<div class="choose-card-pop-up">
         <div class="title">Settling who starts first</div>
@@ -141,6 +141,7 @@ class settleStarter {
         <div class="bottom">You can only choose 1 card, once.</div>
       </div>`;
         this.flipped = flipped;
+        this.cards = [];
     }
 
     getElement(){
@@ -151,9 +152,37 @@ class settleStarter {
         this.element.querySelector('.body');
         const body = this.element.querySelector('.body');
         const newCard = new Card(value, suit, true);
-        this.c = newCard;
+        this.cards.push(newCard)
+
         if(this.flipped) newCard.flipCard();
         body.appendChild(newCard.flipableElement);
+
+    }
+
+    associatePlayerWithCard(username, cardIndex){
+        const player = playerList.get(username);
+        if(!player) return;
+
+        const card = this.cards[cardIndex].flipableElement;
+        let img = document.createElement('img');
+        img.src = player.avatar;
+        img.style.backgroundColor = 'red';
+
+        const frontCard = card.querySelector('.front-card');
+        frontCard.appendChild(img);
+
+        img = document.createElement('img');
+        img.src = player.avatar;
+        img.style.backgroundColor = 'red';
+
+        const backCard = card.querySelector('.back-card');
+        backCard.appendChild(img);
+    }
+
+    flipAllCards(){
+        for(let card of this.cards){
+            card.flipCard();
+        }
     }
 
 }

@@ -476,10 +476,9 @@ body{
         box-sizing: border-box;
         
 
-        &:after{
-            content: ' ';
-            background-image: url('/0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png');
-            background-size: 50px 50px;
+        img{
+            
+            
             background-color: green;
             height: 50px;
             aspect-ratio: 1/1;
@@ -499,10 +498,9 @@ body{
         color: white;
         transform: rotateY(180deg);
 
-        &:after{
-            content: ' ';
-            background-image: url('/0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png');
-            background-size: 50px 50px;
+        img{
+            
+            
             background-color: green;
             height: 50px;
             aspect-ratio: 1/1;

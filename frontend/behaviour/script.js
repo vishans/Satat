@@ -57,6 +57,10 @@ playerContainer.onclick = ()=>{
 
 const sob = PN.issueSettleStarterPopUp();
 sob.addCard('?', Suit.Heart)
+sob.addCard('5', Suit.Club)
+
+
+
 // let pBody = document.querySelector('.choose-card-pop-up .body');
 // pBody.innerHTML = new Card(11, Suit.Heart).getFlipableHTML()
 // pBody.innerHTML += new Card(11, Suit.Heart).getFlipableHTML()

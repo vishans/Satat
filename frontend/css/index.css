@@ -353,10 +353,7 @@ body {
   padding: 0.5rem 1rem;
   box-sizing: border-box;
 }
-.play_card[flip] .front-card:after {
-  content: " ";
-  background-image: url("/0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png");
-  background-size: 50px 50px;
+.play_card[flip] .front-card img {
   background-color: green;
   height: 50px;
   aspect-ratio: 1/1;
@@ -370,10 +367,7 @@ body {
   color: white;
   transform: rotateY(180deg);
 }
-.play_card[flip] .back-card:after {
-  content: " ";
-  background-image: url("/0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png");
-  background-size: 50px 50px;
+.play_card[flip] .back-card img {
   background-color: green;
   height: 50px;
   aspect-ratio: 1/1;
