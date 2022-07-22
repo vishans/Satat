@@ -2,12 +2,24 @@ const range = (start, stop, step = 1) =>
   Array(Math.ceil((stop - start) / step)).fill(start).map((x, y) => x + y * step);
 
 class Card {
-    constructor(value, suit){
+    constructor(value, suit, flipable = false){
         this.value = value;
         this.suit = suit;
         this.HTMLClass = "play_card";
-        this.Element = this.__getElement()
+        this.Element = this.__getElement();
+        if(flipable){ 
+            const element = document.createElement('div');
+            element.innerHTML = this.getFlipableHTML();
+            this.flipableElement = element;
+        }
         this.playerID = null;
+    }
+
+    flipCard(){
+        if(!this.flipableElement) return ;
+        const inner = this.flipableElement.querySelector('.card-inner');
+        console.log(inner)
+        inner.classList.toggle('flipped');
     }
 
     getHTMLClass(){
@@ -25,6 +37,37 @@ class Card {
     getSugarCoatedSuit(){
     
          return this.suit.suit;
+    }
+
+    setValueAndSuit(value, suit){
+        this.value = value;
+        this.suit = suit;
+        if(this.flipableElement){
+            this.flipableElement.setAttribute('id',`_${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}` )
+            this.flipableElement.setAttribute('suit',`${this.getSugarCoatedSuit().toLowerCase()}`)
+            const upper = this.flipableElement.querySelector('.upper');
+            const symbol = this.flipableElement.querySelector('.symbol');
+            const lower = this.flipableElement.querySelector('.lower');
+
+            upper.innerHTML = this.getSugarCoatedValue()+this.getCardSymbol();
+            lower.innerHTML = this.getSugarCoatedValue()+this.getCardSymbol();
+            symbol.innerHTML = this.getCardSymbol();
+
+
+
+        }
+        const playCard  = document.querySelector('.'+this.HTMLClass)
+        playCard.setAttribute('id',`_${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}` )
+        playCard.setAttribute('suit',`${this.getSugarCoatedSuit().toLowerCase()}`)
+
+        const upper = this.Element.querySelector('.upper');
+        const symbol = this.Element.querySelector('.symbol');
+        const lower = this.Element.querySelector('.lower');
+
+        upper.innerHTML = this.getSugarCoatedValue()+this.getCardSymbol();
+        lower.innerHTML = this.getSugarCoatedValue()+this.getCardSymbol();
+        symbol.innerHTML = this.getCardSymbol();
+
     }
 
     getSugarCoatedValue(){
@@ -82,7 +125,7 @@ class Card {
                     <div class="lower">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
                 </div>
                 <div class="back-card">
-                    hi
+                    
                 </div>
             </div>
         </div>

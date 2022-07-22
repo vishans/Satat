@@ -116,9 +116,44 @@ class popUpAndNotification{
                     this.full.style.backdropFilter = null;
                 }
     }
+
+    issueSettleStarterPopUp(){
+        const popUp = document.createElement('div');
+        popUp.innerHTML = `<div class="choose-card-pop-up">
+        <div class="title">Settling who starts first</div>
+        <div class="body"> </div>
+        <div class="bottom">You can only choose 1 card, once.</div>
+      </div>`;
+        const settlerObj = new settleStarter();
+
+        this.appendToFull(settlerObj.getElement());
+        return settlerObj;
+    }
 }
 
 
-class settleCardChooser {
+class settleStarter {
+    constructor(flipped = false){
+        this.element = document.createElement('div');
+        this.element.innerHTML = `<div class="choose-card-pop-up">
+        <div class="title">Settling who starts first</div>
+        <div class="body"> </div>
+        <div class="bottom">You can only choose 1 card, once.</div>
+      </div>`;
+        this.flipped = flipped;
+    }
+
+    getElement(){
+        return this.element;
+    }
+
+    addCard(value, suit){
+        this.element.querySelector('.body');
+        const body = this.element.querySelector('.body');
+        const newCard = new Card(value, suit, true);
+        this.c = newCard;
+        if(this.flipped) newCard.flipCard();
+        body.appendChild(newCard.flipableElement);
+    }
 
 }

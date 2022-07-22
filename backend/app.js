@@ -98,6 +98,7 @@ app.use(express.static(__dirname + '/../frontend/css'));
 app.use(express.static(__dirname + '/../frontend/behaviour'));
 app.use(express.static(__dirname + '/../frontend/font'));
 app.use(express.static(__dirname + '/../avatar'));
+app.use(express.static(__dirname + '/../assets'));
 app.use(express.static(__dirname + '/../src/'));
 
 

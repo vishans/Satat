@@ -55,10 +55,11 @@ playerContainer.onclick = ()=>{
     socket.emit('team',null);
 }
 
-//PN.issueGenericPopUp('test', 'test','ok')
-let pBody = document.querySelector('.choose-card-pop-up .body');
-pBody.innerHTML = new Card(11, Suit.Heart).getFlipableHTML()
-pBody.innerHTML += new Card(11, Suit.Heart).getFlipableHTML()
+const sob = PN.issueSettleStarterPopUp();
+sob.addCard('?', Suit.Heart)
+// let pBody = document.querySelector('.choose-card-pop-up .body');
+// pBody.innerHTML = new Card(11, Suit.Heart).getFlipableHTML()
+// pBody.innerHTML += new Card(11, Suit.Heart).getFlipableHTML()
 
 
 

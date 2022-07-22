@@ -84,6 +84,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
 }
 .popup-notif .full .notif {
   height: 50vh;
@@ -156,7 +157,6 @@
   font-family: SMM;
   pointer-events: all;
   background-color: #E1E7F7;
-  position: absolute;
   font-size: 70vh;
 }
 .choose-card-pop-up .title {

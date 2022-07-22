@@ -474,17 +474,52 @@ body{
         flex-direction: column;
         padding: 0.5rem 1rem;
         box-sizing: border-box;
+        
+
+        &:after{
+            content: ' ';
+            background-image: url('/0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png');
+            background-size: 50px 50px;
+            background-color: green;
+            height: 50px;
+            aspect-ratio: 1/1;
+            position: absolute;
+            bottom: -25px;
+            right: -25px;
+            border-radius: 8px;
+        }
 
     }
 
     .back-card {
-        background-color: dodgerblue;
+        //background-color: #fefefe;
+        //background-image: url(http://www.brainjar.com/css/cards/graphics/cardback.gif);
+        background-image: url(/cardback.gif);
+
         color: white;
         transform: rotateY(180deg);
+
+        &:after{
+            content: ' ';
+            background-image: url('/0c4b3fb2b564b704bdb44240788631870a94736bfbb7082db252dbcd41d185eb.png');
+            background-size: 50px 50px;
+            background-color: green;
+            height: 50px;
+            aspect-ratio: 1/1;
+            position: absolute;
+            bottom: -25px;
+            right: -25px;
+            border-radius: 8px;
+        }
     }
 
-    &:hover .card-inner{
+    // &:hover .card-inner{
+    //     transform: rotateY(180deg);
+    // }
+
+    .flipped{
         transform: rotateY(180deg);
+
     }
 }
 
