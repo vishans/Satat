@@ -1,9 +1,9 @@
 
 class MasterPlayerInfo{
     AColor = '#EE6360';
-    ASubColor = '#A14341'
+    ASubColor = '#A14341';
     BColor = '#6355C4';
-    BSubColor = '#3C3377'
+    BSubColor = '#3C3377';
 
     constructor(playerObj, position = 'left', numberOfCards = 13, connectionStatus = 'online'){
         this.playerObj = playerObj;

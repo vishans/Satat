@@ -117,14 +117,14 @@ class popUpAndNotification{
                 }
     }
 
-    issueSettleStarterPopUp(){
+    issueSettleStarterPopUp(flipped=true){
         const popUp = document.createElement('div');
         popUp.innerHTML = `<div class="choose-card-pop-up">
         <div class="title">Settling who starts first</div>
         <div class="body"> </div>
         <div class="bottom">You can only choose 1 card, once.</div>
       </div>`;
-        const settlerObj = new settleStarter();
+        const settlerObj = new settleStarter(flipped);
 
         this.appendToFull(settlerObj.getElement());
         return settlerObj;
@@ -142,47 +142,70 @@ class settleStarter {
       </div>`;
         this.flipped = flipped;
         this.cards = [];
+        this.alreadyCardChosen = false;
     }
 
     getElement(){
         return this.element;
     }
 
+    getCards(){
+        return this.cards;
+    }
+
     addCard(value, suit){
         this.element.querySelector('.body');
         const body = this.element.querySelector('.body');
         const newCard = new Card(value, suit, true);
-        this.cards.push(newCard)
+        newCard.setIndex(this.cards.length);
+        this.cards.push(newCard);
 
         if(this.flipped) newCard.flipCard();
         body.appendChild(newCard.flipableElement);
+        return newCard;
 
     }
 
     associatePlayerWithCard(username, cardIndex){
+        console.log(username)
         const player = playerList.get(username);
+        
         if(!player) return;
+
+        let color  = player.team === 'A'? '#A14341' : '#3C3377';
+        console.log(color)
 
         const card = this.cards[cardIndex].flipableElement;
         let img = document.createElement('img');
         img.src = player.avatar;
-        img.style.backgroundColor = 'red';
+        img.style.backgroundColor = color;
 
         const frontCard = card.querySelector('.front-card');
         frontCard.appendChild(img);
 
         img = document.createElement('img');
         img.src = player.avatar;
-        img.style.backgroundColor = 'red';
+        img.style.backgroundColor = color;
 
         const backCard = card.querySelector('.back-card');
+        console.log('hereeee')
         backCard.appendChild(img);
+        
     }
 
     flipAllCards(){
         for(let card of this.cards){
             card.flipCard();
         }
+    }
+
+    addNCards(n, suit){
+        for(let i = 0; i < n ; i++){
+            const card = this.addCard('?', suit);
+            console.log(card)
+            card.flipableElement.style.zIndex = n-i;
+        }
+
     }
 
 }

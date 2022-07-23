@@ -46,10 +46,10 @@ globalRoom.set('123456789', new Room(io,'123456789', globalRoom,3 * 60 *60 * 100
 globalRoom.set('123456000', new Room(io,'123456000', globalRoom));
 
 let n = null;
-n = new Player('peach','f70ce69f027d4a62b15ac458342b574be592088d09eb096f0a69f9a271033c3a.png' , true, '40')
-n.team = 'A'
-n.ready = true
-globalRoom.get('123456789').players.set('40',n )
+// n = new Player('peach','f70ce69f027d4a62b15ac458342b574be592088d09eb096f0a69f9a271033c3a.png' , true, '40')
+// n.team = 'A'
+// n.ready = true
+// globalRoom.get('123456789').players.set('40',n )
 
 n = new Player('yosh','eee9e16a4d1da1005e393ae96f00b979acdcfa47510f25fd70cc0978ced3b7ff.png' , false, '41')
 n.team = 'B'
@@ -58,7 +58,7 @@ n.ready = true
 globalRoom.get('123456789').players.set('41',n )
 
 n = new Player('meow','f265055a46db02e2260b8dff8a6ce00ebc8bf3e03dba35d75dae317677f3e596.png' , true, '42')
-n.team = 'B'
+n.team = 'A'
 n.ready = true
 
 globalRoom.get('123456789').players.set('42',n )

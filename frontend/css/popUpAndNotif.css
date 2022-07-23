@@ -30,6 +30,7 @@
   user-select: none;
   flex-shrink: 0;
   transform: translateX(150%);
+  z-index: 1000000;
 }
 .popup-notif .side-bar .notif .notif-title {
   grid-row: 1/2;
@@ -99,6 +100,7 @@
   pointer-events: all;
   color: #5B1C1A;
   position: absolute;
+  z-index: 1000000;
 }
 .popup-notif .full .notif .notif-title {
   background-color: #FECB02;
@@ -148,7 +150,7 @@
 
 .choose-card-pop-up {
   height: 70vh;
-  width: 55vw;
+  width: 70vw;
   border-radius: 8px;
   display: grid;
   grid-template-rows: 13% auto 20%;

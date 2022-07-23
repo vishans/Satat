@@ -13,6 +13,7 @@ class Player{
         this.roomCode = 0;
         this.ready = false;
         this.admin = admin;
+        this.settlerChooseIndex = null;
         
         this.renounce = {
             'Spade': [],

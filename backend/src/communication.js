@@ -6,6 +6,7 @@ class Communication{
     constructor(io, rooms){
         this.io = io;
         this.rooms = rooms;
+        this.debug = process.env.ONEDEBUG == 'true';
 
 
     
@@ -36,6 +37,14 @@ class Communication{
 
     getPlayers(socket){
         return this.rooms.get(socket.data.roomCode).players;
+    }
+
+    getPlayersList(socket){
+        return Array.from(this.getPlayers(socket).values());
+    }
+
+    setRoomState(socket, state){
+        this.getRoom(socket.data.roomCode).roomState = state;
     }
 
     async init(){
@@ -98,8 +107,10 @@ class Communication{
             await Users.updateOne({_id : result._id}, {inGame: true, socketID : socket.id, roomCode});
             let newPlayer = new Player(result.username, result.avatar, playerAdmin, socket.id)
             // for testing
-            newPlayer.team = 'A'
-            newPlayer.ready = true;
+            if(this.debug){
+                newPlayer.team = 'A'
+                newPlayer.ready = true;
+            }
 
             this.addPlayerToRoom(roomCode, socket, newPlayer)
             socket.join(roomCode);
@@ -136,20 +147,39 @@ class Communication{
                                         settingParam: this.rooms.get(roomCode).settingParam});
             
             const username = this.getUsername(socket); //this.rooms.get(socket.data.roomCode).players.get(socket.id).username
-            this.io.to(socket.data.roomCode).emit('ready', {username, state: 1}) // should be state: false
             
-            const pL = this.getRoom(socket.data.roomCode).orderPlayer();
-            console.log(pL)
+            let dState = false;
+            if(this.debug){
+                dState = false
+            }
             
+            this.io.to(socket.data.roomCode).emit('ready', {username, state: dState}) // should be state: false
             
-            
-            
-            this.io.to(socket.data.roomCode).emit('do transition', pL);
-            setTimeout(()=>{
-                        this.io.to(socket.data.roomCode).emit('do game');
-                        this.getRoom(socket.data.roomCode).roomState = 'game';
+            console.log('ddbug')
+            console.log(this.debug)
+            if(this.debug){
+                console.log('done this')
+                const pL = this.getRoom(socket.data.roomCode).orderPlayer();
+                console.log(pL)
+                
+                
+                
+                
+                this.io.to(socket.data.roomCode).emit('do transition', pL);
+                setTimeout(()=>{
+                            this.io.to(socket.data.roomCode).emit('do game');
+                            this.setRoomState(socket, 'game');
 
-                    },500)
+                            setTimeout(()=>{
+                                this.io.to(socket.data.roomCode).emit('settleStart', this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
+
+
+                            },500)
+
+                        },500)
+
+
+            }
 
             
                 
@@ -229,21 +259,27 @@ class Communication{
                 this.getPlayer(socket).ready = !state;
 
                 this.io.to(socket.data.roomCode).emit('ready', {username, state: !state})
-                // let readyCount = 0;
-                // this.getPlayers(socket).forEach(player => {
-                //     if (player.team != null && player.ready){
-                //         readyCount++;
-                //     }
-                // })
+                let readyCount = 0;
+                this.getPlayers(socket).forEach(player => {
+                    if (player.team != null && player.ready){
+                        readyCount++;
+                    }
+                })
 
-                // if(readyCount > 3){
-                //     this.io.to(socket.data.roomCode).emit('do transition',this.getRoom(socket.data.roomCode).orderPlayer());
-                //     setTimeout(()=>{
-                //         this.io.to(socket.data.roomCode).emit('do game');
-                //         this.getRoom(socket.data.roomCode).roomState = 'game';
+                if(readyCount > 3){
+                    this.io.to(socket.data.roomCode).emit('do transition',this.getRoom(socket.data.roomCode).orderPlayer());
+                    setTimeout(()=>{
+                        this.io.to(socket.data.roomCode).emit('do game');
+                        this.getRoom(socket.data.roomCode).roomState = 'game';
 
-                //     },3000)
-                // }
+                        setTimeout(()=>{
+                            this.io.to(socket.data.roomCode).emit('settleStart', this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
+
+
+                        },500)
+
+                    },3000)
+                }
 
             })
 
@@ -254,6 +290,28 @@ class Communication{
                 
                 this.rooms.get(socket.data.roomCode).settingParam = param;
                 socket.broadcast.to(socket.data.roomCode).emit('settingParam', param);
+            })
+
+            socket.on('choose', (index)=>{
+                
+                if(!(index >=0 && index < this.getRoom(socket.data.roomCode).settlerChooseCardsNo)) return;
+
+                if(this.getPlayer(socket).settlerChooseIndex) return;
+
+                for(let player of this.getPlayersList(socket)){
+                    console.log(`${player.settlerChooseIndex} == ${index}`)
+                    if(player.settlerChooseIndex == index ) return;
+                }
+
+                
+
+                this.getPlayer(socket).settlerChooseIndex = index;
+                
+                const username = this.getPlayer(socket).username;
+
+                this.io.to(socket.data.roomCode).emit('choose', {username, index});
+
+
             })
         
         });

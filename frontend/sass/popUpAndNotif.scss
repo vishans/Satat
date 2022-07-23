@@ -38,6 +38,8 @@
             flex-shrink: 0;
             //transition: all .8s ease-in-out;
             transform: translateX(150%);
+            z-index: 1000000;
+
 
 
 
@@ -134,6 +136,7 @@
             pointer-events: all;
             color: #5B1C1A;
             position: absolute;
+            z-index: 1000000;
 
             .notif-title{
                 background-color: #FECB02;
@@ -196,7 +199,7 @@
 
 .choose-card-pop-up{
     height: 70vh;
-    width: 55vw;
+    width: 70vw;
     
     border-radius: 8px;
 

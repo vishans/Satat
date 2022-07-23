@@ -6,7 +6,13 @@ class Card {
         this.value = value;
         this.suit = suit;
         this.HTMLClass = "play_card";
-        this.Element = this.__getElement();
+
+
+        const element = document.createElement('div');
+        element.innerHTML = this.getHTML();
+        this.Element = element//this.__getElement();
+
+
         if(flipable){ 
             const element = document.createElement('div');
             element.innerHTML = this.getFlipableHTML();
@@ -107,8 +113,19 @@ class Card {
         return values.map( (val) =>  new Card(val,suit));
     }
 
+    setIndex(index){
+        if(this.flipableElement){
+            const indexElement = this.flipableElement.querySelector('.index');
+            indexElement.innerText = index;
+        }
+
+        const indexElement = this.Element.querySelector('.index');
+        indexElement.innerText = index;
+    }
+
     getHTML(){
         return `<div class="${this.getHTMLClass()}" id="_${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}" suit="${this.getSugarCoatedSuit().toLowerCase()}">
+            <div class="index" style="display:none;"></div>
             <div class="upper">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
             <div class="symbol" >${this.getCardSymbol()}</div>
             <div class="lower">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
@@ -118,7 +135,9 @@ class Card {
 
     getFlipableHTML(){
         return `<div class="${this.getHTMLClass()}" id="_${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}" suit="${this.getSugarCoatedSuit().toLowerCase()}" flip>
-            <div class="card-inner">
+        <div class="index" style="display:none;"></div>
+            
+        <div class="card-inner">
                 <div class="front-card">
                     <div class="upper">${this.getSugarCoatedValue()+this.getCardSymbol()}</div>
                     <div class="symbol" >${this.getCardSymbol()}</div>

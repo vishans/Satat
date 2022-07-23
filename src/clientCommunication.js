@@ -231,6 +231,33 @@ class ClientCommunication{
            
         })
 
+        socket.on('settleStart', (cardNo) =>{
+            settler = PN.issueSettleStarterPopUp(true);
+            settler.addNCards(cardNo, Suit.Spade); 
+            for(let card of settler.getCards()){
+                card.flipableElement.onclick = (event)=>{
+                    const target = event.target.parentNode.parentNode;
+                    
+                    
+                    const index = target.querySelector('.index').innerText;
+                    if(!settler.alreadyCardChosen){
+                        
+                        console.log(index)
+                        socket.emit('choose', index)
+                    }
+                }
+            }
+           
+        })
+
+
+        socket.on('choose', (param) =>{
+            const {username, index} = param;
+            if(username === moi) settler.alreadyCardChosen = index;
+            settler.associatePlayerWithCard(username, index);
+           
+        })
+
     }
 
 

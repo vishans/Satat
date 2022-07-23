@@ -293,8 +293,6 @@ body {
 .play_card {
   font-family: SMM;
   position: relative;
-  bottom: 50%;
-  opacity: 0;
   height: 24vh;
   aspect-ratio: 9/16;
   background-color: #fefefe;
@@ -340,8 +338,6 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden;
-  /* Safari */
   backface-visibility: hidden;
   border: 1px solid black;
   border-radius: 5px;
@@ -361,6 +357,7 @@ body {
   bottom: -25px;
   right: -25px;
   border-radius: 8px;
+  border: 1px solid black;
 }
 .play_card[flip] .back-card {
   background-image: url(/cardback.gif);

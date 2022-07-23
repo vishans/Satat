@@ -29,6 +29,8 @@ class Room{
                 socket.disconnect();
             })
         }, this.roomTimeout)
+
+        this.settlerChooseCardsNo = 8;
     }
 
     orderPlayer(){

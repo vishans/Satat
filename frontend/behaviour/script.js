@@ -1,6 +1,9 @@
 var authCookie = document.cookie.split('=')[1];
 var roomCode = document.querySelector('.room-code #code').innerText.split('-').join('');
 var moi = null;
+var playerList = new Map();
+
+var settler = null; // variable for settler object, help choosing cards when settling who starts
 var socket = io('/', {query: {'authCookie': authCookie,
                            'roomCode': roomCode}});
 let playerContainer = document.querySelector('#player-container');
@@ -24,7 +27,6 @@ let playAreaColor = document.querySelector('.play-area-color-1');
 var mouseOverArea = false;
 var allowControls = false;
 
-let playerList = new Map();
 const SM = new screenManager();
 const PN = new popUpAndNotification(document.querySelector('.popup-notif'));
 const clientCommunication = new ClientCommunication();
@@ -55,9 +57,9 @@ playerContainer.onclick = ()=>{
     socket.emit('team',null);
 }
 
-const sob = PN.issueSettleStarterPopUp();
-sob.addCard('?', Suit.Heart)
-sob.addCard('5', Suit.Club)
+// const sob = PN.issueSettleStarterPopUp();
+// sob.addCard('?', Suit.Heart)
+// sob.addCard('5', Suit.Club)
 
 
 
@@ -125,7 +127,7 @@ myHand = d.getNCardsFromDeck(13);
 
 for(let card of myHand){
     
-    card.getElement().classList.add('beforeCardTransition');
+    //card.getElement().classList.add('beforeCardTransition');
     card.getElement().onmouseover = function(){
         cardContainer.classList.add('high-z-index');
     }
@@ -154,37 +156,37 @@ for(let card of myHand){
     
 // },500);
 
-var i = 0;
-var zz = 100000;
+// var i = 0;
+// var zz = 100000;
 var cardsInArea = [];
-function trans(e){
-    e.target.classList.add('card-hover');
+// function trans(e){
+//     e.target.classList.add('card-hover');
 
-        if(i<12 && e.propertyName == 'opacity'){
-            i++;
-            myHand[i].getElement().classList.add('CardTransition');
-            myHand[i].getElement().addEventListener('transitionend', trans)
-        }
+//         if(i<12 && e.propertyName == 'opacity'){
+//             i++;
+//             myHand[i].getElement().classList.add('CardTransition');
+//             myHand[i].getElement().addEventListener('transitionend', trans)
+//         }
 
-        if(i==12 && e.propertyName == 'opacity'){
-            allowControls = true;
-            myHand.forEach(function(card){
+//         if(i==12 && e.propertyName == 'opacity'){
+//             allowControls = true;
+//             myHand.forEach(function(card){
                 
-                //let element = card.getElement();
-                card.getElement().onclick = function(){card.spawnFromCardContainer();}
+//                 //let element = card.getElement();
+//                 card.getElement().onclick = function(){card.spawnFromCardContainer();}
                 
-            })
-        }
-}
+//             })
+//         }
+// }
 
 //Pause 
-setTimeout(function(){
+// setTimeout(function(){
     
-    myHand[i].getElement().classList.add('CardTransition');
+//     myHand[i].getElement().classList.add('CardTransition');
     
-    myHand[i].getElement().addEventListener('transitionend', trans)
+//     myHand[i].getElement().addEventListener('transitionend', trans)
 
-}, 500);
+// }, 500);
     
 
 //sort button function
