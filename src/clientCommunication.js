@@ -258,6 +258,22 @@ class ClientCommunication{
            
         })
 
+        socket.on('starter', (param) =>{
+            const {selectedSuit,sendableCards,i, username} = param;
+            console.log(param)
+            const cards = settler.cards
+            for(let card in cards){
+                const currentCard = settler.cards[card]
+                currentCard.setValueAndSuit(sendableCards[card], selectedSuit)
+                currentCard.flipCard()
+            }
+
+            
+                settler.inflateCard(i)
+            
+           
+        })
+
     }
 
 

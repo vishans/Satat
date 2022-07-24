@@ -181,6 +181,17 @@
   justify-content: center;
   gap: 10px;
 }
+.choose-card-pop-up .body .elevate {
+  animation: upanddown 3s infinite;
+}
+@keyframes upanddown {
+  50% {
+    transform: translateY(-20%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
 .choose-card-pop-up .bottom {
   grid-column: 1/2;
   grid-row: 3/4;

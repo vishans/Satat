@@ -31,6 +31,7 @@ class Room{
         }, this.roomTimeout)
 
         this.settlerChooseCardsNo = 8;
+        this.settlerChooseCount = 0;
     }
 
     orderPlayer(){

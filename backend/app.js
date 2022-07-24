@@ -22,7 +22,8 @@ var io = socketIO(server);
 
 const port = 3000;
 
-
+var debug = process.env.ONEDEBUG === 'true'
+console.log(debug)
 
 //utils
 const makeTempID = require('./utils/makeTempID')
@@ -46,10 +47,13 @@ globalRoom.set('123456789', new Room(io,'123456789', globalRoom,3 * 60 *60 * 100
 globalRoom.set('123456000', new Room(io,'123456000', globalRoom));
 
 let n = null;
-// n = new Player('peach','f70ce69f027d4a62b15ac458342b574be592088d09eb096f0a69f9a271033c3a.png' , true, '40')
-// n.team = 'A'
-// n.ready = true
-// globalRoom.get('123456789').players.set('40',n )
+
+if(debug){
+    n = new Player('peach','f70ce69f027d4a62b15ac458342b574be592088d09eb096f0a69f9a271033c3a.png' , true, '40')
+    n.team = 'A'
+    n.ready = true
+    globalRoom.get('123456789').players.set('40',n )
+}
 
 n = new Player('yosh','eee9e16a4d1da1005e393ae96f00b979acdcfa47510f25fd70cc0978ced3b7ff.png' , false, '41')
 n.team = 'B'

@@ -1,5 +1,7 @@
 const Users = require('../model/users')
 const Player = require('./players')
+const Card = require('./cards')
+
 
 
 class Communication{
@@ -108,8 +110,8 @@ class Communication{
             let newPlayer = new Player(result.username, result.avatar, playerAdmin, socket.id)
             // for testing
             if(this.debug){
-                newPlayer.team = 'A'
-                newPlayer.ready = true;
+                // newPlayer.team = 'B'
+                // newPlayer.ready = true;
             }
 
             this.addPlayerToRoom(roomCode, socket, newPlayer)
@@ -185,6 +187,8 @@ class Communication{
                 
             socket.on('disconnecting', async ()=> {
                 //implement socket disconnect on logout
+
+                this.getRoom(socket.data.roomCode).settlerChooseCount = 0;
                 console.log('user disconnected');
                 await Users.updateOne({socketID : socket.id}, {inGame: false, socketID : null, roomCode: null});
                 
@@ -266,7 +270,7 @@ class Communication{
                     }
                 })
 
-                if(readyCount > 3){
+                if(readyCount > 1){
                     this.io.to(socket.data.roomCode).emit('do transition',this.getRoom(socket.data.roomCode).orderPlayer());
                     setTimeout(()=>{
                         this.io.to(socket.data.roomCode).emit('do game');
@@ -306,10 +310,43 @@ class Communication{
                 
 
                 this.getPlayer(socket).settlerChooseIndex = index;
+                this.getRoom(socket.data.roomCode).settlerChooseCount ++;
                 
                 const username = this.getPlayer(socket).username;
 
                 this.io.to(socket.data.roomCode).emit('choose', {username, index});
+
+                if(this.getRoom(socket.data.roomCode).settlerChooseCount == 2){
+                    const suits = ['Club', 'Heart', 'Diamond', 'Spade'];
+                    const selectedSuit = 'Heart'//suits[Math.floor(Math.random()*5)];
+                    let cards = Card.getDeckOfSuit(selectedSuit);
+                    cards = cards.sort(()=>  0.5 - Math.random()).slice(0,this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
+                    console.log(cards)
+                    let max = -1;
+                    let startingPlayer = null;
+                    for(let player of this.getPlayersList(socket)){
+                        const index = player.settlerChooseIndex;
+                        if(index == null) continue;
+                        console.log(index)
+                        console.log(cards[index])
+
+                        if(cards[index].value > max){
+                            max = cards[index].value;
+                            startingPlayer = player;
+                        }
+                    }
+
+                    const username = startingPlayer.username;
+                    const i = startingPlayer.settlerChooseIndex;
+                    let sendableCards = [];
+                    for(let card of cards){
+                        const value = card.value;
+                        sendableCards.push(value);
+                    }
+                    this.io.to(socket.data.roomCode).emit('starter', {selectedSuit,sendableCards,i, username});
+                    console.log('alphayyy')
+
+                }
 
 
             })

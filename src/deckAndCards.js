@@ -10,13 +10,13 @@ class Card {
 
         const element = document.createElement('div');
         element.innerHTML = this.getHTML();
-        this.Element = element//this.__getElement();
+        this.Element = element.firstChild//this.__getElement();
 
 
         if(flipable){ 
             const element = document.createElement('div');
             element.innerHTML = this.getFlipableHTML();
-            this.flipableElement = element;
+            this.flipableElement = element.firstChild;
         }
         this.playerID = null;
     }
@@ -26,6 +26,15 @@ class Card {
         const inner = this.flipableElement.querySelector('.card-inner');
         console.log(inner)
         inner.classList.toggle('flipped');
+    }
+
+    addStyle(propertyName, value){
+        this.flipableElement.style[propertyName] = value;
+    }
+
+    addClass(className){
+        this.flipableElement.classList.add(className);
+
     }
 
     getHTMLClass(){
@@ -47,7 +56,15 @@ class Card {
 
     setValueAndSuit(value, suit){
         this.value = value;
-        this.suit = suit;
+        switch (suit){
+            case 'Heart': this.suit = Suit.Heart; break;
+            case 'Club': this.suit = Suit.Club; break;
+            case 'Diamond': this.suit = Suit.Diamond; break;
+            case 'Spade': this.suit = Suit.Spade; break;
+
+            
+        }
+        
         if(this.flipableElement){
             this.flipableElement.setAttribute('id',`_${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}` )
             this.flipableElement.setAttribute('suit',`${this.getSugarCoatedSuit().toLowerCase()}`)

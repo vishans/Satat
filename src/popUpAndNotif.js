@@ -203,9 +203,15 @@ class settleStarter {
         for(let i = 0; i < n ; i++){
             const card = this.addCard('?', suit);
             console.log(card)
-            card.flipableElement.style.zIndex = n-i;
+            //card.flipableElement.style.zIndex = n-i;
+            card.addStyle('zIndex', n-i);
         }
 
+    }
+
+    inflateCard(index){
+        console.log('infalted')
+        this.cards[index].addClass('elevate');
     }
 
 }
