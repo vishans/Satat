@@ -2,13 +2,18 @@ class ClientCommunication{
     constructor(){
         this.authCookie = authCookie; //document.cookie.split('=')[1];
         this.roomCode =roomCode; document.querySelector('.room-code #code').innerText.split('-').join('');
-        //console.log(this.roomCode)
+        //
 
 
         //socket = io('/', {query: {'authCookie': this.authCookie,
         //                            'roomCode': this.roomCode}});
         this.mySocketID = socket.id; 
         this.moi = null; 
+
+        socket.on('disconnect', ()=>{
+            setTimeout(()=>location.reload(), 3000 )
+            
+        })
 
         socket.on('handshake', (params)=>
         {
@@ -22,7 +27,7 @@ class ClientCommunication{
             this.setSettingFromParam(settingParam);
             players.forEach((player)=>{
                 if(player.username === this.moi){
-                    console.log(this.moi)
+                    
                     moi = new Player(username,player.avatar,player.team,player.ready,player.admin,socket.id)
                     playerList.set(this.moi, moi );
                     playerList.get(this.moi).masterPlayerInfoObject = new MasterPlayerInfo(playerList.get(this.moi));
@@ -37,9 +42,9 @@ class ClientCommunication{
                         }
                     }
                     else{
-                        console.log(555)
+                        
                         setting.onclick = function(){
-                                console.log('form clicked')
+                                
                                 const midgamelLeavers = settingForm.elements['mid-game-leaver']['value'];
                                 const nextRoundWaitTime= settingForm.elements['next-round-wait-time']['value'];
                                 const startGame= settingForm.elements['start-game']['value'];
@@ -72,22 +77,22 @@ class ClientCommunication{
         
         
         socket.on('invalid room', ()=>{
-            console.log('invalid room');
+            
             PN.issueGenericPopUp('Invalid Room', 'Room does not exist.\n ERRCODE:RM404', 'OK', ()=>window.location.href = '/');
             socket.disconnect();
         })
 
         socket.on('more than 1 instances', ()=>{
-            console.log('more than 1 instances');
+            
             PN.issueGenericPopUp('Already have a game instance opened', 'You already have a game instance opened in another tab.\n Close this one.\n ERRCODE:INST403', 'OK', ()=>window.location.href = '/');
 
             socket.disconnect();
         })
 
         socket.on('new conn', (player)=>{
-            console.log('new conn')
+            
             //playerList = new Map();
-            console.log(player)
+            
             //if(!playerList.has(player.username)){
             playerList.set(player.username, new Player(player.username,player.avatar,player.team,player.ready, player.admin,null));
             playerList.get(player.username).masterPlayerInfoObject = new MasterPlayerInfo(playerList.get(player.username));
@@ -100,20 +105,20 @@ class ClientCommunication{
 
 
         socket.on('user disconnect', (params)=>{
-            console.log('user disconnect')
-            console.log(params)
+            
+            
             const {username, newAdmin} = params;
             // const playerToRemove = document.querySelector("[username="+username.username+"]");
             const disconnectedPlayer = playerList.get(username);
             playerList.delete(username)
             if(newAdmin){
-            console.log(newAdmin)
+            
              playerList.get(newAdmin).admin = true;
              if(newAdmin == this.moi){
                 //document.querySelector('.settings-cover').remove();
                 setting.onclick = function(){
                     
-                        console.log('form clicked')
+                        
                         const midgamelLeavers = settingForm.elements['mid-game-leaver']['value'];
                         const nextRoundWaitTime= settingForm.elements['next-round-wait-time']['value'];
                         const startGame= settingForm.elements['start-game']['value'];
@@ -137,8 +142,10 @@ class ClientCommunication{
 
         socket.on('put in', (param)=>{
             const {username, teamName} = param;
-            console.log('put')
+            
             playerList.get(username).team = teamName;
+            playerList.get(username).masterPlayerInfoObject.setTeam(teamName);
+
 
            
 
@@ -150,9 +157,9 @@ class ClientCommunication{
 
         socket.on('ready', (param)=>{
             const {username, state} = param;
-            console.log(username)
+            
 
-            console.log(state)
+            
             playerList.get(username).ready = state;
             if(username === this.moi){
                 if(state){
@@ -165,9 +172,9 @@ class ClientCommunication{
                 else{
                     ready.removeAttribute('cantready');
                     ready.removeAttribute('unready');
-                    console.log(playerList.get(username))
+                    
                     if(playerList.get(username).team == null){
-                        console.log('ttt')
+                        
                         ready.setAttribute('cantready','cantready');
 
                     }
@@ -184,7 +191,7 @@ class ClientCommunication{
         })
 
         socket.on('settingParam', param =>{
-            console.log('form data received')
+            
             this.setSettingFromParam(param);
         })
 
@@ -210,12 +217,15 @@ class ClientCommunication{
                 return username === this.moi
             }))
 
-            console.log(myIndex)
+            
             let count = 0;
             let orders = ['bottom', 'left', 'top', 'right'];
+            let x;
             while(count < 4){
-                playerList.get(orderTeam[myIndex]).masterPlayerInfoObject.position = orders[count];
-                console.log(playerList.get(orderTeam[myIndex]))
+                x = playerList.get(orderTeam[myIndex]);
+                x.masterPlayerInfoObject.position = orders[count];
+                //alert(x.username+' '+x.team)
+                
                 myIndex = (myIndex + 1) % 4
                 count++;
             }
@@ -242,7 +252,7 @@ class ClientCommunication{
                     const index = target.querySelector('.index').innerText;
                     if(!settler.alreadyCardChosen){
                         
-                        console.log(index)
+                        
                         socket.emit('choose', index)
                     }
                 }
@@ -260,7 +270,7 @@ class ClientCommunication{
 
         socket.on('starter', (param) =>{
             const {selectedSuit,sendableCards,i, username} = param;
-            console.log(param)
+            
             const cards = settler.cards
             for(let card in cards){
                 const currentCard = settler.cards[card]
@@ -270,6 +280,20 @@ class ClientCommunication{
 
             
                 settler.inflateCard(i)
+            
+           
+        })
+
+        socket.on('verdict start', (param) =>{
+            
+            PN.issueWhoIsStartingPopUp(param)
+            
+           
+        })
+
+        socket.on('clearPStack', () =>{
+            
+            PN.clearPopUpStack();
             
            
         })

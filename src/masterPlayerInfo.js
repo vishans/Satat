@@ -7,16 +7,24 @@ class MasterPlayerInfo{
 
     constructor(playerObj, position = 'left', numberOfCards = 13, connectionStatus = 'online'){
         this.playerObj = playerObj;
+        this.team = playerObj.team;
         this.position = position;
         this.numberOfCards = numberOfCards;
         this.connectionStatus = connectionStatus;
 
         this.Element = this.__createElement();
-        this.setNumberOfCards(this.numberOfCards)
+        //this.setNumberOfCards(this.numberOfCards)
         this.MinimalPlayerInfoElement = this.__createMinimalPlayerInfoElement()
         
         
         
+    }
+
+    setTeam(team){
+        this.team = team;
+        this.Element = this.__createElement();
+
+
     }
 
     __createElement(){
@@ -47,6 +55,8 @@ class MasterPlayerInfo{
         //add number of card to semantic
         let tempNumCard = document.createElement('div');
         tempNumCard.id = 'number-of-cards';
+        tempNumCard.innerText = '🃏 ' + this.numberOfCards;
+
         semantic.appendChild(tempNumCard);
 
         //add connection status
@@ -55,7 +65,7 @@ class MasterPlayerInfo{
         let team = document.createElement('div');
         team.classList.add('master-player-info-team');
         team.style.backgroundColor = teamColor;
-        team.innerText = this.playerObj.team;
+        team.innerText = this.team;
 
         let avatar = document.createElement('img');
         avatar.classList.add('master-player-info-avatar');
@@ -80,6 +90,10 @@ class MasterPlayerInfo{
 
     getElement(){
         return this.Element;
+    }
+
+    recomputeElement(){
+
     }
 
 

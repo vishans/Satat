@@ -116,11 +116,12 @@
         grid-column: 1/3;
         grid-row: 1/2;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
         //backdrop-filter: blur(5px);
         pointer-events: none;
+        //position: relative;
 
         .notif{
             height: 50vh;
@@ -198,6 +199,10 @@
 }
 
 .choose-card-pop-up{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
     height: 70vh;
     width: 70vw;
     
@@ -264,4 +269,27 @@
         justify-content: center;
 
     }
+}
+
+.player-start-pop-up{
+    @extend .choose-card-pop-up;
+    .body{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 10vh;
+
+        img{
+            height: 30%;
+            aspect-ratio: 1/1;
+            border: 1px solid black;
+            background-color: red;
+            border-radius: 8px;
+        }
+
+        .semantic{
+            //background-color: red;
+        }
+    }
+
 }

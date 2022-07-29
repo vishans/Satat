@@ -12,8 +12,8 @@ class screenManager{
             let teamA = players.filter(player => player.team === 'A');
             let teamB = players.filter(player => player.team === 'B');
 
-            console.log(teamA);
-            console.log(teamB)
+            
+            
 
             let teamMate = null;
             let opposingTeam = null;
@@ -22,7 +22,7 @@ class screenManager{
             let teamCol =  null;
             let teamSubCol = null;
             let opposingTeamCol, opposingTeamSubCol = null;
-            console.log('teaml ' + moi.team)
+            
             if(moi.team == 'A'){
                 teamCol = '#EE6360';
                 teamSubCol = '#A14341'
@@ -46,7 +46,7 @@ class screenManager{
 
             }
 
-            console.log(teamMate)
+            
 
             teamL.style.backgroundColor = teamCol;
             const avatarContainerLImg = this.transitionScreen.querySelectorAll('.avatar-container-L img');
@@ -72,8 +72,8 @@ class screenManager{
             
             // const posi = ['left', 'right', 'top', 'bottom'];
             // posi.forEach((p, index)=>{
-            //     console.log(p)
-            //     console.log(players[index].masterPlayerInfoObject)
+            //     
+            //     
             //     //players[index].masterPlayerInfoObject.position = p;
             //     masterPlayerInfoPlane.appendChild(players[index].masterPlayerInfoObject.getElement())
             //     players[index].masterPlayerInfoObject.calculateAndSetPosition()
@@ -81,10 +81,10 @@ class screenManager{
 
             playerList.forEach((player)=>{
                 masterPlayerInfoPlane.appendChild(player.masterPlayerInfoObject.getElement())
-                //setTimeout(()=>{
+                setTimeout(()=>{
                     player.masterPlayerInfoObject.calculateAndSetPosition()
 
-                //},1000)
+                },5000)
                 
             })
             
@@ -94,7 +94,7 @@ class screenManager{
     }
 
     showTransitionScreen(){
-        console.log(this.currentScreen)
+        
         this.currentScreen = 'transition';
         this.transitionScreen.style.display = 'grid';
         return new Promise((resolve, reject)=>{

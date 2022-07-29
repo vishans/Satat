@@ -110,9 +110,11 @@ class Communication{
             let newPlayer = new Player(result.username, result.avatar, playerAdmin, socket.id)
             // for testing
             if(this.debug){
-                // newPlayer.team = 'B'
-                // newPlayer.ready = true;
+                newPlayer.team = 'B'
+                newPlayer.ready = true;
             }
+
+            newPlayer.admin = true;
 
             this.addPlayerToRoom(roomCode, socket, newPlayer)
             socket.join(roomCode);
@@ -277,10 +279,17 @@ class Communication{
                         this.getRoom(socket.data.roomCode).roomState = 'game';
 
                         setTimeout(()=>{
+                            if(this.getRoom(socket.data.roomCode).settingParam.startGame === 'server'){
+                                const playerList = this.getPlayersList(socket);
+                                const randomPlayerIndex = Math.floor(Math.random()* playerList.length);
+                                const username = playerList[randomPlayerIndex].username;
+                                this.io.to(socket.data.roomCode).emit('verdict start', username);
+                                return;
+                            }
                             this.io.to(socket.data.roomCode).emit('settleStart', this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
 
 
-                        },500)
+                        },1500)
 
                     },3000)
                 }
@@ -344,7 +353,15 @@ class Communication{
                         sendableCards.push(value);
                     }
                     this.io.to(socket.data.roomCode).emit('starter', {selectedSuit,sendableCards,i, username});
-                    console.log('alphayyy')
+                    
+                    setTimeout(()=>{
+                        this.io.to(socket.data.roomCode).emit('verdict start', username);
+
+                        setTimeout(()=>{
+                            this.io.to(socket.data.roomCode).emit('clearPStack');
+
+                        },4000)
+                    }, 3000)
 
                 }
 

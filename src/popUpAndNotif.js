@@ -1,5 +1,6 @@
 class popUpAndNotification{
     popUpCount = 0;
+    popUpStack = [];
     constructor(notifLayer){
         this.notifLayer = notifLayer;
         this.sideBar = this.notifLayer.querySelector('.side-bar');
@@ -107,17 +108,36 @@ class popUpAndNotification{
         if(!this.popUpCount){
             this.full.style.backdropFilter ='blur(5px)';
         }
-        this.popUpCount++;
+        this.popUpStack.push(element);
+        return this.popUpCount++;
     }
 
     removeFromFull(element){
         element.remove();
-                if(!--this.popUpCount){
-                    this.full.style.backdropFilter = null;
-                }
+        if(!--this.popUpCount){
+            this.full.style.backdropFilter = null;
+        }
+    }
+
+    clearPopUpStack(){
+        for(let element of this.popUpStack){
+            this.removeFromFull(element);
+        }
+    }
+
+    removeFromStackByIndex(index){
+        if(!(index >= 0 && index < this.popUpStack.length)){
+            return -1;
+        }
+        const elementToBeRemoved = this.popUpStack[index];
+        this.popUpStack.splice(index, 1);
+
+        this.removeFromFull(elementToBeRemoved);
+        return index;
     }
 
     issueSettleStarterPopUp(flipped=true){
+        //return;
         const popUp = document.createElement('div');
         popUp.innerHTML = `<div class="choose-card-pop-up">
         <div class="title">Settling who starts first</div>
@@ -128,6 +148,28 @@ class popUpAndNotification{
 
         this.appendToFull(settlerObj.getElement());
         return settlerObj;
+    }
+
+    issueWhoIsStartingPopUp(username){
+        const player = playerList.get(username);
+        
+        let color  = player.team === 'A'? '#A14341' : '#3C3377';
+        let popUp = document.createElement('div');
+        popUp.innerHTML = `<div class="player-start-pop-up">
+        <div class="title">Verdict</div>
+        <div class="body"> 
+            <img src="/${player.avatar}" style="background-color:${color};">
+            <div class="semantic"> <span style="color:${color};">${player.username}</span> starts</div>
+        </div>
+
+        <div class="bottom" style="color:${color};">Team ${player.team}</div>
+        
+      </div>`;
+
+        popUp = popUp.firstChild;
+       
+        this.appendToFull(popUp);
+        
     }
 }
 
@@ -167,13 +209,13 @@ class settleStarter {
     }
 
     associatePlayerWithCard(username, cardIndex){
-        console.log(username)
+        
         const player = playerList.get(username);
         
         if(!player) return;
 
         let color  = player.team === 'A'? '#A14341' : '#3C3377';
-        console.log(color)
+        
 
         const card = this.cards[cardIndex].flipableElement;
         let img = document.createElement('img');
@@ -188,7 +230,7 @@ class settleStarter {
         img.style.backgroundColor = color;
 
         const backCard = card.querySelector('.back-card');
-        console.log('hereeee')
+        
         backCard.appendChild(img);
         
     }
@@ -202,7 +244,7 @@ class settleStarter {
     addNCards(n, suit){
         for(let i = 0; i < n ; i++){
             const card = this.addCard('?', suit);
-            console.log(card)
+            
             //card.flipableElement.style.zIndex = n-i;
             card.addStyle('zIndex', n-i);
         }
@@ -210,7 +252,7 @@ class settleStarter {
     }
 
     inflateCard(index){
-        console.log('infalted')
+        
         this.cards[index].addClass('elevate');
     }
 

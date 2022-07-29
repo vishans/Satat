@@ -24,7 +24,7 @@ class Card {
     flipCard(){
         if(!this.flipableElement) return ;
         const inner = this.flipableElement.querySelector('.card-inner');
-        console.log(inner)
+        
         inner.classList.toggle('flipped');
     }
 

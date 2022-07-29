@@ -112,7 +112,7 @@ playerContainer.onclick = ()=>{
 
 
 
-
+// PN.issueWhoIsStartingPopUp()
 
 
 d = new Deck();
@@ -257,7 +257,7 @@ window.onresize = function(){
         playerList.forEach(function(value, key){
             value.masterPlayerInfoObject.calculateAndSetPosition();
         })
-    }, 500);
+    }, 10000);
     
 
     setTimeout(() => {
