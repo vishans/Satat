@@ -13,7 +13,7 @@ class MasterPlayerInfo{
         this.connectionStatus = connectionStatus;
 
         this.Element = this.__createElement();
-        //this.setNumberOfCards(this.numberOfCards)
+        
         this.MinimalPlayerInfoElement = this.__createMinimalPlayerInfoElement()
         
         
@@ -21,11 +21,47 @@ class MasterPlayerInfo{
     }
 
     setTeam(team){
-        this.team = team;
-        this.Element = this.__createElement();
+        this.playerObj.team = team;
+
+        let teamColor = null;
+        let teamSubColor = null;
+        
+        if(this.playerObj.team === 'A'){
+             teamColor = this.AColor;
+             teamSubColor = this.ASubColor;
+        }else if(this.playerObj.team === 'B'){
+             teamColor = this.BColor;
+             teamSubColor = this.BSubColor;
+
+        }
+
+        const t = this.Element.querySelector('.master-player-info-team');
+        t.style.backgroundColor = teamColor;
+        t.innerText = this.playerObj.team;
+
+
+
+        const name = this.Element.querySelector('.master-player-info-name');
+        name.style.backgroundColor = teamColor;
+        
+
+        const avatar = this.Element.querySelector('.master-player-info-avatar');
+        avatar.style.backgroundColor = teamSubColor;
+
 
 
     }
+
+    addTurn(){
+        this.Element.classList.add('turn');
+    }
+
+    removeTurn(){
+        this.Element.classList.remove('turn');
+
+    }
+
+    
 
     __createElement(){
         let teamColor = null;
@@ -37,15 +73,13 @@ class MasterPlayerInfo{
              teamColor = this.BColor;
              teamSubColor = this.BSubColor;
 
-
         }
-
-
 
 
 
         let newMasterElement = document.createElement('div');
         newMasterElement.classList.add('master-player-info'+'-'+this.position);
+        
         // let o = document.querySelector('#over-play-area')
         // o.addEventListener('click', () => this.hideMasterInfoElement());
 
@@ -65,7 +99,7 @@ class MasterPlayerInfo{
         let team = document.createElement('div');
         team.classList.add('master-player-info-team');
         team.style.backgroundColor = teamColor;
-        team.innerText = this.team;
+        team.innerText = this.playerObj.team;
 
         let avatar = document.createElement('img');
         avatar.classList.add('master-player-info-avatar');

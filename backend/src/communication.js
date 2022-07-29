@@ -278,18 +278,18 @@ class Communication{
                         this.io.to(socket.data.roomCode).emit('do game');
                         this.getRoom(socket.data.roomCode).roomState = 'game';
 
-                        setTimeout(()=>{
-                            if(this.getRoom(socket.data.roomCode).settingParam.startGame === 'server'){
-                                const playerList = this.getPlayersList(socket);
-                                const randomPlayerIndex = Math.floor(Math.random()* playerList.length);
-                                const username = playerList[randomPlayerIndex].username;
-                                this.io.to(socket.data.roomCode).emit('verdict start', username);
-                                return;
-                            }
-                            this.io.to(socket.data.roomCode).emit('settleStart', this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
+                        // setTimeout(()=>{
+                        //     if(this.getRoom(socket.data.roomCode).settingParam.startGame === 'server'){
+                        //         const playerList = this.getPlayersList(socket);
+                        //         const randomPlayerIndex = Math.floor(Math.random()* playerList.length);
+                        //         const username = playerList[randomPlayerIndex].username;
+                        //         this.io.to(socket.data.roomCode).emit('verdict start', username);
+                        //         return;
+                        //     }
+                        //     this.io.to(socket.data.roomCode).emit('settleStart', this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
 
 
-                        },1500)
+                        // },1500)
 
                     },3000)
                 }

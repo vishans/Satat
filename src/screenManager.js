@@ -81,10 +81,10 @@ class screenManager{
 
             playerList.forEach((player)=>{
                 masterPlayerInfoPlane.appendChild(player.masterPlayerInfoObject.getElement())
-                setTimeout(()=>{
-                    player.masterPlayerInfoObject.calculateAndSetPosition()
+            
+                player.masterPlayerInfoObject.calculateAndSetPosition()
 
-                },5000)
+                
                 
             })
             

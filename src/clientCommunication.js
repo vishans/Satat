@@ -143,7 +143,7 @@ class ClientCommunication{
         socket.on('put in', (param)=>{
             const {username, teamName} = param;
             
-            playerList.get(username).team = teamName;
+            //playerList.get(username).team = teamName;
             playerList.get(username).masterPlayerInfoObject.setTeam(teamName);
 
 

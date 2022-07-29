@@ -257,7 +257,7 @@ window.onresize = function(){
         playerList.forEach(function(value, key){
             value.masterPlayerInfoObject.calculateAndSetPosition();
         })
-    }, 10000);
+    }, 100);
     
 
     setTimeout(() => {

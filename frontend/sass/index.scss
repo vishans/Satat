@@ -232,6 +232,19 @@ body{
 .turn{
     outline: 3px solid red;
 
+    &::after{
+        content: 'Turn';
+        height: fit-content;
+        width: fit-content;
+        background-color: orange;
+        right: 0;
+        top: 0;
+        padding: 0.25rem;
+        position: absolute;
+        transform: translate(50%,-50%);
+        border-radius: 6px;
+    }
+
 }
 
 .master-player-info-semantic{
