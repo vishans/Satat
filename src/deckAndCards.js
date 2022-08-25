@@ -51,19 +51,20 @@ class Card {
 
     getSugarCoatedSuit(){
     
-         return this.suit.suit;
+         return this.suit === 'Diamond'? 'Diam' : this.suit;
     }
 
     setValueAndSuit(value, suit){
         this.value = value;
-        switch (suit){
-            case 'Heart': this.suit = Suit.Heart; break;
-            case 'Club': this.suit = Suit.Club; break;
-            case 'Diamond': this.suit = Suit.Diamond; break;
-            case 'Spade': this.suit = Suit.Spade; break;
+        this.suit = suit;
+        // switch (suit){
+        //     case 'Heart': this.suit = Suit.Heart; break;
+        //     case 'Club': this.suit = Suit.Club; break;
+        //     case 'Diamond': this.suit = Suit.Diamond; break;
+        //     case 'Spade': this.suit = Suit.Spade; break;
 
             
-        }
+        // }
         
         if(this.flipableElement){
             this.flipableElement.setAttribute('id',`_${this.getSugarCoatedValue()}Of${this.getSugarCoatedSuit()}` )

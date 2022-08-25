@@ -243,7 +243,7 @@ class ClientCommunication{
 
         socket.on('settleStart', (cardNo) =>{
             settler = PN.issueSettleStarterPopUp(true);
-            settler.addNCards(cardNo, Suit.Spade); 
+            settler.addNCards(cardNo, 'Spade'); 
             for(let card of settler.getCards()){
                 card.flipableElement.onclick = (event)=>{
                     const target = event.target.parentNode.parentNode;
@@ -297,6 +297,23 @@ class ClientCommunication{
             
            
         })
+
+        socket.on('chooserHand', (hand) =>{
+            console.log('choser hand')
+            console.log(hand)
+            let currentCard = null;
+            for(let card of hand){
+                currentCard = new Card(card.value, card.suit);
+                cardContainer.appendChild(currentCard.getElement());
+                myHand.push(currentCard);
+
+            }
+
+
+            
+           
+        })
+
 
     }
 

@@ -61,6 +61,19 @@ class Card{
         return cards
     }
 
+    static get52(shuffle = 2){
+        const suits = ['Club', 'Heart', 'Diamond', 'Spade'];
+        let hand = [];
+        for(let suit of suits){
+            hand.push(...Card.getDeckOfSuit(suit));
+        }
+        for(let i = 0; i < shuffle; i++){
+            hand = Card.shuffle(hand);
+        }
+        return hand;
+
+    }
+
 
     constructor(value, suit, playedBy = null){
         this.value = value; 

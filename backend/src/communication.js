@@ -28,8 +28,12 @@ class Communication{
         return this.rooms.get(roomCode);
     }
 
-    getPlayer(socket){
+    getPlayer(socket, socketID){
+        if(!socketID)
         return this.rooms.get(socket.data.roomCode).players.get(socket.id);
+        else
+        return this.rooms.get(socket.data.roomCode).players.get(socketID);
+
     }
 
     deletePlayerFromRoom(socket){
@@ -278,18 +282,18 @@ class Communication{
                         this.io.to(socket.data.roomCode).emit('do game');
                         this.getRoom(socket.data.roomCode).roomState = 'game';
 
-                        // setTimeout(()=>{
-                        //     if(this.getRoom(socket.data.roomCode).settingParam.startGame === 'server'){
-                        //         const playerList = this.getPlayersList(socket);
-                        //         const randomPlayerIndex = Math.floor(Math.random()* playerList.length);
-                        //         const username = playerList[randomPlayerIndex].username;
-                        //         this.io.to(socket.data.roomCode).emit('verdict start', username);
-                        //         return;
-                        //     }
-                        //     this.io.to(socket.data.roomCode).emit('settleStart', this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
+                        setTimeout(()=>{
+                            if(this.getRoom(socket.data.roomCode).settingParam.startGame === 'server'){
+                                const playerList = this.getPlayersList(socket);
+                                const randomPlayerIndex = Math.floor(Math.random()* playerList.length);
+                                const username = playerList[randomPlayerIndex].username;
+                                this.io.to(socket.data.roomCode).emit('verdict start', username);
+                                return;
+                            }
+                            this.io.to(socket.data.roomCode).emit('settleStart', this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
 
 
-                        // },1500)
+                        },1500)
 
                     },3000)
                 }
@@ -346,6 +350,7 @@ class Communication{
                     }
 
                     const username = startingPlayer.username;
+                    const startingPlayerID = startingPlayer.socketID;
                     const i = startingPlayer.settlerChooseIndex;
                     let sendableCards = [];
                     for(let card of cards){
@@ -359,6 +364,16 @@ class Communication{
 
                         setTimeout(()=>{
                             this.io.to(socket.data.roomCode).emit('clearPStack');
+
+                            const room = this.getRoom(socket.data.roomCode);
+                            room.startingPlayer = username;
+
+                            room.deck = Card.get52(2);
+                            const firstFiveCard = room.deck.splice(0,5);
+                            console.log(startingPlayerID)
+                            this.io.to(startingPlayerID).emit('chooserHand',firstFiveCard);
+                            console.log('done here')
+                            
 
                         },4000)
                     }, 3000)

@@ -1,6 +1,7 @@
 var authCookie = document.cookie.split('=')[1];
 var roomCode = document.querySelector('.room-code #code').innerText.split('-').join('');
 var moi = null;
+var myHand = [];
 var playerList = new Map();
 
 var settler = null; // variable for settler object, help choosing cards when settling who starts
@@ -115,27 +116,27 @@ playerContainer.onclick = ()=>{
 // PN.issueWhoIsStartingPopUp()
 
 
-d = new Deck();
+// d = new Deck();
 
-d.shuffle();
-d.shuffle();
+// d.shuffle();
+// d.shuffle();
 
 
-myHand = d.getNCardsFromDeck(13);
+// myHand = d.getNCardsFromDeck(13);
 
-//myHand.push(new Heart(2));
+// //myHand.push(new Heart(2));
 
-for(let card of myHand){
+// for(let card of myHand){
     
-    //card.getElement().classList.add('beforeCardTransition');
-    card.getElement().onmouseover = function(){
-        cardContainer.classList.add('high-z-index');
-    }
-    card.getElement().onmouseout = function(){
-        cardContainer.classList.remove('high-z-index');
-    }
-    cardContainer.appendChild(card.getElement());
-}
+//     //card.getElement().classList.add('beforeCardTransition');
+//     card.getElement().onmouseover = function(){
+//         cardContainer.classList.add('high-z-index');
+//     }
+//     card.getElement().onmouseout = function(){
+//         cardContainer.classList.remove('high-z-index');
+//     }
+//     cardContainer.appendChild(card.getElement());
+// }
 
 //cardContainer.appendChild(new Heart(2).getElement());
 
