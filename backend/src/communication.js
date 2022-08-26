@@ -223,6 +223,8 @@ class Communication{
 
 
             socket.on('team', (teamName)=>{
+                if (!(this.getRoom(socket.data.roomCode).roomState == 'lobby')) return;
+
                 if(!(teamName != 'A' || teamName != 'B' ||teamName != null)) return;
                 const username = this.getUsername(socket);
                 
@@ -258,6 +260,8 @@ class Communication{
 
 
             socket.on('ready', ()=>{
+                if (!(this.getRoom(socket.data.roomCode).roomState == 'lobby')) return;
+
                 if(this.getPlayer(socket).team == null){
                     return;
                 }
@@ -291,6 +295,7 @@ class Communication{
                                 return;
                             }
                             this.io.to(socket.data.roomCode).emit('settleStart', this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
+                            this.getRoom(socket.data.roomCode).roomState = 'settleStart';
 
 
                         },1500)
@@ -301,6 +306,9 @@ class Communication{
             })
 
             socket.on('settingParam', (param)=>{
+
+                if (!(this.getRoom(socket.data.roomCode).roomState == 'lobby')) return;
+
                 
                 //TODO: to validate params 
                 if(!this.getPlayer(socket).admin) return;
@@ -310,6 +318,10 @@ class Communication{
             })
 
             socket.on('choose', (index)=>{
+
+                if (!(this.getRoom(socket.data.roomCode).roomState == 'settleStart')) return;
+
+                // settling who starts
                 
                 if(!(index >=0 && index < this.getRoom(socket.data.roomCode).settlerChooseCardsNo)) return;
 
@@ -372,7 +384,16 @@ class Communication{
                             const firstFiveCard = room.deck.splice(0,5);
                             console.log(startingPlayerID)
                             this.io.to(startingPlayerID).emit('chooserHand',firstFiveCard);
-                            console.log('done here')
+
+                            const startingPlayerSocket = this.io.sockets.sockets.get(startingPlayerID);
+                            startingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${username} to choose troop`)
+                            // const playerList = this.getPlayersList(socket);
+
+                            // for(player of playerList){
+                            //     if(player.socketID != startingPlayerID){
+
+                            //     }
+                            // }
                             
 
                         },4000)

@@ -492,14 +492,14 @@ class Suit{
 
 class Spade extends Card{
     constructor(value){
-        super(value,Suit.Spade);
+        super(value,'Spade');
     }
 
 };
 
 class Heart extends Card{
     constructor(value){
-        super(value,Suit.Heart);
+        super(value,'Heart');
         
     }
 
@@ -508,7 +508,7 @@ class Heart extends Card{
 
 class Diamond extends Card{
     constructor(value){
-        super(value,Suit.Diamond);
+        super(value,'Diamond');
     }
 
   
@@ -516,7 +516,7 @@ class Diamond extends Card{
 
 class Club extends Card{
     constructor(value){
-        super(value,Suit.Club);
+        super(value,'Club');
     }
 
 };

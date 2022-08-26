@@ -103,6 +103,44 @@ class popUpAndNotification{
         this.appendToFull(newPopUp)
     }
 
+    issueWaitingPopUp(title , persistance = 0){
+        const newPopUp = document.createElement('div');
+        newPopUp.classList.add('notif');
+
+        
+        
+        newPopUp.innerHTML = 
+        `<div class="notif-title">${title}</div>
+        <div class="notif-text"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+        <div class="notif-button-container">
+          
+        </div>`;
+
+        while(newPopUp.innerHTML == '');
+
+        
+
+       
+        if(persistance){
+            
+            setTimeout(()=>{
+                // newPopUp.remove();
+                // if(!--this.popUpCount){
+                //     this.full.style.backdropFilter = null;
+                // }
+                this.removeFromFull(newPopUp)
+            }, persistance);
+        }
+
+        // this.full.appendChild(newPopUp);
+        // if(!this.popUpCount){
+        //     this.full.style.backdropFilter ='blur(5px)';
+        // }
+        // this.popUpCount++;
+
+        this.appendToFull(newPopUp)
+    }
+
     appendToFull(element){
         this.full.appendChild(element);
         if(!this.popUpCount){

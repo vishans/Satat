@@ -314,6 +314,10 @@ class ClientCommunication{
            
         })
 
+        socket.on('waiting pop up', (title)=>{
+            PN.issueWaitingPopUp(title)
+        })
+
 
     }
 
