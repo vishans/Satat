@@ -165,6 +165,19 @@
   background-color: #E1E7F7;
   font-size: 70vh;
 }
+.choose-card-pop-up .timer, .player-start-pop-up .timer {
+  font-size: 2rem;
+  background-color: green;
+  width: 6%;
+  aspect-ratio: 1/1;
+  position: absolute;
+  bottom: 0%;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+}
 .choose-card-pop-up .title, .player-start-pop-up .title {
   grid-column: 1/2;
   grid-row: 1/2;

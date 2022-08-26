@@ -174,17 +174,21 @@ class popUpAndNotification{
         return index;
     }
 
-    issueSettleStarterPopUp(flipped=true){
+    issueSettleStarterPopUp(flipped=true, time=10){
         //return;
         const popUp = document.createElement('div');
         popUp.innerHTML = `<div class="choose-card-pop-up">
         <div class="title">Settling who starts first</div>
         <div class="body"> </div>
-        <div class="bottom">You can only choose 1 card, once.</div>
+        <div class="bottom">You can only choose 12 card, once.</div>
+        <div class="timer">69s</div>
+
       </div>`;
-        const settlerObj = new settleStarter(flipped);
+        const settlerObj = new settleStarter(flipped, time);
 
         this.appendToFull(settlerObj.getElement());
+        const after = document.querySelector('.choose-card-pop-up:after');
+        console.log(after)
         return settlerObj;
     }
 
@@ -213,18 +217,71 @@ class popUpAndNotification{
 
 
 class settleStarter {
-    constructor(flipped = true){
+    constructor(flipped = true, timer = 60){
         this.element = document.createElement('div');
         this.element.innerHTML = `<div class="choose-card-pop-up">
         <div class="title">Settling who starts first</div>
         <div class="body"> </div>
         <div class="bottom">You can only choose 1 card, once.</div>
+        <div class="timer">69s</div>
+
       </div>`;
+
+      while(this.element.innerHTML == null);
+
+       this.timer = this.element.querySelector('.timer');
+       this.timer.innerText = timer +'s';
+       this.intervalID = null;
+       this.timerColorRange = {'green': 0.66*timer, 'red': 0.33*timer}
+
+
+
+
+        
         this.flipped = flipped;
         this.cards = [];
         this.alreadyCardChosen = false;
     }
 
+    startTimer(){
+        this.intervalID = setInterval(()=>{
+            //console.log(--parseInt(this.timer.innerText.slice(0,-1),10))
+            let timerValue = parseInt(this.timer.innerText.slice(0,-1),10)-1;
+            this.timer.innerText = timerValue + 's';
+            if(timerValue > this.timerColorRange.green ){
+                this.timer.style.backgroundColor = 'green';
+            }
+            else if(timerValue >this.timerColorRange.red ){
+                this.timer.style.backgroundColor = 'yellow';
+
+            }
+            else{
+                this.timer.style.backgroundColor = 'red';
+
+            }
+
+
+            if(timerValue == 0){
+                this.stopAndRemoveTimer()
+            }
+        
+        },1000)
+    
+    }
+
+    stopTimer(){
+        clearInterval(this.intervalID);
+        
+    }
+
+    stopAndRemoveTimer(){
+
+        this.stopTimer();
+        this.timer.remove();
+
+
+
+    }
     getElement(){
         return this.element;
     }

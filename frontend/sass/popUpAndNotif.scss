@@ -217,6 +217,20 @@
     background-color: #E1E7F7;
     //position: absolute;
     font-size: 70vh;
+
+    .timer{
+        font-size: 2rem;
+        background-color: green;
+        width: 6%;
+        aspect-ratio: 1/1;
+        position: absolute;
+        bottom: 0%;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+    }
     
 
     .title{
@@ -267,6 +281,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        
 
     }
 }

@@ -214,9 +214,12 @@ class Communication{
                 }
                 socket.broadcast.to(socket.data.roomCode).emit('user disconnect', {username: username, newAdmin: newUsername })
 
+                this.getRoom(socket.data.roomCode).roomState = 'lobby';
+                
                 // if(this.rooms.get(socket.data.roomCode).players.size == 0){
-                //     this.rooms.delete(socket.data.roomCode);
-                //     console.log('room deleted ')
+                //     // this.rooms.delete(socket.data.roomCode);
+                //     // console.log('room deleted ')
+                //     this.addPlayerToRoom.getRoom.roomState = 'lobby';
                 // }
 
             });
