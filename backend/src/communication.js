@@ -202,7 +202,7 @@ class Communication{
                 const userThatDisconnected = this.getPlayer(socket);
                 const username = userThatDisconnected.username;
                 let newAdmin = null;
-                
+                this.getPlayer(socket, socket.id).cancelTimer();
                 this.deletePlayerFromRoom(socket);
                 let newUsername = null;
                 if(userThatDisconnected.admin && this.rooms.get(socket.data.roomCode).players.size > 0){
@@ -285,16 +285,44 @@ class Communication{
 
                 if(readyCount > 1){
                     this.io.to(socket.data.roomCode).emit('do transition',this.getRoom(socket.data.roomCode).orderPlayer());
+                    this.getRoom(socket.data.roomCode).roomState = 'transition'
                     setTimeout(()=>{
+                        if((this.getRoom(socket.data.roomCode).roomState == 'lobby')) return;
+                        
                         this.io.to(socket.data.roomCode).emit('do game');
                         this.getRoom(socket.data.roomCode).roomState = 'game';
 
                         setTimeout(()=>{
                             if(this.getRoom(socket.data.roomCode).settingParam.startGame === 'server'){
                                 const playerList = this.getPlayersList(socket);
-                                const randomPlayerIndex = Math.floor(Math.random()* playerList.length);
+                                const randomPlayerIndex =3//Math.floor(Math.random()* playerList.length);
                                 const username = playerList[randomPlayerIndex].username;
                                 this.io.to(socket.data.roomCode).emit('verdict start', username);
+                                const room = this.getRoom(socket.data.roomCode);
+                                room.startingPlayer = username;
+
+                                setTimeout(()=>{
+                                    this.io.to(socket.data.roomCode).emit('clearPStack');
+        
+        
+                                    room.deck = Card.get52(2);
+                                    const startingPlayerID = playerList[randomPlayerIndex].socketID;
+                                    const firstFiveCard = room.deck.splice(0,5);
+                                    console.log(startingPlayerID)
+                                    this.io.to(startingPlayerID).emit('chooserHand',firstFiveCard);
+        
+                                    const startingPlayerSocket = this.io.sockets.sockets.get(startingPlayerID);
+                                    startingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${username} to choose troop`)
+                                    // const playerList = this.getPlayersList(socket);
+        
+                                    // for(player of playerList){
+                                    //     if(player.socketID != startingPlayerID){
+        
+                                    //     }
+                                    // }
+                                    
+        
+                                },4000)
                                 return;
                             }
                             this.io.to(socket.data.roomCode).emit('settleStart', {'cardNo': this.getRoom(socket.data.roomCode).settlerChooseCardsNo, 'timeout': 10000});
@@ -304,6 +332,8 @@ class Communication{
                             for(let player of this.getPlayersList(socket)){
                                 if((player.socketID == 42 || player.socketID == 41 )) continue;
                                 player.startTimer(10000, ()=>{
+                                   if(!(this.getRoom(socket.data.roomCode).roomState == 'settleStart')) return;
+
                                     let randomIndex = null;
                                     while(randomIndex == null){
                                         randomIndex = Math.floor(Math.random() * this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
@@ -337,6 +367,8 @@ class Communication{
                                                 startingPlayer = player;
                                             }
                                         }
+
+                                        //if(this.getPlayersList(socket).length == 0) return;
                     
                                         const username = startingPlayer.username;
                                         const startingPlayerID = startingPlayer.socketID;

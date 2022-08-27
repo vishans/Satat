@@ -2,7 +2,7 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
-
+//TODO: fix potential bugs like when player leaves, a future timer event might still be underway
 
 
 const dotenv = require('dotenv');

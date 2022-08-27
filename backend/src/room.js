@@ -10,7 +10,7 @@ class Room{
         this.settingParam ={
             midgamelLeavers: 'loseGame',
             nextRoundWaitTime: '8',
-            startGame: 'playerCard',
+            startGame: 'server',
             troopChooser: 'startingPlayer'
         };
         this.timeOutID = setTimeout(()=>{
