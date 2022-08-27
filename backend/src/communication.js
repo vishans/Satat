@@ -297,8 +297,92 @@ class Communication{
                                 this.io.to(socket.data.roomCode).emit('verdict start', username);
                                 return;
                             }
-                            this.io.to(socket.data.roomCode).emit('settleStart', this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
+                            this.io.to(socket.data.roomCode).emit('settleStart', {'cardNo': this.getRoom(socket.data.roomCode).settlerChooseCardsNo, 'timeout': 10000});
                             this.getRoom(socket.data.roomCode).roomState = 'settleStart';
+
+                            // repeating block of code
+                            for(let player of this.getPlayersList(socket)){
+                                if((player.socketID == 42 || player.socketID == 41 )) continue;
+                                player.startTimer(10000, ()=>{
+                                    let randomIndex = null;
+                                    while(randomIndex == null){
+                                        randomIndex = Math.floor(Math.random() * this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
+                                        for(let player of this.getPlayersList(socket)){
+                                            if(player.settlerChooseIndex == randomIndex){
+                                                randomIndex = null;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    player.settlerChooseIndex = randomIndex;
+                                    this.io.to(socket.data.roomCode).emit('choose',{'username': player.username, 'index': randomIndex} )
+                                    this.getRoom(socket.data.roomCode).settlerChooseCount ++;
+
+                                    if(this.getRoom(socket.data.roomCode).settlerChooseCount == 2){
+                                        const suits = ['Club', 'Heart', 'Diamond', 'Spade'];
+                                        const selectedSuit = 'Heart'//suits[Math.floor(Math.random()*5)];
+                                        let cards = Card.getDeckOfSuit(selectedSuit);
+                                        cards = cards.sort(()=>  0.5 - Math.random()).slice(0,this.getRoom(socket.data.roomCode).settlerChooseCardsNo);
+                                        console.log(cards)
+                                        let max = -1;
+                                        let startingPlayer = null;
+                                        for(let player of this.getPlayersList(socket)){
+                                            const index = player.settlerChooseIndex;
+                                            if(index == null) continue;
+                                            console.log(index)
+                                            console.log(cards[index])
+                    
+                                            if(cards[index].value > max){
+                                                max = cards[index].value;
+                                                startingPlayer = player;
+                                            }
+                                        }
+                    
+                                        const username = startingPlayer.username;
+                                        const startingPlayerID = startingPlayer.socketID;
+                                        const i = startingPlayer.settlerChooseIndex;
+                                        let sendableCards = [];
+                                        for(let card of cards){
+                                            const value = card.value;
+                                            sendableCards.push(value);
+                                        }
+                                        this.io.to(socket.data.roomCode).emit('starter', {selectedSuit,sendableCards,i, username});
+                                        
+                                        setTimeout(()=>{
+                                            this.io.to(socket.data.roomCode).emit('verdict start', username);
+                    
+                                            setTimeout(()=>{
+                                                this.io.to(socket.data.roomCode).emit('clearPStack');
+                    
+                                                const room = this.getRoom(socket.data.roomCode);
+                                                room.startingPlayer = username;
+                    
+                                                room.deck = Card.get52(2);
+                                                const firstFiveCard = room.deck.splice(0,5);
+                                                console.log(startingPlayerID)
+                                                this.io.to(startingPlayerID).emit('chooserHand',firstFiveCard);
+                    
+                                                const startingPlayerSocket = this.io.sockets.sockets.get(startingPlayerID);
+                                                startingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${username} to choose troop`)
+                                                // const playerList = this.getPlayersList(socket);
+                    
+                                                // for(player of playerList){
+                                                //     if(player.socketID != startingPlayerID){
+                    
+                                                //     }
+                                                // }
+                                                
+                    
+                                            },4000)
+                                        }, 3000)
+                    
+                                    }
+                    
+                    
+
+                                })
+                                this.io.to(player.socketID).emit('settler timer');
+                            }
 
 
                         },1500)
@@ -328,7 +412,11 @@ class Communication{
                 
                 if(!(index >=0 && index < this.getRoom(socket.data.roomCode).settlerChooseCardsNo)) return;
 
-                if(this.getPlayer(socket).settlerChooseIndex) return;
+                
+                const player = this.getPlayer(socket);
+
+
+                if(player.settlerChooseIndex) return;
 
                 for(let player of this.getPlayersList(socket)){
                     console.log(`${player.settlerChooseIndex} == ${index}`)
@@ -336,7 +424,7 @@ class Communication{
                 }
 
                 
-
+                player.cancelTimer();
                 this.getPlayer(socket).settlerChooseIndex = index;
                 this.getRoom(socket.data.roomCode).settlerChooseCount ++;
                 
@@ -419,5 +507,7 @@ class Communication{
 
     
 }
+
+
 
 module.exports = Communication;

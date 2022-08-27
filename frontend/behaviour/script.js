@@ -4,6 +4,8 @@ var moi = null;
 var myHand = [];
 var playerList = new Map();
 
+var settler = null;
+
 var settler = null; // variable for settler object, help choosing cards when settling who starts
 var socket = io('/', {query: {'authCookie': authCookie,
                            'roomCode': roomCode}});
@@ -32,7 +34,7 @@ const SM = new screenManager();
 const PN = new popUpAndNotification(document.querySelector('.popup-notif'));
 const clientCommunication = new ClientCommunication();
 
-PN.issueSettleStarterPopUp(undefined, 60).startTimer();
+// PN.issueSettleStarterPopUp(undefined, 60).startTimer();
 //let moi = null;
 //PN.issueGenericPopUp('Error', 'First line.\nSecond line', 'OK', ()=>window.location.href = '/', 3000)
 

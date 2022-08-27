@@ -304,7 +304,8 @@ class settleStarter {
     }
 
     associatePlayerWithCard(username, cardIndex){
-        
+        console.log(username)
+        console.log(cardIndex)
         const player = playerList.get(username);
         
         if(!player) return;

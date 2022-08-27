@@ -241,8 +241,10 @@ class ClientCommunication{
            
         })
 
-        socket.on('settleStart', (cardNo) =>{
-            settler = PN.issueSettleStarterPopUp(true);
+        socket.on('settleStart', (param) =>{
+            const {cardNo, timeout} = param;
+            console.log(cardNo)
+            settler = PN.issueSettleStarterPopUp(true, timeout/1000);
             settler.addNCards(cardNo, 'Spade'); 
             for(let card of settler.getCards()){
                 card.flipableElement.onclick = (event)=>{
@@ -263,7 +265,13 @@ class ClientCommunication{
 
         socket.on('choose', (param) =>{
             const {username, index} = param;
-            if(username === moi) settler.alreadyCardChosen = index;
+            console.log(username)
+            console.log(moi)
+            if(username === moi.username) {
+                settler.alreadyCardChosen = index;
+                settler.stopAndRemoveTimer();
+                
+            }
             settler.associatePlayerWithCard(username, index);
            
         })
@@ -316,6 +324,11 @@ class ClientCommunication{
 
         socket.on('waiting pop up', (title)=>{
             PN.issueWaitingPopUp(title)
+        })
+
+        socket.on('settler timer', ()=>{
+            console.log()
+            settler.startTimer()
         })
 
 

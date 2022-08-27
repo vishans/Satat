@@ -14,6 +14,8 @@ class Player{
         this.ready = false;
         this.admin = admin;
         this.settlerChooseIndex = null;
+
+        this.timeoutID = null;
         
         this.renounce = {
             'Spade': [],
@@ -22,6 +24,14 @@ class Player{
             'Club': [],
 
         }
+    }
+
+    startTimer(timeout, callback){
+        this.timeoutID = setTimeout(callback, (timeout));
+    }
+
+    cancelTimer(){
+        clearTimeout(this.timeoutID);
     }
 }
 
