@@ -33,6 +33,7 @@ class Room{
         this.settlerChooseCardsNo = 8;
         this.settlerChooseCount = 0;
         this.startingPlayer = null;
+        this.choosingTroopPlayer = null;
         this.deck = null;
     }
 

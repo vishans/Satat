@@ -299,20 +299,33 @@ class Communication{
                                 const username = playerList[randomPlayerIndex].username;
                                 this.io.to(socket.data.roomCode).emit('verdict start', username);
                                 const room = this.getRoom(socket.data.roomCode);
-                                room.startingPlayer = username;
+                                room.startingPlayer = playerList[randomPlayerIndex];
 
                                 setTimeout(()=>{
                                     this.io.to(socket.data.roomCode).emit('clearPStack');
-        
+
+                                    const room = this.getRoom(socket.data.roomCode);
+                                    //room.startingPlayer = username;
+                                   
+                                    
+                                    if(room.settingParam.troopChooser == 'startingPlayer'){
+                                        room.choosingTroopPlayer = room.startingPlayer;
+                                    }else{
+                                        for(let player of this.getPlayersList(socket)){
+                                            if(player.team == room.startingPlayer.team && player.username != room.startingPlayer.username){
+                                                room.choosingTroopPlayer = player;
+                                                break;
+                                            }
+                                        }
+                                    }
         
                                     room.deck = Card.get52(2);
-                                    const startingPlayerID = playerList[randomPlayerIndex].socketID;
                                     const firstFiveCard = room.deck.splice(0,5);
-                                    console.log(startingPlayerID)
-                                    this.io.to(startingPlayerID).emit('chooserHand',firstFiveCard);
+                                    
+                                    this.io.to(room.choosingTroopPlayer.socketID).emit('chooserHand',firstFiveCard);
         
-                                    const startingPlayerSocket = this.io.sockets.sockets.get(startingPlayerID);
-                                    startingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${username} to choose troop`)
+                                    const choosingPlayerSocket = this.io.sockets.sockets.get(room.choosingTroopPlayer.socketID);
+                                    choosingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${room.choosingTroopPlayer.username} to choose troop`)
                                     // const playerList = this.getPlayersList(socket);
         
                                     // for(player of playerList){
@@ -321,7 +334,6 @@ class Communication{
                                     //     }
                                     // }
                                     
-        
                                 },4000)
                                 return;
                             }
@@ -385,26 +397,39 @@ class Communication{
                     
                                             setTimeout(()=>{
                                                 this.io.to(socket.data.roomCode).emit('clearPStack');
-                    
-                                                const room = this.getRoom(socket.data.roomCode);
-                                                room.startingPlayer = username;
-                    
-                                                room.deck = Card.get52(2);
-                                                const firstFiveCard = room.deck.splice(0,5);
-                                                console.log(startingPlayerID)
-                                                this.io.to(startingPlayerID).emit('chooserHand',firstFiveCard);
-                    
-                                                const startingPlayerSocket = this.io.sockets.sockets.get(startingPlayerID);
-                                                startingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${username} to choose troop`)
-                                                // const playerList = this.getPlayersList(socket);
-                    
-                                                // for(player of playerList){
-                                                //     if(player.socketID != startingPlayerID){
-                    
-                                                //     }
-                                                // }
-                                                
-                    
+
+                                        const room = this.getRoom(socket.data.roomCode);
+                                        //room.startingPlayer = username;
+                                    
+                                        room.startingPlayer = startingPlayer;
+                                        if(room.settingParam.troopChooser == 'startingPlayer'){
+                                            room.choosingTroopPlayer = startingPlayer;
+                                        }else{
+                                            for(let player of this.getPlayersList(socket)){
+                                                if(player.team == startingPlayer.team && player.username != startingPlayer.username){
+                                                    room.choosingTroopPlayer = player;
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                        room.deck = Card.get52(2);
+                                        const firstFiveCard = room.deck.splice(0,5);
+                                        
+                                        this.io.to(room.choosingTroopPlayer.socketID).emit('chooserHand',firstFiveCard);
+
+                                        const choosingPlayerSocket = this.io.sockets.sockets.get(room.choosingTroopPlayer.socketID);
+                                        choosingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${room.choosingTroopPlayer.username} to choose troop`)
+                                        // const playerList = this.getPlayersList(socket);
+
+                                        // for(player of playerList){
+                                        //     if(player.socketID != startingPlayerID){
+
+                                        //     }
+                                        // }
+                                        
+                                                            
+                                
                                             },4000)
                                         }, 3000)
                     
@@ -501,15 +526,27 @@ class Communication{
                             this.io.to(socket.data.roomCode).emit('clearPStack');
 
                             const room = this.getRoom(socket.data.roomCode);
-                            room.startingPlayer = username;
+                            //room.startingPlayer = username;
+                           
+                            room.startingPlayer = startingPlayer;
+                            if(room.settingParam.troopChooser == 'startingPlayer'){
+                                room.choosingTroopPlayer = startingPlayer;
+                            }else{
+                                for(let player of this.getPlayersList(socket)){
+                                    if(player.team == room.startingPlayer.team && player.username != room.startingPlayer.username){
+                                        room.choosingTroopPlayer = player;
+                                        break;
+                                    }
+                                }
+                            }
 
                             room.deck = Card.get52(2);
                             const firstFiveCard = room.deck.splice(0,5);
-                            console.log(startingPlayerID)
-                            this.io.to(startingPlayerID).emit('chooserHand',firstFiveCard);
+                            
+                            this.io.to(room.choosingTroopPlayer.socketID).emit('chooserHand',firstFiveCard);
 
-                            const startingPlayerSocket = this.io.sockets.sockets.get(startingPlayerID);
-                            startingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${username} to choose troop`)
+                            const choosingPlayerSocket = this.io.sockets.sockets.get(room.choosingTroopPlayer.socketID);
+                            choosingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${room.choosingTroopPlayer.username} to choose troop`)
                             // const playerList = this.getPlayersList(socket);
 
                             // for(player of playerList){
@@ -525,6 +562,19 @@ class Communication{
                 }
 
 
+            })
+
+            socket.on('troop', (troop)=>{
+                const player = this.getPlayer(socket, socket.id);
+                if(player.username == this.getRoom(socket.data.roomCode).choosingTroopPlayer.username){
+                    console.log('yep thats the right one')
+                }
+                /*♦
+                    ♥
+                    ♣
+                    ♠
+                    */
+                console.log(troop)
             })
         
         });

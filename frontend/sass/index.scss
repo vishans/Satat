@@ -188,6 +188,57 @@ body{
        
     }
 
+    .troopChoices{
+        height: calc(0.8*30vh);
+
+        //width: fit-content;
+        padding: 1vh 1vw;
+        //background-color: aqua;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        user-select: none;
+
+        .choice{
+            pointer-events: all;
+            font-size: 10vh;
+            background-color: whitesmoke;
+            height: 50%;
+            aspect-ratio: 1/1;
+            border: 1px solid black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+
+            &[red]{
+                color: red;
+            }
+
+            &:hover{
+                animation: shake 2s infinite ;
+            }
+        }
+
+        
+    }
+
+}
+
+@keyframes shake {
+    0%{
+        transform: translateY(0%);
+    }
+
+    50%{
+        transform: translateY(-50%);
+
+    }
+
+    100%{
+        transform: translateY(0%);
+    }
 }
 
 .master-player-info-left,.master-player-info-bottom{

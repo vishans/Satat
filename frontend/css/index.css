@@ -141,7 +141,45 @@ body {
   bottom: 0%;
   opacity: 1;
 }
+#card-container .troopChoices {
+  height: 24vh;
+  padding: 1vh 1vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  user-select: none;
+}
+#card-container .troopChoices .choice {
+  pointer-events: all;
+  font-size: 10vh;
+  background-color: whitesmoke;
+  height: 50%;
+  aspect-ratio: 1/1;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+#card-container .troopChoices .choice[red] {
+  color: red;
+}
+#card-container .troopChoices .choice:hover {
+  animation: shake 2s infinite;
+}
 
+@keyframes shake {
+  0% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
 .master-player-info-left, .master-player-info-right, .master-player-info-top, .master-player-info-bottom {
   box-sizing: border-box;
   height: 12vh;

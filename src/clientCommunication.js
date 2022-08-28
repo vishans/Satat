@@ -317,6 +317,26 @@ class ClientCommunication{
 
             }
 
+            const troopChoices = document.createElement('div');
+            troopChoices.classList.add('troopChoices');
+            troopChoices.innerHTML = `
+            
+          <div class="choice">&spades;</div>
+          <div class="choice" red>&diams;</div>
+          <div class="choice">&clubs;</div>
+          <div class="choice" red>&hearts;</div>
+        
+            `
+            cardContainer.appendChild(troopChoices);
+
+            const choices = troopChoices.querySelectorAll('.choice');
+            for(let choice of choices){
+                console.log(choice)
+                choice.onclick = (e)=>{
+                    socket.emit('troop', e.target.innerHTML);
+                }
+            }
+
 
             
            
