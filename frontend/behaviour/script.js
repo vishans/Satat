@@ -24,7 +24,7 @@ let settingForm = document.querySelector("#setting form");
 
 let cardContainer = document.querySelector("#card-container");
 let sortButton = document.querySelector('#sort-button');
-let playArea = document.querySelector('#play-area');
+var playArea = document.querySelector('#play-area');
 var masterPlayerInfoPlane = document.querySelector('#master-player-info-plane')
 let playAreaColor = document.querySelector('.play-area-color-1');
 var mouseOverArea = false;

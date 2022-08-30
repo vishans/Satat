@@ -351,6 +351,33 @@ class ClientCommunication{
             settler.startTimer()
         })
 
+        socket.on('troop', (troop)=>{
+            const troopShieldContainer = document.createElement('div');
+            troopShieldContainer.classList.add('troop-container');
+
+            let color = '';
+            if(troop == 'diams' || troop == 'hearts'){
+                color = 'red'
+            }
+
+
+
+
+            troopShieldContainer.innerHTML = `
+            <div class="title">Troop</div>
+            <div class="troop-shield" ${color}>&${troop};</div>
+            </div>
+             `;
+            
+            playArea.appendChild(troopShieldContainer);
+
+            const troopChoices = document.querySelector('.troopChoices');
+            troopChoices.remove();
+
+            
+        })
+
+
 
     }
 

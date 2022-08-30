@@ -65,6 +65,35 @@ body {
   align-items: center;
   position: relative;
 }
+#play-area .troop-container {
+  display: flex;
+  font-family: SMM;
+  padding: 5px;
+  background-color: whitesmoke;
+  border-radius: 8px;
+  position: absolute;
+  left: 5%;
+  bottom: 5%;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+#play-area .troop-container .title {
+  display: flex;
+  font-size: 2vh;
+  align-items: center;
+  justify-content: center;
+}
+#play-area .troop-container .troop-shield {
+  font-size: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+}
+#play-area .troop-container .troop-shield[red] {
+  color: red;
+}
 
 #master-player-info-plane {
   grid-row: 1/3;

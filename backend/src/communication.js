@@ -326,13 +326,19 @@ class Communication{
         
                                     const choosingPlayerSocket = this.io.sockets.sockets.get(room.choosingTroopPlayer.socketID);
                                     choosingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${room.choosingTroopPlayer.username} to choose troop`)
-                                    // const playerList = this.getPlayersList(socket);
+                                    
+                                    room.choosingTroopPlayer.timeoutID = setTimeout  (() => {
+                                        if(room.troop != null) return;
         
-                                    // for(player of playerList){
-                                    //     if(player.socketID != startingPlayerID){
+                                        const choices = ['diams', 'hearts', 'spades', 'clubs'];
+                                        const randomIndex = Math.floor(Math.random()*4);
         
-                                    //     }
-                                    // }
+                                        this.io.to(choosingPlayerSocket.data.roomCode).emit('troop', choices[randomIndex]);
+        
+                                        this.io.to(choosingPlayerSocket.data.roomCode).emit('clearPStack');
+
+                                        
+                                    }, 5000);
                                     
                                 },4000)
                                 return;
@@ -420,13 +426,19 @@ class Communication{
 
                                         const choosingPlayerSocket = this.io.sockets.sockets.get(room.choosingTroopPlayer.socketID);
                                         choosingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${room.choosingTroopPlayer.username} to choose troop`)
-                                        // const playerList = this.getPlayersList(socket);
+                                        
+                                        room.choosingTroopPlayer.timeoutID = setTimeout  (() => {
+                                            if(room.troop != null) return;
+            
+                                            const choices = ['diams', 'hearts', 'spades', 'clubs'];
+                                            const randomIndex = Math.floor(Math.random()*4);
+            
+                                            this.io.to(choosingPlayerSocket.data.roomCode).emit('troop', choices[randomIndex]);
+                                            this.io.to(choosingPlayerSocket.data.roomCode).emit('clearPStack');
 
-                                        // for(player of playerList){
-                                        //     if(player.socketID != startingPlayerID){
-
-                                        //     }
-                                        // }
+                                            
+                                            
+                                        }, 5000);
                                         
                                                             
                                 
@@ -547,13 +559,21 @@ class Communication{
 
                             const choosingPlayerSocket = this.io.sockets.sockets.get(room.choosingTroopPlayer.socketID);
                             choosingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${room.choosingTroopPlayer.username} to choose troop`)
-                            // const playerList = this.getPlayersList(socket);
+                            
+                            room.choosingTroopPlayer.timeoutID = setTimeout  (() => {
+                                if(room.troop != null) return;
 
-                            // for(player of playerList){
-                            //     if(player.socketID != startingPlayerID){
+                                const choices = ['diams', 'hearts', 'spades', 'clubs'];
+                                const randomIndex = Math.floor(Math.random()*4);
 
-                            //     }
-                            // }
+                                this.io.to(choosingPlayerSocket.data.roomCode).emit('troop', choices[randomIndex]);
+                                this.io.to(choosingPlayerSocket.data.roomCode).emit('clearPStack');
+
+                                
+
+
+                                
+                            }, 5000);
                             
 
                         },4000)
@@ -568,12 +588,23 @@ class Communication{
                 const player = this.getPlayer(socket, socket.id);
                 if(player.username == this.getRoom(socket.data.roomCode).choosingTroopPlayer.username){
                     console.log('yep thats the right one')
+
+                    const room = this.getRoom(socket.data.roomCode);
+
+                    switch(troop){
+                        case '♦' : room.troop = 'diams'; break;
+                        case '♥' : room.troop = 'hearts'; break;
+                        case '♠' : room.troop = 'spades'; break;
+                        default : room.troop = 'clubs'; //♣
+
+                    }
+
+                    this.io.to(socket.data.roomCode).emit('troop', room.troop);
+                    socket.broadcast.emit('clearPStack');
                 }
-                /*♦
-                    ♥
-                    ♣
-                    ♠
-                    */
+               
+
+                
                 console.log(troop)
             })
         

@@ -35,6 +35,8 @@ class Room{
         this.startingPlayer = null;
         this.choosingTroopPlayer = null;
         this.deck = null;
+
+        this.troop = null;
     }
 
     orderPlayer(){
