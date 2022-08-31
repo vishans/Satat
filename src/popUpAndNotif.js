@@ -249,14 +249,14 @@ class settleStarter {
             let timerValue = parseInt(this.timer.innerText.slice(0,-1),10)-1;
             this.timer.innerText = timerValue + 's';
             if(timerValue > this.timerColorRange.green ){
-                this.timer.style.backgroundColor = 'green';
+                this.timer.style.color = '#00CA4E';
             }
             else if(timerValue >this.timerColorRange.red ){
-                this.timer.style.backgroundColor = 'yellow';
+                this.timer.style.color = '#FFBD44';
 
             }
             else{
-                this.timer.style.backgroundColor = 'red';
+                this.timer.style.color = '#FF605C';
 
             }
 

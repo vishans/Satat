@@ -94,6 +94,14 @@ body {
 #play-area .troop-container .troop-shield[red] {
   color: red;
 }
+#play-area .timer {
+  font-family: SMM;
+  font-size: 4vh;
+  color: #00CA4E;
+  position: absolute;
+  right: 5%;
+  bottom: 5%;
+}
 
 #master-player-info-plane {
   grid-row: 1/3;

@@ -37,6 +37,8 @@ class Room{
         this.deck = null;
 
         this.troop = null;
+
+        this.chooseTroopTime = 15000;
     }
 
     orderPlayer(){

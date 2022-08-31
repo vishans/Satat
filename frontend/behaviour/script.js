@@ -3,7 +3,6 @@ var roomCode = document.querySelector('.room-code #code').innerText.split('-').j
 var moi = null;
 var myHand = [];
 var playerList = new Map();
-
 var settler = null;
 
 var settler = null; // variable for settler object, help choosing cards when settling who starts
@@ -25,6 +24,8 @@ let settingForm = document.querySelector("#setting form");
 let cardContainer = document.querySelector("#card-container");
 let sortButton = document.querySelector('#sort-button');
 var playArea = document.querySelector('#play-area');
+var mainTimer = new Timer(15); playArea.appendChild(mainTimer.getElement()); mainTimer.hide();
+
 var masterPlayerInfoPlane = document.querySelector('#master-player-info-plane')
 let playAreaColor = document.querySelector('.play-area-color-1');
 var mouseOverArea = false;

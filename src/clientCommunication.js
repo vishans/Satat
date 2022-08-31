@@ -306,7 +306,8 @@ class ClientCommunication{
            
         })
 
-        socket.on('chooserHand', (hand) =>{
+        socket.on('chooserHand', (params) =>{
+            const {hand, time} = params;
             console.log('choser hand')
             console.log(hand)
             let currentCard = null;
@@ -336,6 +337,10 @@ class ClientCommunication{
                     socket.emit('troop', e.target.innerHTML);
                 }
             }
+            
+            mainTimer.reset(time/1000);
+            mainTimer.unhide();
+            mainTimer.start();
 
 
             
@@ -373,6 +378,10 @@ class ClientCommunication{
 
             const troopChoices = document.querySelector('.troopChoices');
             troopChoices.remove();
+
+            mainTimer.stop();
+            mainTimer.reset();
+            mainTimer.hide();
 
             
         })

@@ -322,7 +322,7 @@ class Communication{
                                     room.deck = Card.get52(2);
                                     const firstFiveCard = room.deck.splice(0,5);
                                     
-                                    this.io.to(room.choosingTroopPlayer.socketID).emit('chooserHand',firstFiveCard);
+                                    this.io.to(room.choosingTroopPlayer.socketID).emit('chooserHand',{'hand':firstFiveCard, 'time': room.chooseTroopTime});
         
                                     const choosingPlayerSocket = this.io.sockets.sockets.get(room.choosingTroopPlayer.socketID);
                                     choosingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${room.choosingTroopPlayer.username} to choose troop`)
@@ -338,7 +338,7 @@ class Communication{
                                         this.io.to(choosingPlayerSocket.data.roomCode).emit('clearPStack');
 
                                         
-                                    }, 5000);
+                                    }, room.chooseTroopTime);
                                     
                                 },4000)
                                 return;
@@ -422,7 +422,7 @@ class Communication{
                                         room.deck = Card.get52(2);
                                         const firstFiveCard = room.deck.splice(0,5);
                                         
-                                        this.io.to(room.choosingTroopPlayer.socketID).emit('chooserHand',firstFiveCard);
+                                        this.io.to(room.choosingTroopPlayer.socketID).emit('chooserHand',{'hand':firstFiveCard, 'time': room.chooseTroopTime});
 
                                         const choosingPlayerSocket = this.io.sockets.sockets.get(room.choosingTroopPlayer.socketID);
                                         choosingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${room.choosingTroopPlayer.username} to choose troop`)
@@ -438,7 +438,7 @@ class Communication{
 
                                             
                                             
-                                        }, 5000);
+                                        }, room.chooseTroopTime);
                                         
                                                             
                                 
@@ -555,7 +555,7 @@ class Communication{
                             room.deck = Card.get52(2);
                             const firstFiveCard = room.deck.splice(0,5);
                             
-                            this.io.to(room.choosingTroopPlayer.socketID).emit('chooserHand',firstFiveCard);
+                            this.io.to(room.choosingTroopPlayer.socketID).emit('chooserHand',{'hand':firstFiveCard, 'time': room.chooseTroopTime});
 
                             const choosingPlayerSocket = this.io.sockets.sockets.get(room.choosingTroopPlayer.socketID);
                             choosingPlayerSocket.broadcast.to(socket.data.roomCode).emit('waiting pop up', `Waiting for ${room.choosingTroopPlayer.username} to choose troop`)
@@ -573,7 +573,7 @@ class Communication{
 
 
                                 
-                            }, 5000);
+                            }, room.chooseTroopTime);
                             
 
                         },4000)
